@@ -13,7 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 
 import avatar from "assets/img/faces/marc.jpg";
-import sidebarimg from "assets/img/sidebar-2_0.jpg";
+// import backgroundimg from "assets/img/Ayushya_Logo.png";
 import {EMPLOYEE_KEY, FILE_URL} from "../../utils/config";
 import {withRouter} from "react-router";
 
@@ -35,8 +35,9 @@ const styles = {
         textDecoration: "none"
     },
     media: {
-        height: 140,
-        borderRadius: "6px 6px 0px 0px"
+        // height: 140,
+        borderRadius: "6px 6px 0px 0px",
+        marginTop: "50px",
     },
 };
 
@@ -70,7 +71,6 @@ class EmployeeList extends Component {
                         <Card profile className="profileCard">
                             <CardMedia
                                 className={classes.media}
-                                image={sidebarimg}
                                 title="Contemplative Reptile"/>
                             <CardAvatar profile className="customCardAvtar">
                                 <a href="#pablo" onClick={e => e.preventDefault()}>
@@ -80,14 +80,16 @@ class EmployeeList extends Component {
                             </CardAvatar>
                             <CardBody profile className="customCardBody">
                                 <h4 className="customTitle">{employee.employeePersonalDetails.empFirstName} {employee.employeePersonalDetails.empLastName}</h4>
-                                <h6 className="customSubtitle">@{employee.employeePersonalDetails.role}</h6>
-                                <p className="customAboutme">
+                                <h5 className="customSubtitle">{employee.employeePersonalDetails.role}</h5>
+                                <h6 className="customSubtitle">{employee.employeePersonalDetails.skills}</h6>
+                                <h6 className="customSubtitle">{employee.employeePersonalDetails.empPhoneNumber}</h6>
+                                {/* <p className="customAboutme">
                                 {
                                     employee.employeePersonalDetails.aboutMe.length<=50 ? 
                                     employee.employeePersonalDetails.aboutMe : 
                                     employee.employeePersonalDetails.aboutMe.substring(0,50)+"..."
                                 }
-                                </p>
+                                </p> */}
                             </CardBody>
                             <CardActions>
                                 <IconButton className="editIcon" onClick={() => this.handleOnEdit(`${employee.id}`)}>

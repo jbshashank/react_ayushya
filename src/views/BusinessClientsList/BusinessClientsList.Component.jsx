@@ -83,7 +83,7 @@ class BusinessClientList extends Component {
                         ))}
                     </Grid>
 
-                    <Fab color="primary" aria-label="Add" href='/businessclients' className="addEmployee">
+                    <Fab color="primary" aria-label="Add" href='/`businessclients`' className="addEmployee">
                         <AddIcon/>
                     </Fab>
                 </GridItem>

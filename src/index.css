@@ -10,7 +10,11 @@
 
 .editIcon {
     border: 1px solid !important;
-    color: rgb(45, 189, 124) !important;
+    color: #3153A5 !important;
+    position: absolute !important;
+    top: 10px;
+    right: 0;
+    padding: 3px !important;
 }
 
 .title {
@@ -66,13 +70,13 @@
 }
 
 .customTitle{
-    margin: 10px !important;
+    margin: 0px;
     font-weight: bold;
-    color: #4EC7C8 !important;
+    color: #3153A5 !important;
 }
 
 .customSubtitle{
-    margin: 10px !important;
+    margin: 0px;
     color: #a2a2a2 !important;
     text-transform: lowercase !important;
 }
@@ -246,4 +250,8 @@ width: 50%;
 
 .customPagination select{
     padding-right: 28px !important;
+}
+.boldTitlel {
+    font-weight: bold;
+    color: black;
 }

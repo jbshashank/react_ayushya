@@ -88,6 +88,7 @@ class TicketsForm extends Component {
             product_sub_category: values.product_sub_category,
             brand: values.brand,
             tech_name: values.tech_name,
+            technicianUniqueId: values.technicianUniqueId,
             name: values.name,
             email_id: values.email_id,
             mobile_number_1: values.mobile_number_1,
@@ -139,8 +140,8 @@ class TicketsForm extends Component {
                     <form onSubmit={handleSubmit(this.submitForm)}>
                         <Card>
                             <CardHeader color="primary">
-                                <h4 className={classes.cardTitleWhite}>Ticket Form</h4>
-                                <p className={classes.cardCategoryWhite}>Complete ticket form</p>
+                                <h4 className={classes.cardTitleWhite}>Complaint Form</h4>
+                                <p className={classes.cardCategoryWhite}>Complete the compliant form</p>
                             </CardHeader>
                             <CardBody>
                                 <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -305,6 +306,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={renderDataPicker}
+                                                clearable
                                                 label="Visit Date"
                                                 className={classes.textField}
                                                 name="visit_time"
@@ -484,7 +486,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="remarks"
-                                                label="Remarks"
+                                                label="Problem Description"
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
                                                 name="remarks"

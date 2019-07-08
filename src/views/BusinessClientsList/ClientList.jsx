@@ -38,6 +38,7 @@ const styles = {
         height: 140,
         borderRadius: "6px 6px 0px 0px"
     },
+    
 };
 
 class ClientList extends Component {
@@ -67,10 +68,9 @@ class ClientList extends Component {
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card profile className="profileCard">
-                            <CardMedia
+                            {/* <CardMedia
                                 className={classes.media}
-                                image={sidebarimg}
-                                title="Contemplative Reptile"/>
+                                title="Contemplative Reptile"/> */}
                             {/* <CardAvatar profile className="customCardAvtar">
                                 <a href="#pablo" onClick={e => e.preventDefault()}>
                                     <img src={avatar}
@@ -79,6 +79,11 @@ class ClientList extends Component {
                             </CardAvatar> */}
                             <CardBody profile className="customCardBody">
                                 <h4 className="customTitle">{Client.clientName}</h4>
+                                <h5 className="customSubtitle">{Client.clientState}</h5>
+                                <h6 className="customSubtitle">{Client.businessClientContactDetails.contactMobile}</h6>
+                                
+                                {/* <h6 className="customSubtitle">{employee.employeePersonalDetails.empPhoneNumber}</h6> */}
+                                
                                 {/* <h6 className="customSubtitle">@{employee.employeePersonalDetails.empFirstName}{employee.employeePersonalDetails.empLastName}</h6>
                                 <p className="customAboutme">
                                 {

@@ -41,11 +41,11 @@ class Tickets extends Component {
 
             [
 
-                { key: 'visit_date', label: 'Visit Date', width: 150 },
-                { key: 'remarks', label: 'Remarks', width: 150 },
-                { key: 'address ', label: 'Address ', width: 450 },
-                { key: 'service_engineer_name', label: 'Service engineer Name', width: 150 },
-                { key: 'actions', label: 'Actions', width: 150 }
+                { key: 'visit_date', label: 'Visit Date' },
+                { key: 'remarks', label: 'Complaint Description' },
+                { key: 'address ', label: 'Address '},
+                { key: 'service_engineer_name', label: 'Service engineer' },
+                { key: 'actions', label: 'Action'}
             ];
 
 
@@ -126,6 +126,7 @@ class Tickets extends Component {
     handleChange = (name, value) => {
         this.props.resetTicketsPagination();
         if(name=="visit_date"){
+            // var x = new Date(value);// x is now a date object
             var x = new Date(value);// x is now a date object
             x.setUTCHours(0,0,0,0); 
             value = new Date(x).toISOString();
@@ -214,7 +215,7 @@ class Tickets extends Component {
                                     </InputLabel>
                                     <input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile" onChange={this.handleBulkFileUpload} /> */}
                                     <Button variant="contained" color="primary">
-                                    Upload Bulk Tickets  <input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile" onChange={this.handleBulkFileUpload} />
+                                    Upload Bulk Complaints<input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile" onChange={this.handleBulkFileUpload} />
                                     </Button>
                                 </div>
                             </GridItem>}
@@ -225,11 +226,11 @@ class Tickets extends Component {
                                 <Paper className={classes.root}>
                                     <div className={classes.tableWrapper}>
                                         <Table className={classes.table}>
-                                            <TableHead style={{background: "linear-gradient(60deg, #354DA2, #354DA2)"}}>
+                                            <TableHead style={{background: "linear-gradient(60deg, #3153a5, #3153a5)"}}>
                                                 <TableRow>
                                                     {!isRescheduleTicketsPage?this.columns.map((column) =>
                                                         <TableCell
-                                                            style={{fontSize: 18, color: "#fff", width:column.width}}
+                                                            style={{fontSize: 14, color: "#fff", width:column.width}}
                                                             key={column.key}>
                                                             {column.key === 'city' || column.key === 'visit_date' ?
                                                                 <TableSortLabel
@@ -244,7 +245,7 @@ class Tickets extends Component {
                                                     ):
                                                     this.reschedulecolumns.map((column) =>
                                                         <TableCell
-                                                            style={{fontSize: 18, color: "#fff", width:column.width}}
+                                                            style={{fontSize: 16, color: "#fff", width:column.width}}
                                                             key={column.key}>
                                                             {column.key === 'city' || column.key === 'visit_date' ?
                                                                 <TableSortLabel
@@ -267,16 +268,16 @@ class Tickets extends Component {
                                                         return (
                                                             <TableRow key={row._id}>
 
-                                                                <TableCell style={{ padding: 15 }}>{moment(row.visit_time).format("DD-MM-YYYY")}</TableCell>
-                                                                <TableCell style={{ padding: 15 }}><div style={{ width: 150 }}>{row.remarks}</div></TableCell>
-                                                                <TableCell style={{ padding: 15 }}>
+                                                                <TableCell style={{width: "20%", padding: 15 }}>{moment(row.visit_time).format("DD-MM-YYYY")}</TableCell>
+                                                                <TableCell style={{width: "25%", padding: 15 }}><div style={{ }}>{row.remarks}</div></TableCell>
+                                                                <TableCell style={{width: "30%", padding: 15 }}>
                                                                     <div>{this.address_1_2Formation(row)}</div>
                                                                     <div>{this.streetFormation(row)}</div>
                                                                     <div>{this.addressFormation(row)}</div>
-                                                                    <div style={{ width: 100 }}>{this.contactFormation(row)}</div>
+                                                                    <div style={{}}>{this.contactFormation(row)}</div>
                                                                 </TableCell>
-                                                                <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{row.tech_name}</div></TableCell>
-                                                                <TableCell style={{ padding: 15 }}>
+                                                                <TableCell style={{width: "20%", padding: 15 }}> <div style={{paddingLeft: 50 }}>{row.tech_name}</div></TableCell>
+                                                                <TableCell style={{width: "5%", padding: 15 }}>
                                                                     <IconButton href={`/ticketsedit/${row._id}`}>
                                                                         <Icon>edit</Icon>
                                                                     </IconButton>

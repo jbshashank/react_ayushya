@@ -62,18 +62,18 @@ const sidebarStyle = theme => ({
   },
   logo: {
     position: "relative",
-    padding: "15px 15px",
+    padding: "8px",
     zIndex: "4",
-    "&:after": {
-      content: '""',
-      position: "absolute",
-      bottom: "0",
+    // "&:after": {
+    //   content: '""',
+    //   position: "absolute",
+    //   bottom: "0",
 
-      height: "1px",
-      right: "15px",
-      width: "calc(100% - 30px)",
-      backgroundColor: "rgba(" + hexToRgb(grayColor[6]) + ", 0.3)"
-    }
+    //   height: "1px",
+    //   right: "15px",
+    //   width: "calc(100% - 30px)",
+    //   backgroundColor: "rgba(" + hexToRgb(grayColor[6]) + ", 0.3)"
+    // }
   },
   logoLink: {
     ...defaultFont,
@@ -86,26 +86,36 @@ const sidebarStyle = theme => ({
     lineHeight: "30px",
     textDecoration: "none",
     backgroundColor: "transparent",
-    "&,&:hover": {
-      color: whiteColor
+    "&,&:hover" : {
+      color: "#3153a5",
     }
+    // "&,&:hover": {
+    //   color: whiteColor
+    // }
   },
   logoLinkRTL: {
     textAlign: "right"
   },
   logoImage: {
-    width: "30px",
-    display: "inline-block",
-    maxHeight: "30px",
-    marginLeft: "10px",
-    marginRight: "15px"
+    width: "100%",
+    float: "left",
+    // display: "inline-block",
+    // maxHeight: "30px",
+    // marginLeft: "10px",
+    // marginRight: "15px"
   },
   img: {
-    width: "35px",
     top: "22px",
-    position: "absolute",
-    verticalAlign: "middle",
-    border: "0"
+    width: "50%",
+    float: "left",
+    // position: "absolute",
+    // verticalAlign: "middle",
+    // border: "0"
+  },
+  logoText: {
+    float: "left",
+    width: "50%",
+    fontWeight: "bold",
   },
   background: {
     position: "absolute",
@@ -142,8 +152,19 @@ const sidebarStyle = theme => ({
     display: "block",
     textDecoration: "none",
     "&:hover,&:focus,&:visited,&": {
-      color: whiteColor
+      color: blackColor,
+      // backgroundColor: whiteColor,
+      // borderRadius: "#3153AS",
+
     }
+  },
+  itemText: {
+    ...defaultFont,
+    margin: "0",
+    lineHeight: "30px",
+    fontSize: "16px",
+    fontWeight: "bold"
+
   },
   itemLink: {
     width: "auto",
@@ -153,8 +174,22 @@ const sidebarStyle = theme => ({
     position: "relative",
     display: "block",
     padding: "10px 15px",
-    backgroundColor: "transparent",
-    ...defaultFont
+    color: "#3153a5",
+    ...defaultFont,
+    "&:hover,&:focus,&:visited, &:active": {
+      color: "#3153a5",
+      backgroundColor: "transparent",
+      border: "1px solid #3153a5",
+      // "&itemText": {
+      //   backgroundColor: "#3153a5"
+      // } 
+
+    }
+    // "&:hover,&:focus": {
+    //   backgroundColor: "transparent",
+    //   color: "#3153a5",
+    //   border: "1px solid #3153a5"
+    // }
   },
   itemIcon: {
     width: "24px",
@@ -165,25 +200,19 @@ const sidebarStyle = theme => ({
     marginRight: "15px",
     textAlign: "center",
     verticalAlign: "middle",
-    color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
+    // color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
   },
   itemIconRTL: {
     marginRight: "3px",
     marginLeft: "15px",
     float: "right"
   },
-  itemText: {
-    ...defaultFont,
-    margin: "0",
-    lineHeight: "30px",
-    fontSize: "14px",
-    color: whiteColor
-  },
   itemTextRTL: {
     textAlign: "right"
   },
   whiteFont: {
-    color: whiteColor
+    color: "#3153a5",
+    // backgroundColor: "#3153a5"
   },
   purple: {
     backgroundColor: primaryColor[0],
@@ -282,12 +311,12 @@ const sidebarStyle = theme => ({
     }
   },
   sidebarWrapper: {
-    position: "relative",
-    height: "calc(100vh - 75px)",
-    overflow: "auto",
-    width: "260px",
-    zIndex: "4",
-    overflowScrolling: "touch"
+    // position: "relative",
+    // height: "calc(100vh - 75px)",
+    // // overflow: "auto",
+    // width: "260px",
+    // zIndex: "4",
+    // overflowScrolling: "touch"
   },
   activePro: {
     [theme.breakpoints.up("md")]: {
@@ -297,5 +326,4 @@ const sidebarStyle = theme => ({
     }
   }
 });
-
 export default sidebarStyle;

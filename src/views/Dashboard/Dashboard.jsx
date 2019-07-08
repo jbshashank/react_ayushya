@@ -29,6 +29,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import "../../index.js";
 
 import { bugs, website, server } from "variables/general.jsx";
 
@@ -62,9 +63,9 @@ class Dashboard extends React.Component {
                 <CardIcon color="warning">
                   <Icon>content_copy</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Size of Employees data</p>
+                <p className={classes.cardCategory}>Tickets/SEs</p>
                 <h3 className={classes.cardTitle}>
-                  49/50 <small>GB</small>
+                  7 Tickets/day
                 </h3>
               </CardHeader>
               <CardFooter stats>
@@ -73,7 +74,7 @@ class Dashboard extends React.Component {
                     <Warning />
                   </Danger>
                   <a href="#pablo" onClick={e => e.preventDefault()}>
-                    Get more space
+                   Updated a week ago
                   </a>
                 </div>
               </CardFooter>
@@ -85,7 +86,7 @@ class Dashboard extends React.Component {
                 <CardIcon color="success">
                   <Store />
                 </CardIcon>
-                <p className={classes.cardCategory}>Revenue</p>
+                <p className={classes.cardCategory}>Revenue/Month</p>
                 <h3 className={classes.cardTitle}>$34,245</h3>
               </CardHeader>
               <CardFooter stats>
@@ -102,13 +103,13 @@ class Dashboard extends React.Component {
                 <CardIcon color="danger">
                   <Icon>info_outline</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Absent Emplyees Count</p>
-                <h3 className={classes.cardTitle}>75</h3>
+                <p className={classes.cardCategory}>Current Employees</p>
+                <h3 className={classes.cardTitle}>175</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
                   <LocalOffer />
-                  Tracked from Employee Portal
+                  Data taken from Employee Portal
                 </div>
               </CardFooter>
             </Card>
@@ -119,7 +120,7 @@ class Dashboard extends React.Component {
                 <CardIcon color="info">
                   <Accessibility />
                 </CardIcon>
-                <p className={classes.cardCategory}>Present Employees</p>
+                <p className={classes.cardCategory}>Total Employees</p>
                 <h3 className={classes.cardTitle}>245</h3>
               </CardHeader>
               <CardFooter stats>
@@ -144,12 +145,12 @@ class Dashboard extends React.Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Daily Sales</h4>
+                <h4 className={classes.cardTitle}>Servcie Ticket Trend</h4>
                 <p className={classes.cardCategory}>
-                  <span className={classes.successText}>
+                  {/* <span className={classes.successText}>
                     <ArrowUpward className={classes.upArrowCardCategory} /> 55%
                   </span>{" "}
-                  increase in today sales.
+                  increase in today sales. */}
                 </p>
               </CardBody>
               <CardFooter chart>
@@ -172,14 +173,14 @@ class Dashboard extends React.Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-                <p className={classes.cardCategory}>
+                <h4 className={classes.cardTitle}>Closed Tickets - 2018</h4>
+                {/* <p className={classes.cardCategory}>
                   Last Campaign Performance
-                </p>
+                </p> */}
               </CardBody>
               <CardFooter chart>
                 <div className={classes.stats}>
-                  <AccessTime /> campaign sent 2 days ago
+                  <AccessTime /> Updated 2 days ago
                 </div>
               </CardFooter>
             </Card>
@@ -196,14 +197,14 @@ class Dashboard extends React.Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Completed Tasks</h4>
-                <p className={classes.cardCategory}>
+                <h4 className={classes.cardTitle}>Turn Arround Time</h4>
+                {/* <p className={classes.cardCategory}>
                   Last Campaign Performance
-                </p>
+                </p> */}
               </CardBody>
               <CardFooter chart>
                 <div className={classes.stats}>
-                  <AccessTime /> campaign sent 2 days ago
+                  <AccessTime /> Updated a minute ago
                 </div>
               </CardFooter>
             </Card>
@@ -212,7 +213,7 @@ class Dashboard extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
             <CustomTabs
-              title="Tasks:"
+              title="Open Tickets"
               headerColor="primary"
               tabs={[
                 {
@@ -226,35 +227,77 @@ class Dashboard extends React.Component {
                     />
                   )
                 },
-                {
-                  tabName: "Website",
-                  tabIcon: Code,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[0]}
-                      tasksIndexes={[0, 1]}
-                      tasks={website}
-                    />
-                  )
-                },
-                {
-                  tabName: "Server",
-                  tabIcon: Cloud,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[1]}
-                      tasksIndexes={[0, 1, 2]}
-                      tasks={server}
-                    />
-                  )
-                }
+                // {
+                //   tabName: "Website",
+                //   tabIcon: Code,
+                //   tabContent: (
+                //     <Tasks
+                //       checkedIndexes={[0]}
+                //       tasksIndexes={[0, 1]}
+                //       tasks={website}
+                //     />
+                //   )
+                // },
+                // {
+                //   tabName: "Server",
+                //   tabIcon: Cloud,
+                //   tabContent: (
+                //     <Tasks
+                //       checkedIndexes={[1]}
+                //       tasksIndexes={[0, 1, 2]}
+                //       tasks={server}
+                //     />
+                //   )
+                // }
               ]}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
+            <CustomTabs
+              title="Open Tickets"
+              headerColor="primary"
+              tabs={[
+                {
+                  tabName: "Bugs",
+                  tabIcon: BugReport,
+                  tabContent: (
+                    <Tasks
+                      checkedIndexes={[0, 3]}
+                      tasksIndexes={[0, 1, 2, 3]}
+                      tasks={bugs}
+                    />
+                  )
+                },
+                // {
+                //   tabName: "Website",
+                //   tabIcon: Code,
+                //   tabContent: ( 
+                //     <Tasks
+                //       checkedIndexes={[0]}
+                //       tasksIndexes={[0, 1]}
+                //       tasks={website}
+                //     />
+                //   )
+                // },
+                // {
+                //   tabName: "Server",
+                //   tabIcon: Cloud,
+                //   tabContent: (
+                //     <Tasks
+                //       checkedIndexes={[1]}
+                //       tasksIndexes={[0, 1, 2]}
+                //       tasks={server}
+                //     />
+                //   )
+                // }
+              ]}
+            />
+          </GridItem>
+            
+          {/* <GridItem xs={12} sm={12} md={6}>
             <Card>
               <CardHeader color="warning">
-                <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
+                <h4 className={classes.cardTitleWhite}>Closed Tickets</h4>
                 <p className={classes.cardCategoryWhite}>
                   New employees on 15th September, 2016
                 </p>
@@ -272,7 +315,7 @@ class Dashboard extends React.Component {
                 />
               </CardBody>
             </Card>
-          </GridItem>
+          </GridItem> */}
         </GridContainer>
       </div>
     );

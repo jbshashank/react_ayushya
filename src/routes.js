@@ -30,14 +30,14 @@ const dashboardRoutes = [
         component: Tickets,
         layout: ""
     },
-    {
-        path: "/role-management-list",
-        name: "Role Management List",
-        rtlName: "قائمة الجدول",
-        icon: "content_paste",
-        component: Tickets,
-        layout: ""
-    },
+    // {
+    //     path: "/role-management-list",
+    //     name: "Role Management List",
+    //     rtlName: "قائمة الجدول",
+    //     icon: "content_paste",
+    //     component: Tickets,
+    //     layout: ""
+    // },
     {
         path: "/tickets",
         name: "Complaints",

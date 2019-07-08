@@ -120,14 +120,13 @@ class LoginPage extends React.Component {
                   className={`${classes.cardHeader} ${classes.textCenter}`}
                   color="primary"
                 >
-                  <h4 className={classes.cardTitle}>Log in</h4>
+                  <h4 className={classes.cardTitle}>Sign in</h4>
                 </CardHeader>
                 <CardBody>
                   <p
                     className={`${classes.textCenter} ${classes.checkboxLabel}`}
                   >
-                    Sign in with <strong>mydemo@gmail.com</strong> and the
-                    password <strong>123456</strong>{" "} 
+                      <h4><strong>Sign in </strong><br/>to continue to Ayushya Portal</h4>
                   </p>
                   <CustomInput
                     labelText="Email..."
@@ -194,7 +193,7 @@ class LoginPage extends React.Component {
                 </CardBody>
                 <CardFooter className={classes.justifyContentCenter}>
                   <Button type="submit" color="primary" simple size="lg" block>
-                    Log In
+                    Sign In
                   </Button>
                 </CardFooter>
               </Card>

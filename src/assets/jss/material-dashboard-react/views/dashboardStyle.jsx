@@ -57,6 +57,7 @@ const dashboardStyle = {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none",
+    fontSize: "18px",
     "& small": {
       color: grayColor[1],
       fontWeight: "400",

@@ -23,7 +23,7 @@ import BusinessClientList from "../views/BusinessClientsList/"
 import Employees from "views/Employees";
 
 import image from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/reactlogo.png";
+import logo from "assets/img/Ayushya_Logo.png";
 import pageLoader from "../store/reducers/page_loader";
 import CustomSneakBar from "../components/CustomizedSnackbars/CustomizedSnackbars";
 
@@ -94,12 +94,10 @@ class Admin extends React.Component {
                 </div>}
                 <Sidebar
                     routes={routes}
-                    logoText={"AYUSHYA PORTAL"}
+                    logoText={"PORTAL"}
                     logo={logo}
-                    image={this.state.image}
                     handleDrawerToggle={this.handleDrawerToggle}
                     open={this.state.mobileOpen}
-                    color={this.state.color}
                     {...rest}
                 />
                 <div className={classes.mainPanel} ref="mainPanel">
