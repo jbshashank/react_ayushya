@@ -65,7 +65,7 @@ class EmployeeList extends Component {
         const {classes, employee} = this.props;
         console.log("employee", employee);
         return (
-            <div>
+            <div className="employeeList">
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card profile className="profileCard">

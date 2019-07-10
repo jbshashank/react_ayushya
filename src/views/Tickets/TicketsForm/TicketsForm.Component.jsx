@@ -106,7 +106,7 @@ class TicketsForm extends Component {
             pin_code: values.pin_code,
             dealer_name: values.dealer_name,
             revisedDate:values.revisedDate,
-            revisedTime:values.revisedTime
+            revisedTime:values.revisedTime,
         };
         const id = this.props.match.params.id;
         if (id) {
@@ -365,7 +365,7 @@ class TicketsForm extends Component {
                                                 name="street"
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
-                                                validate={[required, alpha]}
+                                                validate={[alpha]}
                                                 />
                                         </GridItem>
                                         
@@ -414,7 +414,7 @@ class TicketsForm extends Component {
                                                 component={CustomTextField}
                                                 id="pin_code"
                                                 label="Pin Code"
-                                                disabled={readOnly||isRescheduleTickets}
+                                                disabled={isRescheduleTickets}
                                                 // disabled={}
                                                 className={classes.textField}
                                                 name="pin_code"
@@ -477,7 +477,8 @@ class TicketsForm extends Component {
                                                     validate={[required]}>
                                                     {tech_name.map(item => {
                                                         return <MenuItem value={item.employeePersonalDetails.empFirstName}
-                                                            key={item.id}>{item.employeePersonalDetails.empFirstName}</MenuItem>
+                                                            key={item.id}>{item.employeePersonalDetails.empFirstName}
+                                                            </MenuItem>
                                                     })}
                                                 </Field>
                                             </FormControl>}
@@ -522,6 +523,7 @@ class TicketsForm extends Component {
                                     </GridContainer>
                                 </MuiPickersUtilsProvider>
                             </CardBody>
+
                             <CardFooter>
                                 <Button type="submit" variant="contained" color="primary"
                                     disabled={pristine || submitting}>

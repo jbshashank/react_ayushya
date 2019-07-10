@@ -166,6 +166,10 @@ class Admin extends React.Component {
                                     path='/dashboard'
                                     component={DashboardPage}
                                 />
+                                 <Route
+                                    path='/'
+                                    component={DashboardPage}
+                                />
                             </Switch>
                         </div>
                     </div>

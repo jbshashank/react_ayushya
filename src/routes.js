@@ -6,6 +6,14 @@ import Employees from "views/Employees";
 import Tickets from "views/Tickets";
 
 const dashboardRoutes = [
+    // {
+    //     path: "/",
+    //     name: "Dashboard",
+    //     rtlName: "لوحة القيادة",
+    //     icon: DashboardIcon,
+    //     component: DashboardPage,
+    //     layout: ""
+    // },
     {
         path: "/dashboard",
         name: "Dashboard",

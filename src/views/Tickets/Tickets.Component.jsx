@@ -15,6 +15,7 @@ import {Icon, IconButton, Button} from "@material-ui/core";
 import {DatePicker} from "material-ui-pickers";
 import {MuiPickersUtilsProvider} from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
+import "../../index.js";
 import InputLabel from "@material-ui/core/InputLabel";
 // import TableSortLabel from '@material-ui/core/TableSortLabel';
 
@@ -229,7 +230,7 @@ class Tickets extends Component {
                                             <TableHead style={{background: "linear-gradient(60deg, #3153a5, #3153a5)"}}>
                                                 <TableRow>
                                                     {!isRescheduleTicketsPage?this.columns.map((column) =>
-                                                        <TableCell
+                                                        <TableCell className="ticketTableheader"
                                                             style={{fontSize: 14, color: "#fff", width:column.width}}
                                                             key={column.key}>
                                                             {column.key === 'city' || column.key === 'visit_date' ?

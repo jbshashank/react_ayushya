@@ -50,6 +50,7 @@ class ClientList extends Component {
         }
     }
 
+
     // removeRow = (id) => {
     //     this.props.deleteEmployeesWatcher({id: id});
     //     this.props.fetchEmployeesWatcher();
@@ -63,11 +64,17 @@ class ClientList extends Component {
 
     render() {
         const {classes, Client} = this.props;
+        console.log(Client.businessClientContactDetails);    
+        // const {
+        //     contactEmailAddress,
+        //     contactMobile,
+        //     contactDesignation
+        // } = this.props;
         return (
             <div>
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
-                        <Card profile className="profileCard">
+                        <Card profile className="profileCard BusinessClientProfileCard">
                             {/* <CardMedia
                                 className={classes.media}
                                 title="Contemplative Reptile"/> */}
@@ -80,7 +87,7 @@ class ClientList extends Component {
                             <CardBody profile className="customCardBody">
                                 <h4 className="customTitle">{Client.clientName}</h4>
                                 <h5 className="customSubtitle">{Client.clientState}</h5>
-                                <h6 className="customSubtitle">{Client.businessClientContactDetails.contactMobile}</h6>
+                                <h6 className="customSubtitle">{this.props.Client.businessClientContactDetails. contactEmailAddress}</h6>
                                 
                                 {/* <h6 className="customSubtitle">{employee.employeePersonalDetails.empPhoneNumber}</h6> */}
                                 

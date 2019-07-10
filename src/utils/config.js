@@ -1,7 +1,7 @@
 // export const BASE_URL = "http://13.127.92.65:8080/";
 export const BASE_URL = "https://services-2.finchtech.in/";
 export const BASE_URL_TICKETS = "https://services-1.finchtech.in/";
-export const FILE_URL = "http://13.127.92.65:8080/data/employeeportal/";
+export const FILE_URL = "https://services-1.finchtech.in/data/employeeportal/";
 
 export const EMPLOYEE_KEY = {
     TOKEN: 'TOKEN',

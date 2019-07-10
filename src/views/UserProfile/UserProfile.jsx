@@ -24,7 +24,7 @@ const styles = {
     marginBottom: "0"
   },
   cardTitleWhite: {
-    color: "#FFFFFF",
+    color: "#3153a5",
     marginTop: "0px",
     minHeight: "auto",
     fontWeight: "300",

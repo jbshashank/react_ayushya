@@ -63,8 +63,11 @@
 
 .profileCard{
     margin-top: 0 !important;
+    min-height: 243px;
 }
-
+.BusinessClientProfileCard{
+    min-height: 100px;
+}
 .customCardBody{
     margin: 0px !important;
 }
@@ -78,7 +81,7 @@
 .customSubtitle{
     margin: 0px;
     color: #a2a2a2 !important;
-    text-transform: lowercase !important;
+    /* text-transform: lowercase !important; */
 }
 
 .customAboutme{
@@ -255,3 +258,6 @@ width: 50%;
     font-weight: bold;
     color: black;
 }
+.ticketTableheader .active{
+        color: #43a047;
+    }

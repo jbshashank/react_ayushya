@@ -39,14 +39,14 @@ class BusinessClientList extends Component {
         this.state = {
             page: 0,
             rowsPerPage: 5,
-            searchTerm: ''
+            // searchTerm: ''
         }
     }
 
     componentDidMount() {
         // this.fetchEmployees('');
         console.log("inside componentDidMount")
-        this.props.fetchBusinessClientWatcher()
+        this.props.fetchBusinessClientWatcher();
 
     }
 
@@ -83,7 +83,7 @@ class BusinessClientList extends Component {
                         ))}
                     </Grid>
 
-                    <Fab color="primary" aria-label="Add" href='/`businessclients`' className="addEmployee">
+                    <Fab color="primary" aria-label="Add" href='/businessclients' className="addEmployee">
                         <AddIcon/>
                     </Fab>
                 </GridItem>
