@@ -66,7 +66,7 @@ class FormEducation extends Component {
                             <GridContainer>
                                 <GridItem xs={9} sm={5} md={5}>
                                         <div className="infoTitle">
-                                            <span>Add additional details for {this.props.firstName} {this.props.lastName}</span>
+                                            <span>Add additional details for {this.props.firstName}</span>
                                         </div>
                                 </GridItem>
                                 <GridItem xs={3} sm={5} md={5}>

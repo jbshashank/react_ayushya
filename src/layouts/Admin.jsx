@@ -21,6 +21,7 @@ import RoleManagementList from "../views/RoleManagementList/index";
 import BusinessClientsForm from "../views/BusinessClientsForm/";
 import BusinessClientList from "../views/BusinessClientsList/"
 import Employees from "views/Employees";
+import Reports from "views/Reports";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/Ayushya_Logo.png";
@@ -169,6 +170,10 @@ class Admin extends React.Component {
                                  <Route
                                     path='/'
                                     component={DashboardPage}
+                                />
+                                <Route
+                                    path='/reports'
+                                    component={Reports}
                                 />
                             </Switch>
                         </div>

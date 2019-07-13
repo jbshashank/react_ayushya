@@ -53,6 +53,8 @@ class LoginPage extends React.Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(formValues.username, formValues.password)
+      // .doPasswordReset = username => this.auth.sendPasswordResetEmail(username)
+      // .doPasswordUpdate = password => this.auth.currentUser.updatePassword(password)
       .then((user) => {
         localStorage.setItem("userdetail", user);
         this.props.history.push('/dashboard');

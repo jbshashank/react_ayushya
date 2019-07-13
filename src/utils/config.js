@@ -2,6 +2,7 @@
 export const BASE_URL = "https://services-2.finchtech.in/";
 export const BASE_URL_TICKETS = "https://services-1.finchtech.in/";
 export const FILE_URL = "https://services-1.finchtech.in/data/employeeportal/";
+// export const FILE_URL = "http://localhost:3002/";
 
 export const EMPLOYEE_KEY = {
     TOKEN: 'TOKEN',
