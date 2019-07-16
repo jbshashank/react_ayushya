@@ -164,7 +164,7 @@ function createEmployeesApi(data) {
 }
 async function fireBaseEmployeeCreate(data)
 {
-    var userId=null
+    var userId;
     await firebase.auth().createUserWithEmailAndPassword(data.employeePersonalDetails.empEmailAddress, data.employeePersonalDetails.empPhoneNumber).then(function(){     
         userId=firebase.auth().currentUser.uid;
         console.log(":fireBaseEmployeeCreate:id",userId)

@@ -25,14 +25,16 @@ import {ticket} from '../dummyData';
 
 const mapStateToProps = (state, props) => {
     // const {ticket} = state.tickets;
+    
     const {id} = props.match.params;
-    console.log("value of State in MSTP",state)
+    console.log("value of State in MSTP",state);
     return {
         formData:state.form,
         brands:state.tickets.brand,
         products:state.tickets.product,
         models:state.tickets.models,
         tech_name:state.employees.employees,
+        technicianUniqueId: state.employees.employees,
         cities:state.employees.cities,
         productSubcategory:state.tickets.productSubcategory,
         ticketTypes: [

@@ -50,7 +50,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             <Field
               name={`${member}.contactName`}
               component={CustomTextField}
-              label="Name"
+              label="Name*"
               validate={[required, alpha]}
             />
           </GridItem>
@@ -59,7 +59,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
               name={`${member}.contactEmailAddress`}
               type="text"
               component={CustomTextField}
-              label="Email"
+              label="Email*"
               validate={[email, required]}
             />
           </GridItem>
@@ -68,7 +68,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
               name={`${member}.contactLandline`}
               component={CustomTextField}
               id="Landline"
-              label="Landline"
+              label="Landline*"
               validate={[landLineNumber]}
             />
           </GridItem>
@@ -77,7 +77,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
               name={`${member}.contactMobile`}
               component={CustomTextField}
               id="mobile"
-              label="Mobile"
+              label="Mobile Number*"
               validate={[required, phoneNumber]}
             />
           </GridItem>
@@ -86,7 +86,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
               name={`${member}.contactDesignation`}
               component={CustomTextField}
               id="designation"
-              label="Designation"
+              label="Designation*"
               validate={[required, alpha]}
             />
           </GridItem>

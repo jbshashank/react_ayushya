@@ -87,7 +87,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
                                             id="firstName"
-                                            label="First Name"
+                                            label="First Name*"
                                             className={classes.textField}
                                             name="firstName"
                                             value={firstName}
@@ -109,7 +109,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
                                             id="lastName"
-                                            label="Last Name"
+                                            label="Last Name*"
                                             className={classes.textField}
                                             name="lastName"
                                             error={!!errorLastName}
@@ -130,7 +130,7 @@ class FormBasic extends Component {
                                             disableFuture={true}/>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
-                                        <label>Gender</label>
+                                        <InputLabel htmlFor="age-simple">Gender*</InputLabel>
                                         <RadioGroup
                                             aria-label="Gender"
                                             name="gender"
@@ -144,7 +144,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={2}>
                                         <TextField
                                             id="age"
-                                            label="Age"
+                                            label="Age*"
                                             className={classes.textField}
                                             name="age"
                                             value={age}
@@ -158,7 +158,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={5}>
                                         <TextField
                                             id="empEmailAddress"
-                                            label="Email"
+                                            label="Email Address*"
                                             className={classes.textField}
                                             name="empEmailAddress"
                                             value={empEmailAddress || ''}
@@ -171,7 +171,7 @@ class FormBasic extends Component {
                                     
                                         <TextField
                                             id="empPhoneNumber"
-                                            label="Mobile"
+                                            label="Mobile Number*"
                                             className={classes.textField}
                                             name="empPhoneNumber"
                                             value={empPhoneNumber || ''}
@@ -216,7 +216,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
                                             id="role"
-                                            label="Role"
+                                            label="Role*"
                                             className={classes.textField}
                                             name="role"
                                             value={role}
@@ -240,7 +240,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
                                             id="expertiesLevel"
-                                            label="Expertise Level"
+                                            label="Expertise Level*"
                                             className={classes.textField}
                                             name="expertiesLevel"
                                             error={!!errorexpertiesLevel}
@@ -255,7 +255,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
                                             id="skills"
-                                            label="Skills"
+                                            label="Skills*"
                                             className={classes.textField}
                                             name="skills"
                                             value={skills}
@@ -275,7 +275,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={2}>
                                         <TextField
                                             id="salary"
-                                            label="Salary"
+                                            label="Salary*"
                                             className={classes.textField}
                                             name="salary"
                                             value={salary}
@@ -306,7 +306,7 @@ class FormBasic extends Component {
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel htmlFor="age-simple">State</InputLabel>
+                                            <InputLabel htmlFor="age-simple">State*</InputLabel>
                                             <Select
                                                 value={state}
                                                 className={classes.textField}
@@ -322,7 +322,7 @@ class FormBasic extends Component {
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel htmlFor="age-simple">City</InputLabel>
+                                            <InputLabel htmlFor="age-simple">City*</InputLabel>
                                             <Select
                                                 className={classes.textField}
                                                 value={city}
@@ -339,7 +339,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
                                             id="pinCode"
-                                            label="Pincode"
+                                            label="Pincode*"
                                             className={classes.textField}
                                             name="pinCode"
                                             value={pinCode}
@@ -350,7 +350,7 @@ class FormBasic extends Component {
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
                                             id="location"
-                                            label="Location"
+                                            label="Location*"
                                             className={classes.textField}
                                             name="location"
                                             value={location}
