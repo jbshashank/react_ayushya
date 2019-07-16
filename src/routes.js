@@ -4,7 +4,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import Employees from "views/Employees";
 import Tickets from "views/Tickets";
-// import Reports from "views/Reports";
+import Reports from "views/Reports";
 
 const dashboardRoutes = [
     // {
@@ -55,14 +55,14 @@ const dashboardRoutes = [
         component: Tickets,
         layout: ""
     },
-    // {
-    //     path: "/reports",
-    //     name: "Reports",
-    //     rtlName: "قائمة الجدول",
-    //     icon: "content_paste",
-    //     component: Reports,
-    //     layout: ""
-    // },
+    {
+        path: "/reports",
+        name: "Reports",
+        rtlName: "قائمة الجدول",
+        icon: "content_paste",
+        component: Reports,
+        layout: ""
+    },
 ];
 
 export default dashboardRoutes;
