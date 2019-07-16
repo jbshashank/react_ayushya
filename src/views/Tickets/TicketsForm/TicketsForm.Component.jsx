@@ -149,7 +149,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
-                                                    Call Type
+                                                    Call Type*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
@@ -174,7 +174,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
-                                                    Brand
+                                                    Brand*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
@@ -198,7 +198,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
-                                                    Product Category
+                                                    Product Category*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
@@ -220,7 +220,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
-                                                    Product Sub Category
+                                                    Product Sub Category*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
@@ -242,7 +242,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
-                                                    Model Name
+                                                    Model Name*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
@@ -267,7 +267,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="serial_number"
-                                                label="Serial Number"
+                                                label="Serial Number*"
                                                 disabled={readOnly||isRescheduleTickets}
                                                 className={classes.textField}
                                                 name="serial_number"
@@ -277,6 +277,7 @@ class TicketsForm extends Component {
                                     <GridContainer>
                                         <GridItem xs={12} sm={8} md={8}>
                                             <Field
+                                                lable="Waranty*"
                                                 component={renderRadioGroup}
                                                 name="iw"
                                                 disabled={isRescheduleTickets}
@@ -299,7 +300,7 @@ class TicketsForm extends Component {
                                                 name="visit_time"
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
-                                                label="Time of visit"
+                                                label="Time of visit*"
                                                 // validate={[required]} 
                                                 />
                                         </GridItem>
@@ -307,7 +308,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={renderDataPicker}
                                                 clearable
-                                                label="Visit Date"
+                                                label="Visit Date*"
                                                 className={classes.textField}
                                                 name="visit_time"
                                                 disabled={isRescheduleTickets}
@@ -321,7 +322,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="name"
-                                                label="Cusomer Name"
+                                                label="Cusomer Name*"
                                                 className={classes.textField}
                                                 name="name"
                                                 disabled={isRescheduleTickets}
@@ -334,7 +335,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="address_1"
-                                                label="Address 1"
+                                                label="Address 1*"
                                                 className={classes.textField}
                                                 name="address_1"
                                                 disabled={isRescheduleTickets}
@@ -347,7 +348,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="address_2"
-                                                label="Address 2"
+                                                label="Address 2*"
                                                 className={classes.textField}
                                                 name="address_2"
                                                 disabled={isRescheduleTickets}
@@ -360,7 +361,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="street"
-                                                label="Street"
+                                                label="Street*"
                                                 className={classes.textField}
                                                 name="street"
                                                 disabled={isRescheduleTickets}
@@ -372,7 +373,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
-                                                    State
+                                                    State*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
@@ -393,7 +394,7 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                         <FormControl className={classes.formControl}>
                                         <InputLabel htmlFor="age-simple">
-                                                    City
+                                                    City*
                                                 </InputLabel>
                                         <Field
                                                     component={renderSelectField}
@@ -413,7 +414,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="pin_code"
-                                                label="Pin Code"
+                                                label="Pin Code*"
                                                 disabled={isRescheduleTickets}
                                                 // disabled={}
                                                 className={classes.textField}
@@ -426,7 +427,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="email_id"
-                                                label="Email"
+                                                label="Email Address*"
                                                 className={classes.textField}
                                                 name="email_id"
                                                 disabled={isRescheduleTickets}
@@ -436,7 +437,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="mobile_number_1"
-                                                label="Contact Number"
+                                                label="Contact Number*"
                                                 className={classes.textField}
                                                 name="mobile_number_1"
                                                 disabled={isRescheduleTickets}
@@ -466,7 +467,7 @@ class TicketsForm extends Component {
                                                 validate={[alpha]} />
                                             {(this.props.tech_name !== [] && readOnly) && <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
-                                                    Tech Name
+                                                    Tech Name*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
@@ -487,7 +488,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 component={CustomTextField}
                                                 id="remarks"
-                                                label="Problem Description"
+                                                label="Problem Description*"
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
                                                 name="remarks"

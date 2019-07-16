@@ -124,7 +124,7 @@ class BusinessClientsForm extends Component {
                       <Field
                         component={CustomTextField}
                         id="clientName"
-                        label="Client Name"
+                        label="Client Name*"
                         disabled={readOnly}
                         className={classes.textField}
                         name="clientName"
@@ -135,7 +135,7 @@ class BusinessClientsForm extends Component {
                       <Field
                         component={CustomTextField}
                         id="clientAddress"
-                        label="Client Address"
+                        label="Client Address*"
                         disabled={readOnly}
                         className={classes.textField}
                         name="clientAddress"
@@ -145,7 +145,7 @@ class BusinessClientsForm extends Component {
 
                     <GridItem xs={12} sm={4} md={4}>
                       <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">Country</InputLabel>
+                        <InputLabel htmlFor="age-simple">Country*</InputLabel>
                         <Field
                           component={renderSelectField}
                           name="clientCountry"
@@ -164,7 +164,7 @@ class BusinessClientsForm extends Component {
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4}>
                       <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">State</InputLabel>
+                        <InputLabel htmlFor="age-simple">State*</InputLabel>
                         <Field
                           component={renderSelectField}
                           name="clientState"
@@ -189,7 +189,7 @@ class BusinessClientsForm extends Component {
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4}>
                       <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">City</InputLabel>
+                        <InputLabel htmlFor="age-simple">City*</InputLabel>
                         <Field
                           component={renderSelectField}
                           name="clientCity"
@@ -213,7 +213,7 @@ class BusinessClientsForm extends Component {
                           component={CustomTextField}
                           name="clientPinCode"
                           id="clientPinCode"
-                          label="Pin Code"
+                          label="Pin Code*"
                           className={classes.textField}
                           validate={[required, pinCode]}
                           // onChange={(e) => this.handleStateChange(e)}
