@@ -1,11 +1,11 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
-import {DatePicker} from "material-ui-pickers";
+import { DatePicker } from "material-ui-pickers";
 import InputLabel from "@material-ui/core/InputLabel";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {FormControl, Select, MenuItem, Fab, Avatar, Button} from '@material-ui/core';
+import { FormControl, Select, MenuItem, Fab, Avatar, Button } from '@material-ui/core';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Icon from '@material-ui/core/Icon';
 
@@ -21,7 +21,7 @@ import sidebarimg from "assets/img/sidebar-2_0.jpg";
 class FormBasic extends Component {
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
         const {
             firstName,
             middleName,
@@ -92,8 +92,8 @@ class FormBasic extends Component {
                                             name="firstName"
                                             value={firstName}
                                             error={!!errorFirstName}
-                                            onChange={handleChange}/>
-                                        <FormHelperText style={{color: 'red'}}>{errorFirstName}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorFirstName}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
@@ -103,8 +103,8 @@ class FormBasic extends Component {
                                             name="middleName"
                                             value={middleName}
                                             error={!!errorempMiddleName}
-                                            onChange={handleChange}/>
-                                        <FormHelperText style={{color: 'red'}}>{errorempMiddleName}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorempMiddleName}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
@@ -114,8 +114,8 @@ class FormBasic extends Component {
                                             name="lastName"
                                             error={!!errorLastName}
                                             value={lastName}
-                                            onChange={handleChange}/>
-                                        <FormHelperText style={{color: 'red'}}>{errorLastName}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorLastName}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <DatePicker
@@ -127,18 +127,18 @@ class FormBasic extends Component {
                                             onChange={(date) => {
                                                 handleDateChange('dob', date);
                                             }}
-                                            disableFuture={true}/>
+                                            disableFuture={true} />
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <label>Gender</label>
                                         <RadioGroup
                                             aria-label="Gender*"
                                             name="gender"
-                                            style={{flexDirection: 'row'}}
+                                            style={{ flexDirection: 'row' }}
                                             value={gender}
                                             onChange={handleChange}>
-                                            <FormControlLabel value="female" control={<Radio/>} label="Female"/>
-                                            <FormControlLabel value="male" control={<Radio/>} label="Male"/>
+                                            <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                            <FormControlLabel value="male" control={<Radio />} label="Male" />
                                         </RadioGroup>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={2}>
@@ -152,8 +152,8 @@ class FormBasic extends Component {
                                             onChange={handleChange}
                                             InputProps={{
                                                 readOnly: true,
-                                              }}/>
-                                        <FormHelperText style={{color: 'red'}}>{errorAge}</FormHelperText>
+                                            }} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorAge}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={5}>
                                         <TextField
@@ -162,13 +162,13 @@ class FormBasic extends Component {
                                             className={classes.textField}
                                             name="empEmailAddress"
                                             value={empEmailAddress || ''}
-                                            onChange={handleChange} 
+                                            onChange={handleChange}
                                             error={!!errorEmail}
-                                            />
-                                        <FormHelperText style={{color: 'red'}}>{errorEmail}</FormHelperText>
+                                        />
+                                        <FormHelperText style={{ color: 'red' }}>{errorEmail}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={5}>
-                                    
+
                                         <TextField
                                             id="empPhoneNumber"
                                             label="Mobile Number*"
@@ -177,11 +177,11 @@ class FormBasic extends Component {
                                             value={empPhoneNumber || ''}
                                             error={!!errorempPhoneNumber}
                                             onChange={handleChange}
-                                              />
-                                              <FormHelperText style={{color: 'red'}}>{errorempPhoneNumber}</FormHelperText>
+                                        />
+                                        <FormHelperText style={{ color: 'red' }}>{errorempPhoneNumber}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={12}>
-                                        <InputLabel style={{marginTop: "20px"}}>
+                                        <InputLabel style={{ marginTop: "20px" }}>
                                             About me
                                         </InputLabel>
                                         <CustomInput
@@ -199,14 +199,6 @@ class FormBasic extends Component {
                                             }}
                                         />
                                     </GridItem>
-                                    <GridItem xs={12} sm={12} md={12}>
-                                    Profile Picture
-                                        <div className="upload-btn-wrapper">
-                                            <Button variant="contained" color="primary">
-                                            Browse Image  <input type="file" name="myfile" onChange={handleImageChange}/>
-                                    </Button>
-                                        </div>
-                                    </GridItem>
                                 </GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={12} md={12}>
@@ -221,8 +213,8 @@ class FormBasic extends Component {
                                             name="role"
                                             value={role}
                                             error={!!errorRole}
-                                            onChange={handleChange}/>
-                                            <FormHelperText style={{color: 'red'}}>{errorRole}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorRole}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <DatePicker
@@ -245,8 +237,8 @@ class FormBasic extends Component {
                                             name="expertiesLevel"
                                             error={!!errorexpertiesLevel}
                                             value={expertiesLevel}
-                                            onChange={handleChange}/>
-                                            <FormHelperText style={{color: 'red'}}>{errorexpertiesLevel}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorexpertiesLevel}</FormHelperText>
                                     </GridItem>
 
 
@@ -260,8 +252,8 @@ class FormBasic extends Component {
                                             name="skills"
                                             value={skills}
                                             error={!!errorSkills}
-                                            onChange={handleChange}/>
-                                            <FormHelperText style={{color: 'red'}}>{errorSkills}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorSkills}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
@@ -270,7 +262,7 @@ class FormBasic extends Component {
                                             className={classes.textField}
                                             name="fingerprint"
                                             value={fingerprint}
-                                            onChange={handleChange}/>
+                                            onChange={handleChange} />
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={2}>
                                         <TextField
@@ -280,8 +272,8 @@ class FormBasic extends Component {
                                             name="salary"
                                             value={salary}
                                             error={!!errorSalary}
-                                            onChange={handleChange}/>
-                                        <FormHelperText style={{color: 'red'}}>{errorSalary}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorSalary}</FormHelperText>
                                     </GridItem>
                                 </GridContainer>
                                 {/*<GridContainer>
@@ -314,10 +306,10 @@ class FormBasic extends Component {
                                                 onChange={handleStateChange}>
                                                 {states.map(state => {
                                                     return <MenuItem value={state.id}
-                                                                     key={`STATE_${state.id}`}>{state.name}</MenuItem>
+                                                        key={`STATE_${state.id}`}>{state.name}</MenuItem>
                                                 })}
                                             </Select>
-                                            <FormHelperText style={{color: 'red'}}>{errorState}</FormHelperText>
+                                            <FormHelperText style={{ color: 'red' }}>{errorState}</FormHelperText>
                                         </FormControl>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
@@ -330,10 +322,10 @@ class FormBasic extends Component {
                                                 onChange={handleCityChange}>
                                                 {cities.map(city => {
                                                     return <MenuItem value={city.id}
-                                                                     key={`CITY_${city.id}`}>{city.name}</MenuItem>
+                                                        key={`CITY_${city.id}`}>{city.name}</MenuItem>
                                                 })}
                                             </Select>
-                                            <FormHelperText style={{color: 'red'}}>{errorCity}</FormHelperText>
+                                            <FormHelperText style={{ color: 'red' }}>{errorCity}</FormHelperText>
                                         </FormControl>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
@@ -344,8 +336,8 @@ class FormBasic extends Component {
                                             name="pinCode"
                                             value={pinCode}
                                             error={!!errorPinCode}
-                                            onChange={handleChange}/>
-                                        <FormHelperText style={{color: 'red'}}>{errorPinCode}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorPinCode}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
@@ -355,11 +347,11 @@ class FormBasic extends Component {
                                             name="location"
                                             value={location}
                                             error={!!errorLocation}
-                                            onChange={handleChange}/>
-                                            <FormHelperText style={{color: 'red'}}>{errorLocation}</FormHelperText>
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorLocation}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={12}>
-                                        <InputLabel style={{marginTop: "20px"}}>
+                                        <InputLabel style={{ marginTop: "20px" }}>
                                             Address
                                         </InputLabel>
                                         <CustomInput
@@ -391,10 +383,10 @@ class FormBasic extends Component {
                             <CardMedia
                                 className="customMedia"
                                 image={sidebarimg}
-                                title="Contemplative Reptile"/>
+                                title="Contemplative Reptile" />
                             <Avatar alt="Remy Sharp"
-                                    src={imagePath ? imagePath : "https://www.pngarts.com/files/3/Avatar-Transparent-Image.png"}
-                                    className={classes.profilePic}/>
+                                src={imagePath ? imagePath : "https://www.pngarts.com/files/3/Avatar-Transparent-Image.png"}
+                                className={classes.profilePic} />
                             <CardBody>
                                 <h4 className="customTitle">{firstName} {lastName}</h4>
                                 <h6 className="customSubtitle">@{role}</h6>
@@ -406,6 +398,13 @@ class FormBasic extends Component {
                                     }
                                 </p>
                             </CardBody>
+                            <GridItem xs={12} sm={12} md={12}>
+                                <div className="upload-btn-wrapper">
+                                    <Button variant="contained" color="primary">
+                                        Browse Image  <input type="file" name="myfile" onChange={handleImageChange} />
+                                    </Button><br />
+                                </div>
+                            </GridItem>
                         </Card>
                     </GridItem>
                 </GridContainer>

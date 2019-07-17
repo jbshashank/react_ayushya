@@ -1,0 +1,72 @@
+/* * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+} */
+.ReactTable{
+    text-align: center;
+}
+.ReactTable .rt-thead.-headerGroups{
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+.ReactTable .rt-thead.-header{
+    /* background: linear-gradient(60deg, #ffa726, #fb8c00); */
+    background: linear-gradient(60deg, #26c6da, #00acc1);
+    font-weight: bold;
+}
+.ReactTable .-pagination .-btn{
+    background: linear-gradient(60deg, rgb(49, 83, 165), rgb(49, 83, 165));
+    color: white;
+    width: 45%;
+    /* float: right; */
+}
+.ReactTable .-pagination .-btn[disabled]{
+    /* float: left; */
+    /* background: rgba(0, 0, 0, 0.12); */
+    color: rgba(0, 0, 0, 0.26);
+    opacity: 0.8;
+    
+}
+.ReactTable .-pagination .-previous{
+    float: left;
+}
+.ReactTable .-pagination .-next{
+    float: right;
+}
+.ReactTable .-pagination .-btn{
+    color: white !important;
+}
+.ReactTable .rt-tbody{
+    text-transform: capitalize;
+    background-color: white;
+}
+
+.ReactTable .rt-tr{
+    /* background: linear-gradient(60deg, #26c6da, #00acc1); */
+    background: transparent;
+    
+}
+.ReactTable .-pagination{
+    color: white;
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+}
+.csv-link {
+    color: #3153a5;
+    font-weight: bold;
+    padding: 10px;
+}
+.ReactTable .rt-thead .rt-th{
+    padding: 10px;
+}
+.rt-td{
+    font-size: 15px;
+}
+/* .ReactTable .rt-tr.-even{
+    background: linear-gradient(60deg, #26c6da, #00acc1);
+    opacity: 0.4;
+} */
+/* linear-gradient(60deg, #26c6da, #00acc1) */

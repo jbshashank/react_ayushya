@@ -1,11 +1,11 @@
 /* eslint-disable */
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 import Navbar from "components/Navbars/Navbar.jsx";
 // import Footer from "components/Footer/Footer.jsx";
@@ -21,7 +21,7 @@ import RoleManagementList from "../views/RoleManagementList/index";
 import BusinessClientsForm from "../views/BusinessClientsForm/";
 import BusinessClientList from "../views/BusinessClientsList/"
 import Employees from "views/Employees";
-// import Reports from "views/Reports";
+import Reportpage from "views/Reports/Reports.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/Ayushya_Logo.png";
@@ -41,28 +41,28 @@ class Admin extends React.Component {
     }
 
     handleImageClick = image => {
-        this.setState({image: image});
+        this.setState({ image: image });
     };
 
     handleColorClick = color => {
-        this.setState({color: color});
+        this.setState({ color: color });
     };
 
     handleFixedClick = () => {
         if (this.state.fixedClasses === "dropdown") {
-            this.setState({fixedClasses: "dropdown show"});
+            this.setState({ fixedClasses: "dropdown show" });
         } else {
-            this.setState({fixedClasses: "dropdown"});
+            this.setState({ fixedClasses: "dropdown" });
         }
     };
 
     handleDrawerToggle = () => {
-        this.setState({mobileOpen: !this.state.mobileOpen});
+        this.setState({ mobileOpen: !this.state.mobileOpen });
     };
 
     resizeFunction = () => {
         if (window.innerWidth >= 960) {
-            this.setState({mobileOpen: false});
+            this.setState({ mobileOpen: false });
         }
     };
 
@@ -77,7 +77,7 @@ class Admin extends React.Component {
         if (e.history.location.pathname !== e.location.pathname) {
             this.refs.mainPanel.scrollTop = 0;
             if (this.state.mobileOpen) {
-                this.setState({mobileOpen: false});
+                this.setState({ mobileOpen: false });
             }
         }
     }
@@ -87,11 +87,11 @@ class Admin extends React.Component {
     }
 
     render() {
-        const {classes, pageLoaderCount, ...rest} = this.props;
+        const { classes, pageLoaderCount, ...rest } = this.props;
         return (
             <div className={classes.wrapper}>
                 {pageLoaderCount > 0 && <div className='loader-container'>
-                    <div className="loader"/>
+                    <div className="loader" />
                 </div>}
                 <Sidebar
                     routes={routes}
@@ -135,7 +135,7 @@ class Admin extends React.Component {
                                     path='/tickets'
                                     component={Tickets}
                                 />
-                                 <Route
+                                <Route
                                     path='/rescheduletickets'
                                     component={Tickets}
                                 />
@@ -154,27 +154,27 @@ class Admin extends React.Component {
                                 <Route
                                     path='/businessclients'
                                     component={BusinessClientsForm}
-                                /> 
+                                />
                                 <Route
                                     path='/businessclientlist'
                                     component={BusinessClientList}
                                 />
-                                 <Route
+                                <Route
                                     path='/businessclients-edit/:id'
                                     component={BusinessClientsForm}
-                                />                              
+                                />
                                 <Route
                                     path='/dashboard'
                                     component={DashboardPage}
                                 />
-                                 <Route
-                                    path='/'
-                                    component={DashboardPage}
-                                />
-                                {/* <Route
+                                <Route
                                     path='/reports'
-                                    component={Reports}
-                                /> */}
+                                    component={Reportpage}
+                                />
+                                <Route
+                                    path='/'
+                                    component={Employees}
+                                />
                             </Switch>
                         </div>
                     </div>

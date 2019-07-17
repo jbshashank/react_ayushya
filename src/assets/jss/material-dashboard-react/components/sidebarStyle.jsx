@@ -86,7 +86,7 @@ const sidebarStyle = theme => ({
     lineHeight: "30px",
     textDecoration: "none",
     backgroundColor: "transparent",
-    "&,&:hover" : {
+    "&,&:hover": {
       color: "#3153a5",
     }
     // "&,&:hover": {
@@ -116,6 +116,7 @@ const sidebarStyle = theme => ({
     float: "left",
     width: "50%",
     fontWeight: "bold",
+    // paddingTop: "18px",
   },
   background: {
     position: "absolute",

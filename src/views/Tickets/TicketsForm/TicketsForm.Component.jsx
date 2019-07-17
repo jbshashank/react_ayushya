@@ -26,7 +26,8 @@ class TicketsForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            brandId: ''
+            brandId: '',
+            technicianUniqueId: ''
         }
     }
 
@@ -42,7 +43,7 @@ class TicketsForm extends Component {
         }
         this.props.fetchBrandWatcher();
         this.props.fetchStateWatcher();
-        this.props.fetchEmployeesWatcher({ searchParam: "" });
+        this.props.fetchEmployeesWatcher({});
 
     }
 
@@ -51,40 +52,49 @@ class TicketsForm extends Component {
             this.setState({ products: nextProps.productDate })
         }
     }
-
+    handleTechChange(e) {
+        console.log("tech name change:" + e.target.value);
+        // this.fetchEmployeesWatcher();
+        //     if (e.target.value == e.target.empEmailAddress) {
+        //         this.setState({
+        //             technicianUniqueId: this.employeePersonalDetails.empEmailAddress
+        //         });
+        //     this.technicianUniqueId = this.props.employeePersonalDetails.empEmailAddress
+        // }
+    }
     brandOnChangeHandler(e) {
         console.log("on brancd chanhge", e.target.value);
         // this.setState({ brandId: e.target.value });
         // this.props.fetchProductByBrandIdWatcher({ brandId: e.target.value });
-         const unProcesedKey = e._targetInst.key
+        const unProcesedKey = e._targetInst.key
 
         const BrandKey = unProcesedKey.split('BRAND_')[unProcesedKey.split('BRAND_').length - 1]
         this.props.fetchProductByBrandIdWatcher({ BrandKey });
-        this.setState({brand_id:BrandKey})
+        this.setState({ brand_id: BrandKey })
     }
-    handleStateChange(e){
+    handleStateChange(e) {
         const unProcesedKey = e._targetInst.key
         const StateId = unProcesedKey.split('STATE_')[unProcesedKey.split('STATE_').length - 1]
-        this.props.fetchCityWatcher({state_id:StateId})
+        this.props.fetchCityWatcher({ state_id: StateId })
     }
 
     productOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key
         const ProductKey = unProcesedKey.split('PRODUCT_')[unProcesedKey.split('PRODUCT_').length - 1]
-        this.setState({product_id:ProductKey})
-        this.props.fetchProductSubcategoryByBrandIdAndProductIdWatcher({ brandId: this.state.brand_id, productId:ProductKey  })
+        this.setState({ product_id: ProductKey })
+        this.props.fetchProductSubcategoryByBrandIdAndProductIdWatcher({ brandId: this.state.brand_id, productId: ProductKey })
     }
-    productSubcategoryOnChangeHandler(e){
+    productSubcategoryOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key
         const ProductSubCategoryKey = unProcesedKey.split('PRODUCT_SUBCATEGORY_')[unProcesedKey.split('PRODUCT_').length - 1]
-        console.log("value of satate in :productSubcategoryOnChangeHandler:",this.state)
-        this.props.fetchModeByProductIdWatcher({ brandId: this.state.brand_id, productId:this.state.product_id,productCategoryId:ProductSubCategoryKey })
+        console.log("value of satate in :productSubcategoryOnChangeHandler:", this.state)
+        this.props.fetchModeByProductIdWatcher({ brandId: this.state.brand_id, productId: this.state.product_id, productCategoryId: ProductSubCategoryKey })
 
     }
     submitForm = (values) => {
         const data = {
             call_type: values.call_type,
-            product_category:values.product_category,
+            product_category: values.product_category,
             product_sub_category: values.product_sub_category,
             brand: values.brand,
             tech_name: values.tech_name,
@@ -102,11 +112,11 @@ class TicketsForm extends Component {
             state: values.state,
             remarks: values.remarks,
             iw: values.iw,
-            visit_time:values.visit_time,
+            visit_time: values.visit_time,
             pin_code: values.pin_code,
             dealer_name: values.dealer_name,
-            revisedDate:values.revisedDate,
-            revisedTime:values.revisedTime,
+            revisedDate: values.revisedDate,
+            revisedTime: values.revisedTime,
         };
         const id = this.props.match.params.id;
         if (id) {
@@ -129,11 +139,11 @@ class TicketsForm extends Component {
     render() {
         const {
             classes, ticketTypes, products, brands, models, callTypes, assignees, statuses, states,
-            handleSubmit, pristine, reset, submitting, tech_name,cities,productSubcategory
+            handleSubmit, pristine, reset, submitting, tech_name, cities, productSubcategory
         } = this.props;
-        const isRescheduleTickets=this.props.match.path==="/rescheduletickets-edit/:id"
+        const isRescheduleTickets = this.props.match.path === "/rescheduletickets-edit/:id"
         const readOnly = !!this.props.match.params.id;
-        
+
         return (
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
@@ -169,7 +179,7 @@ class TicketsForm extends Component {
                                                 </Field>
                                             </FormControl>
                                         </GridItem>
-                                    {/* </GridContainer>
+                                        {/* </GridContainer>
                                     <GridContainer> */}
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
@@ -202,10 +212,10 @@ class TicketsForm extends Component {
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
-                                                    name="product_category"                                                    
+                                                    name="product_category"
                                                     id="product_category"
                                                     className={classes.textField}
-                                                    disabled={readOnly ? readOnly : products.length === 0||isRescheduleTickets}
+                                                    disabled={readOnly ? readOnly : products.length === 0 || isRescheduleTickets}
                                                     onChange={(e) => this.productOnChangeHandler(e)}
                                                     validate={[required]}>
                                                     {products.map(item => {
@@ -227,7 +237,7 @@ class TicketsForm extends Component {
                                                     name="product_sub_category"
                                                     id="product_sub_category"
                                                     className={classes.textField}
-                                                    disabled={readOnly ? readOnly : productSubcategory.length === 0||isRescheduleTickets}
+                                                    disabled={readOnly ? readOnly : productSubcategory.length === 0 || isRescheduleTickets}
                                                     onChange={(e) => this.productSubcategoryOnChangeHandler(e)}
                                                     validate={[required]}>
                                                     {productSubcategory.map(item => {
@@ -248,7 +258,7 @@ class TicketsForm extends Component {
                                                     component={renderSelectField}
                                                     label="Model Name"
                                                     className={classes.textField}
-                                                    disabled={(readOnly ? readOnly : models.length === 0)||isRescheduleTickets}
+                                                    disabled={(readOnly ? readOnly : models.length === 0) || isRescheduleTickets}
                                                     name="model_name"
                                                     validate={[required]}>
                                                     {models.map(item => {
@@ -261,14 +271,14 @@ class TicketsForm extends Component {
                                                 </Field>
                                             </FormControl>
                                         </GridItem>
-                                    {/* </GridContainer>
+                                        {/* </GridContainer>
                                     <GridContainer> */}
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
                                                 id="serial_number"
                                                 label="Serial Number*"
-                                                disabled={readOnly||isRescheduleTickets}
+                                                disabled={readOnly || isRescheduleTickets}
                                                 className={classes.textField}
                                                 name="serial_number"
                                                 validate={[required]} />
@@ -283,10 +293,10 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 className={classes.group}
                                                 validate={[required]}>
-                                                <FormControlLabel value="Warranty" control={<Radio disabled={isRescheduleTickets} color="primary"/>} label="Warranty" />
-                                                <FormControlLabel value="Out of Warranty" control={<Radio disabled={isRescheduleTickets} color="primary"/>}
+                                                <FormControlLabel value="Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />} label="Warranty" />
+                                                <FormControlLabel value="Out of Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
                                                     label="Out of Warranty" />
-                                                <FormControlLabel value="Extended Warranty" control={<Radio disabled={isRescheduleTickets} color="primary"/>}
+                                                <FormControlLabel value="Extended Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
                                                     label="Extended Warranty" />
                                             </Field>
                                         </GridItem>
@@ -301,8 +311,8 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
                                                 label="Time of visit*"
-                                                // validate={[required]} 
-                                                />
+                                            // validate={[required]} 
+                                            />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
@@ -313,8 +323,8 @@ class TicketsForm extends Component {
                                                 name="visit_time"
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
-                                                // validate={[required]}
-                                                />
+                                            // validate={[required]}
+                                            />
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
@@ -329,7 +339,7 @@ class TicketsForm extends Component {
                                                 onChange={this.handleChange}
                                                 validate={[required, alpha]} />
                                         </GridItem>
-                                    {/* </GridContainer>
+                                        {/* </GridContainer>
                                     <GridContainer> */}
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
@@ -357,7 +367,7 @@ class TicketsForm extends Component {
                                                 rowsMax={2}
                                                 validate={[required]} />
                                         </GridItem>
-                                          <GridItem xs={12} sm={4} md={4}>
+                                        <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
                                                 id="street"
@@ -367,9 +377,9 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
                                                 validate={[alpha]}
-                                                />
+                                            />
                                         </GridItem>
-                                        
+
                                         <GridItem xs={12} sm={4} md={4}>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
@@ -381,22 +391,22 @@ class TicketsForm extends Component {
                                                     id="state"
                                                     disabled={isRescheduleTickets}
                                                     className={classes.textField}
-                                                    onChange={(e)=>this.handleStateChange(e)}
+                                                    onChange={(e) => this.handleStateChange(e)}
                                                     validate={[required]}>
                                                     {states.map(item => {
                                                         return <option className={classes.customOption} value={item.name}
-                                                        key={`STATE_${item.id}`}>
+                                                            key={`STATE_${item.id}`}>
                                                             {item.name}</option>
                                                     })}
                                                 </Field>
                                             </FormControl>
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
-                                        <FormControl className={classes.formControl}>
-                                        <InputLabel htmlFor="age-simple">
+                                            <FormControl className={classes.formControl}>
+                                                <InputLabel htmlFor="age-simple">
                                                     City*
                                                 </InputLabel>
-                                        <Field
+                                                <Field
                                                     component={renderSelectField}
                                                     name="city"
                                                     id="city"
@@ -408,7 +418,7 @@ class TicketsForm extends Component {
                                                             key={item.id}>{item.name}</MenuItem>
                                                     })}
                                                 </Field>
-                                                </FormControl>
+                                            </FormControl>
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
@@ -421,7 +431,7 @@ class TicketsForm extends Component {
                                                 name="pin_code"
                                                 validate={[required, pinCode]} />
                                         </GridItem>
-                                    {/* </GridContainer>
+                                        {/* </GridContainer>
                                     <GridContainer> */}
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
@@ -453,7 +463,7 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 validate={[phoneNumber]} />
                                         </GridItem>
-                                    {/* </GridContainer>
+                                        {/* </GridContainer>
                                     <GridContainer> */}
                                         <GridItem xs={12} sm={4} md={12}>
                                             <Field
@@ -475,11 +485,12 @@ class TicketsForm extends Component {
                                                     id="tech_name"
                                                     disabled={isRescheduleTickets}
                                                     className={classes.textField}
+                                                    onChange={this.handleTechChange}
                                                     validate={[required]}>
                                                     {tech_name.map(item => {
                                                         return <MenuItem value={item.employeePersonalDetails.empFirstName}
                                                             key={item.id}>{item.employeePersonalDetails.empFirstName}
-                                                            </MenuItem>
+                                                        </MenuItem>
                                                     })}
                                                 </Field>
                                             </FormControl>}
@@ -497,29 +508,29 @@ class TicketsForm extends Component {
                                                 rowsMax={2}
                                                 validate={[required]} />
                                         </GridItem>
-                                       {isRescheduleTickets &&
-                                       <>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={renderTimePicker}
-                                                clearable
-                                                ampm={false}
-                                                name="revisedTime"
-                                                className={classes.textField}
-                                                label="Revised Time"
-                                                />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={renderDataPicker}
-                                                label="Revised Date"
-                                                mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
-                                                className={classes.textField}
-                                                name="revisedDate"
-                                                disableFuture={true}
-                                                />
-                                        </GridItem>
-                                        </>}
+                                        {isRescheduleTickets &&
+                                            <>
+                                                <GridItem xs={12} sm={4} md={4}>
+                                                    <Field
+                                                        component={renderTimePicker}
+                                                        clearable
+                                                        ampm={false}
+                                                        name="revisedTime"
+                                                        className={classes.textField}
+                                                        label="Revised Time"
+                                                    />
+                                                </GridItem>
+                                                <GridItem xs={12} sm={4} md={4}>
+                                                    <Field
+                                                        component={renderDataPicker}
+                                                        label="Revised Date"
+                                                        mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
+                                                        className={classes.textField}
+                                                        name="revisedDate"
+                                                        disableFuture={true}
+                                                    />
+                                                </GridItem>
+                                            </>}
 
                                     </GridContainer>
                                 </MuiPickersUtilsProvider>
@@ -532,14 +543,14 @@ class TicketsForm extends Component {
                                 </Button>
                             </CardFooter>
                         </Card>
-                    </form>                   
+                    </form>
                 </GridItem>
-            </GridContainer>            
+            </GridContainer>
         )
     }
 }
 
 export default reduxForm({
     form: 'ticket', // a unique identifier for this form
-    
+
 })(TicketsForm);
