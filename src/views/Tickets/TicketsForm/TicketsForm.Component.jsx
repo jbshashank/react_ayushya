@@ -21,32 +21,33 @@ import renderSelectField from '../../../components/reduxFormComponents/renderSel
 import GridItem from "../../../components/Grid/GridItem.jsx";
 import GridContainer from "../../../components/Grid/GridContainer.jsx";
 import { required, email, alphaNumeric, alpha, phoneNumber, number, pinCode } from '../../../utils/reduxFormValiadtion';
+import axios from "../../../utils/axios";
 
 class TicketsForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            brandId: '',
-            technicianUniqueId: ''
+            userId: []
         }
     }
-
     componentDidMount() {
-        console.log("this.props in edit form", this.props);
-        const id = this.props.match.params.id;
-        if (id) {
-            this.props.fetchTicketsByIdWatcher({ id });
-            this.props.fetchAllProductWatcher();
+        axios.get('http://134.209.147.111:8095/users/user/getAllUserLocation')
+            .then(res => {
+                const users = res.data;
+                this.setState({ userId: users });
+            })
+
+        const ticketId = this.props.match.params.id;
+        if (ticketId) {
+            this.props.fetchTicketsByIdWatcher({ ticketId });
             this.props.fetchAllModelWatcher();
-            this.props.fetchAllProductSubCategoryWatcher();
             this.props.fetchAllCityWatcher();
         }
         this.props.fetchBrandWatcher();
+        this.props.fetchAllProductWatcher();
         this.props.fetchStateWatcher();
         this.props.fetchEmployeesWatcher({});
-
     }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.productDate !== this.props.productDate) {
             this.setState({ products: nextProps.productDate })
@@ -63,72 +64,82 @@ class TicketsForm extends Component {
         // }
     }
     brandOnChangeHandler(e) {
-        console.log("on brancd chanhge", e.target.value);
-        // this.setState({ brandId: e.target.value });
-        // this.props.fetchProductByBrandIdWatcher({ brandId: e.target.value });
-        const unProcesedKey = e._targetInst.key
-
+        const unProcesedKey = e._targetInst.key;
         const BrandKey = unProcesedKey.split('BRAND_')[unProcesedKey.split('BRAND_').length - 1]
-        this.props.fetchProductByBrandIdWatcher({ BrandKey });
-        this.setState({ brand_id: BrandKey })
+        this.setState({ makeId: BrandKey });
     }
     handleStateChange(e) {
         const unProcesedKey = e._targetInst.key
         const StateId = unProcesedKey.split('STATE_')[unProcesedKey.split('STATE_').length - 1]
-        this.props.fetchCityWatcher({ state_id: StateId })
+        this.props.fetchCityWatcher({ stateCode: StateId })
     }
 
     productOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key
         const ProductKey = unProcesedKey.split('PRODUCT_')[unProcesedKey.split('PRODUCT_').length - 1]
-        this.setState({ product_id: ProductKey })
-        this.props.fetchProductSubcategoryByBrandIdAndProductIdWatcher({ brandId: this.state.brand_id, productId: ProductKey })
+        this.setState({ categoryId: ProductKey })
+        this.props.fetchProductSubcategoryByBrandIdAndProductIdWatcher({ makeId: this.state.makeId, categoryId: ProductKey })
+
     }
     productSubcategoryOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key
         const ProductSubCategoryKey = unProcesedKey.split('PRODUCT_SUBCATEGORY_')[unProcesedKey.split('PRODUCT_').length - 1]
-        console.log("value of satate in :productSubcategoryOnChangeHandler:", this.state)
-        this.props.fetchModeByProductIdWatcher({ brandId: this.state.brand_id, productId: this.state.product_id, productCategoryId: ProductSubCategoryKey })
+        this.props.fetchModeByProductIdWatcher({ makeId: this.state.makeId, categoryId: this.state.categoryId, subCategoryId: ProductSubCategoryKey })
 
     }
     submitForm = (values) => {
         const data = {
-            call_type: values.call_type,
-            product_category: values.product_category,
-            product_sub_category: values.product_sub_category,
+            callType: values.callType,
             brand: values.brand,
-            tech_name: values.tech_name,
-            technicianUniqueId: values.technicianUniqueId,
-            name: values.name,
-            email_id: values.email_id,
-            mobile_number_1: values.mobile_number_1,
-            mobile_number_2: values.mobile_number_2,
-            model_name: values.model_name,
-            serial_number: values.serial_number,
-            address_1: values.address_1,
-            address_2: values.address_2,
-            street: values.street,
-            city: values.city,
-            state: values.state,
-            remarks: values.remarks,
-            iw: values.iw,
-            visit_time: values.visit_time,
-            pin_code: values.pin_code,
-            dealer_name: values.dealer_name,
-            revisedDate: values.revisedDate,
-            revisedTime: values.revisedTime,
+            category: values.category,
+            subCategory: values.subCategory,
+            model: values.model,
+            serialNumber: values.serialNumber,
+            warranty: values.warranty,
+            visitTime: values.visitTime,
+            visitDate: values.visitDate,
+            dealerName: values.dealerName,
+            description: values.description,
+            status: values.status,
+            loggedon: values.loggedon,
+            lastupdatedon: values.lastupdatedon,
+            ticketId: values.ticketId,
+            customerId: values.customerId,
+            productId: values.productId,
+            userId: values.userId,
+            // productModel: {
+            //     brand: values.brand,
+            //     category: values.category,
+            //     subCategory: values.subCategory,
+            //     model: values.model,
+            // },
+            customerDataModel: {
+                customerId: values.customerId,
+                customerName: values.customerName,
+                address1: values.address1,
+                address2: values.address2,
+                street: values.street,
+                state: values.state,
+                city: values.city,
+                pinCode: values.pinCode,
+                email: values.email,
+                contactNumber: values.contactNumber,
+                alternateContact: values.alternateContact
+            }
+
         };
-        const id = this.props.match.params.id;
-        if (id) {
+        const ticketId = this.props.match.params.id;
+        console.log("ticket id is" + ticketId);
+        if (ticketId) {
             new Promise((resolve, reject) => {
-                this.props.updateTicketsWatcher({ ...data, id }, () => {
+                this.props.updateTicketsWatcher({ ...data, ticketId }, () => {
                     this.props.history.push('/tickets');
                     resolve();
                 })
             });
         } else {
             new Promise((resolve, reject) => {
-                this.props.createTicketsWatcher({ ...data, id }, () => {
+                this.props.createTicketsWatcher({ ...data, ticketId }, () => {
                     this.props.history.push('/tickets');
                     resolve();
                 })
@@ -139,9 +150,9 @@ class TicketsForm extends Component {
     render() {
         const {
             classes, ticketTypes, products, brands, models, callTypes, assignees, statuses, states,
-            handleSubmit, pristine, reset, submitting, tech_name, cities, productSubcategory
+            handleSubmit, pristine, reset, submitting, userId, cities, productSubcategory, ticketId
         } = this.props;
-        const isRescheduleTickets = this.props.match.path === "/rescheduletickets-edit/:id"
+        const isRescheduleTickets = this.props.match.path === "/rescheduletickets-edit/:ticketId"
         const readOnly = !!this.props.match.params.id;
 
         return (
@@ -163,8 +174,8 @@ class TicketsForm extends Component {
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
-                                                    name="call_type"
-                                                    id="call_type"
+                                                    name="callType"
+                                                    id="callType"
                                                     disabled={readOnly}
                                                     className={classes.textField}
                                                     validate={[required]}>
@@ -190,16 +201,19 @@ class TicketsForm extends Component {
                                                     component={renderSelectField}
                                                     name="brand"
                                                     className={classes.textField}
+                                                    id="brandId"
                                                     onChange={(e) => {
                                                         this.brandOnChangeHandler(e)
                                                     }}
+                                                    // brandId={this.state.brandId}
+                                                    // onChange={this.brandOnChangeHandler}
                                                     disabled={readOnly}
                                                     validate={[required]}>
                                                     {brands.map(item => {
-                                                        return <option className={classes.customOption} value={item.brand}
-                                                            key={`BRAND_${item.brand_id}`}
+                                                        return <option className={classes.customOption} value={item.name}
+                                                            key={`BRAND_${item.makeId}`}
                                                         >
-                                                            {item.brand}
+                                                            {item.name}
                                                         </option>
                                                     })}
                                                 </Field>
@@ -212,16 +226,16 @@ class TicketsForm extends Component {
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
-                                                    name="product_category"
-                                                    id="product_category"
+                                                    name="category"
+                                                    id="category"
                                                     className={classes.textField}
                                                     disabled={readOnly ? readOnly : products.length === 0 || isRescheduleTickets}
                                                     onChange={(e) => this.productOnChangeHandler(e)}
                                                     validate={[required]}>
                                                     {products.map(item => {
-                                                        return <option className={classes.customOption} value={item.product}
-                                                            key={`PRODUCT_${item.product_id}`}>
-                                                            {item.product}
+                                                        return <option className={classes.customOption} value={item.name}
+                                                            key={`PRODUCT_${item.categoryId}`}>
+                                                            {item.name}
                                                         </option>
                                                     })}
                                                 </Field>
@@ -234,16 +248,17 @@ class TicketsForm extends Component {
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
-                                                    name="product_sub_category"
-                                                    id="product_sub_category"
+                                                    name="subCategory"
+                                                    id="subCategory"
                                                     className={classes.textField}
                                                     disabled={readOnly ? readOnly : productSubcategory.length === 0 || isRescheduleTickets}
                                                     onChange={(e) => this.productSubcategoryOnChangeHandler(e)}
-                                                    validate={[required]}>
+                                                // validate={[required]}
+                                                >
                                                     {productSubcategory.map(item => {
-                                                        return <option className={classes.customOption} value={item.productSubCategory}
-                                                            key={`PRODUCT_SUBCATEGORY_${item.productSubCat_id}`}>
-                                                            {item.productSubCategory}
+                                                        return <option className={classes.customOption} value={item.name}
+                                                            key={`PRODUCT_SUBCATEGORY_${item.subCategoryId}`}>
+                                                            {item.name}
                                                         </option>
                                                     })}
                                                 </Field>
@@ -259,28 +274,29 @@ class TicketsForm extends Component {
                                                     label="Model Name"
                                                     className={classes.textField}
                                                     disabled={(readOnly ? readOnly : models.length === 0) || isRescheduleTickets}
-                                                    name="model_name"
-                                                    validate={[required]}>
+                                                    name="model"
+                                                // validate={[required]}
+                                                >
                                                     {models.map(item => {
-                                                        return <option className={classes.customOption} value={item.model}
-                                                            key={`PRODUCT_${item.id}`}>
-                                                            {item.model}
+                                                        return <option className={classes.customOption} value={item.name}
+                                                            key={`PRODUCT_${item.modelId}`}>
+                                                            {item.name}
                                                         </option>
                                                     })}
 
                                                 </Field>
                                             </FormControl>
                                         </GridItem>
-                                        {/* </GridContainer>
-                                    <GridContainer> */}
+                                    </GridContainer>
+                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="serial_number"
+                                                id="serialNumber"
                                                 label="Serial Number*"
                                                 disabled={readOnly || isRescheduleTickets}
                                                 className={classes.textField}
-                                                name="serial_number"
+                                                name="serialNumber"
                                                 validate={[required]} />
                                         </GridItem>
                                     </GridContainer>
@@ -289,7 +305,7 @@ class TicketsForm extends Component {
                                             <Field
                                                 lable="Waranty*"
                                                 component={renderRadioGroup}
-                                                name="iw"
+                                                name="warranty"
                                                 disabled={isRescheduleTickets}
                                                 className={classes.group}
                                                 validate={[required]}>
@@ -307,7 +323,7 @@ class TicketsForm extends Component {
                                                 component={renderTimePicker}
                                                 clearable
                                                 ampm={false}
-                                                name="visit_time"
+                                                name="visitTime"
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
                                                 label="Time of visit*"
@@ -320,7 +336,7 @@ class TicketsForm extends Component {
                                                 clearable
                                                 label="Visit Date*"
                                                 className={classes.textField}
-                                                name="visit_time"
+                                                name="visitDate"
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
                                             // validate={[required]}
@@ -331,23 +347,23 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="name"
+                                                id="customerName"
                                                 label="Cusomer Name*"
                                                 className={classes.textField}
-                                                name="name"
+                                                name="customerName"
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
                                                 validate={[required, alpha]} />
                                         </GridItem>
-                                        {/* </GridContainer>
-                                    <GridContainer> */}
+                                    </GridContainer>
+                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="address_1"
+                                                id="address1"
                                                 label="Address 1*"
                                                 className={classes.textField}
-                                                name="address_1"
+                                                name="address1"
                                                 disabled={isRescheduleTickets}
                                                 multiline={true}
                                                 rows={2}
@@ -357,10 +373,10 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="address_2"
+                                                id="address2"
                                                 label="Address 2*"
                                                 className={classes.textField}
-                                                name="address_2"
+                                                name="address2"
                                                 disabled={isRescheduleTickets}
                                                 multiline={true}
                                                 rows={2}
@@ -395,7 +411,7 @@ class TicketsForm extends Component {
                                                     validate={[required]}>
                                                     {states.map(item => {
                                                         return <option className={classes.customOption} value={item.name}
-                                                            key={`STATE_${item.id}`}>
+                                                            key={`STATE_${item.stateCode}`}>
                                                             {item.name}</option>
                                                     })}
                                                 </Field>
@@ -423,12 +439,12 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="pin_code"
+                                                id="pinCode"
                                                 label="Pin Code*"
                                                 disabled={isRescheduleTickets}
                                                 // disabled={}
                                                 className={classes.textField}
-                                                name="pin_code"
+                                                name="pinCode"
                                                 validate={[required, pinCode]} />
                                         </GridItem>
                                         {/* </GridContainer>
@@ -436,30 +452,30 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="email_id"
+                                                id="email"
                                                 label="Email Address*"
                                                 className={classes.textField}
-                                                name="email_id"
+                                                name="email"
                                                 disabled={isRescheduleTickets}
                                                 validate={[required, email]} />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="mobile_number_1"
+                                                id="contactNumber"
                                                 label="Contact Number*"
                                                 className={classes.textField}
-                                                name="mobile_number_1"
+                                                name="contactNumber"
                                                 disabled={isRescheduleTickets}
                                                 validate={[required, phoneNumber]} />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="mobile_number_2"
+                                                id="alternateContact"
                                                 label="Alternate Contact Number"
                                                 className={classes.textField}
-                                                name="mobile_number_2"
+                                                name="alternateContact"
                                                 disabled={isRescheduleTickets}
                                                 validate={[phoneNumber]} />
                                         </GridItem>
@@ -468,28 +484,28 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={12}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="dealer_name"
+                                                id="dealerName"
                                                 label="Dealer Name"
                                                 disabled={readOnly}
                                                 className={classes.textField}
-                                                name="dealer_name"
+                                                name="dealerName"
                                                 onChange={this.handleChange}
                                                 validate={[alpha]} />
-                                            {(this.props.tech_name !== [] && readOnly) && <FormControl className={classes.formControl}>
+                                            {(this.props.userId !== [] && readOnly) && <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
                                                     Tech Name*
                                                 </InputLabel>
                                                 <Field
                                                     component={renderSelectField}
-                                                    name="tech_name"
-                                                    id="tech_name"
+                                                    name="userId"
+                                                    id="userId"
                                                     disabled={isRescheduleTickets}
                                                     className={classes.textField}
                                                     onChange={this.handleTechChange}
                                                     validate={[required]}>
-                                                    {tech_name.map(item => {
-                                                        return <MenuItem value={item.employeePersonalDetails.empFirstName}
-                                                            key={item.id}>{item.employeePersonalDetails.empFirstName}
+                                                    {this.state.userId.map(item => {
+                                                        return <MenuItem value={item.userId}
+                                                            key={item.locationId}>{item.userId}
                                                         </MenuItem>
                                                     })}
                                                 </Field>
@@ -498,11 +514,11 @@ class TicketsForm extends Component {
                                         <GridItem xs={12} sm={4} md={12}>
                                             <Field
                                                 component={CustomTextField}
-                                                id="remarks"
+                                                id="description"
                                                 label="Problem Description*"
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
-                                                name="remarks"
+                                                name="description"
                                                 multiline={true}
                                                 rows={2}
                                                 rowsMax={2}
@@ -545,7 +561,7 @@ class TicketsForm extends Component {
                         </Card>
                     </form>
                 </GridItem>
-            </GridContainer>
+            </GridContainer >
         )
     }
 }

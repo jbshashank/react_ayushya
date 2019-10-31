@@ -1,20 +1,28 @@
-import {SET_EMPLOYEE_FORM} from "../actionTypes";
+import { SET_EMPLOYEE_FORM } from "../actionTypes";
 
 const INITIAL_STATE = {
     firstName: '',
     middleName: '',
     lastName: '',
     aboutMe: '',
-    address: '',
-    dob: new Date(),
-    doj: new Date(),
-    location: '',
-    photo: '',
+    dateOfBirth: new Date(),
+    dateOfJoining: new Date(),
+    email: '',
+    phoneNumber: '',
+    // photo: [],
     skills: '',
-    expLevel: '',
+    expertiseLevel: '',
+    role: '',
+    // fingerprint: '',
     salary: '',
-    fingerPrint: '',
-    gender: ''
+    age: '',
+    addr: '',
+    city: '',
+    state: '',
+    pinCode: '',
+    // educations: [],
+    gender: '',
+    userId: ''
 };
 
 const employees = (state = INITIAL_STATE, action) => {

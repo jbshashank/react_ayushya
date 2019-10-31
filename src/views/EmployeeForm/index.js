@@ -1,6 +1,6 @@
-import {withStyles} from "@material-ui/core/styles/index";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import { withStyles } from "@material-ui/core/styles/index";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import {
     createEmployeesWatcher,
@@ -15,7 +15,7 @@ import styles from "./styles";
 
 const mapStateToProps = (state) => {
     console.log("Employee Form State ", state);
-    const {employee} = state.employees;
+    const { employee } = state.employees;
     return {
         employee
     };

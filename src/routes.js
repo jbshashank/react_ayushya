@@ -5,7 +5,8 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import Employees from "views/Employees";
 import Tickets from "views/Tickets";
 import Reportpage from "views/Reports/Reports.jsx";
-
+import ReportInvoice from "views/Reports/ReportInvoice.jsx";
+import ReportEstimate from "views/Reports/ReportEstimate.jsx";
 const dashboardRoutes = [
     // {
     //     path: "/",
@@ -57,12 +58,29 @@ const dashboardRoutes = [
     },
     {
         path: "/reports",
-        name: "Reports",
+        name: "Report Job",
         rtlName: "قائمة الجدول",
         icon: "content_paste",
         component: Reportpage,
         layout: ""
     },
+    {
+        path: "/reportInvoice",
+        name: "Report Invoice",
+        rtlName: "قائمة الجدول",
+        icon: "content_paste",
+        component: ReportInvoice,
+        layout: ""
+    },
+    {
+        path: "/reportEstimate",
+        name: "Report Estimate",
+        rtlName: "قائمة الجدول",
+        icon: "content_paste",
+        component: ReportEstimate,
+        layout: ""
+    },
+
 ];
 
 export default dashboardRoutes;

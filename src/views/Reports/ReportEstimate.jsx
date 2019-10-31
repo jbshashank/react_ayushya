@@ -39,59 +39,46 @@ import ReactTable from 'react-table';
 
 const columns = [
     {
-        Header: 'jobId',
-        accessor: 'jobId',
+        Header: 'estimateId',
+        accessor: 'estimateId',
     },
     {
-        Header: 'statusId',
-        accessor: 'statusId',
+        Header: 'jobCode',
+        accessor: 'jobCode',
     },
     {
-        Header: 'startDate',
-        accessor: 'startDate',
-    },
-    // {
-    //     Header: 'Open Date',
-    //     accessor: 'visit_time',
-    // },
-    {
-        Header: 'actualStartDate',
-        accessor: 'actualStartDate',
+        Header: 'generatedOn',
+        accessor: 'generatedOn',
     },
     {
-        Header: 'actualEndDate',
-        accessor: 'actualEndDate',
+        Header: 'approvalStatus',
+        accessor: 'approvalStatus',
     },
     {
-        Header: 'loggedBy',
-        accessor: 'loggedBy',
+        Header: 'requestedBy',
+        accessor: 'requestedBy',
     },
     {
-        Header: 'lastUpdatedOn',
-        accessor: 'lastUpdatedOn',
-    },
-    {
-        Header: 'customerId',
-        accessor: 'customerId',
+        Header: 'grandTotal',
+        accessor: 'grandTotal',
     },
 ];
-export default class Reports extends Component {
+export default class ReportEstimate extends Component {
     constructor() {
         super();
         this.state = {
             tableData: [{
-                jobId: '',
-                statusId: '',
-                startDate: '',
-                actualEndDate: '',
-                loggedBy: '',
-                lastUpdatedOn: '',
-                customerId: ''
+                estimateId: '',
+                jobCode: '',
+                generatedOn: '',
+                approvalStatus: '',
+                requestedBy: '',
+                grandTotal: ''
             }],
         };
     }
     componentDidMount() {
-        axios.get('http://192.168.1.5:8092/jobs/job/getAllJob')
+        axios.get('http://192.168.1.5:8096/payments/estimate/getAllEstimates')
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })

@@ -1,15 +1,15 @@
 import validation from "validate.js";
 
 let constraints = {
-    firstName:{
-        presence: {allowEmpty: false},
+    firstName: {
+        presence: { allowEmpty: false },
         format: {
-            pattern:"[a-z_ ]+",
+            pattern: "[a-z_ ]+",
             flags: "i",
             message: "can only contain alphabets"
         }
     },
-    middleName:{
+    middleName: {
         // presence: {allowEmpty: false},
         // format: {
         //     pattern:"[a-z_ ]+",
@@ -17,31 +17,31 @@ let constraints = {
         //     message: "can only contain alphabets"
         // }
     },
-    lastName:{
-        presence: {allowEmpty: false},
+    lastName: {
+        presence: { allowEmpty: false },
         format: {
-            pattern:"[a-z_ ]+",
+            pattern: "[a-z_ ]+",
             flags: "i",
             message: "can only contain alphabets"
         }
     },
     pinCode: {
-        length: {is: 6}
+        length: { is: 6 }
     },
-    empPhoneNumber: {
-        presence: {allowEmpty: false},
-        length: {is: 10},
+    phoneNumber: {
+        presence: { allowEmpty: false },
+        length: { is: 10 },
         numericality: {
             onlyInteger: true,
             notValid: "Please enter valid mobile number",
             notInteger: "Please enter valid mobile number",
         }
     },
-    empEmailAddress: {
-        presence: {allowEmpty: false},
+    email: {
+        presence: { allowEmpty: false },
         // email: true,
-        format:{
-            pattern:"[A-Z0-9._%+-]+@[A-Z0-9.-]+(?:com|org|net|in|edu|info|net|co.in)",
+        format: {
+            pattern: "[A-Z0-9._%+-]+@[A-Z0-9.-]+(?:com|org|net|in|edu|info|net|co.in)",
             flags: "i",
             message: "is not a valid email"
         }
@@ -56,7 +56,7 @@ let constraints = {
         }
     },
     age: {
-        presence: {allowEmpty: false},
+        presence: { allowEmpty: false },
         numericality: {
             greaterThan: 0,
             notValid: "Please enter valid Date",
@@ -64,31 +64,31 @@ let constraints = {
         }
     },
     expertiesLevel: {
-        presence: {allowEmpty: false},
+        presence: { allowEmpty: false },
         format: {
-            pattern:"[a-z_ ]+",
+            pattern: "[a-z_ ]+",
             flags: "i",
             message: "can only contain alphabets"
         }
     },
     skills: {
-        presence: {allowEmpty: false},
+        presence: { allowEmpty: false },
         format: {
-            pattern:"[a-z_ ]+",
+            pattern: "[a-z_ ]+",
             flags: "i",
             message: "can only contain alphabets"
         }
     },
     role: {
-        presence: {allowEmpty: false},
+        presence: { allowEmpty: false },
         format: {
-            pattern:"[a-z_ ]+",
+            pattern: "[a-z_ ]+",
             flags: "i",
             message: "can only contain alphabets"
         }
     },
     location: {
-        presence: {allowEmpty: false},
+        presence: { allowEmpty: false },
         // format: {
         //     pattern:"[a-zA-Z]+",
         //     // flags: "i",
@@ -96,7 +96,7 @@ let constraints = {
         // }
     },
     city: {
-        presence: {allowEmpty: false},
+        presence: { allowEmpty: true },
         // format: {
         //     pattern:"[a-zA-Z]+",
         //     // flags: "i",
@@ -104,7 +104,7 @@ let constraints = {
         // }
     },
     state: {
-        presence: {allowEmpty: false},
+        presence: { allowEmpty: true },
         // format: {
         //     pattern:"[a-zA-Z]+",
         //     // flags: "i",
@@ -121,7 +121,7 @@ export default function validate(fieldName, value) {
     let formFields = {};
     formFields[fieldName] = constraints[fieldName];
 
-    let result = validation(formValues, formFields, {fullMessages: false});
+    let result = validation(formValues, formFields, { fullMessages: false });
 
     if (result) {
         return result[fieldName][0];

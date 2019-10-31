@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BASE_URL } from "./config";
+import { BASE_URL_EMPLOYEE } from "./config";
 
 const instance = axios.create({
-    baseURI: BASE_URL,
+    baseURI: BASE_URL_EMPLOYEE,
     timeout: 10000,
     headers: {
         "Content-Type": "application/json",

@@ -1,4 +1,4 @@
-import {call, put, takeLatest} from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 
 import {
     FETCH_EMPLOYEES_WATCHER,
@@ -18,31 +18,57 @@ import {
     setStates, setCity, setStatesError, setCityError, showToastMessage
 } from "../actions";
 import axios from "../../utils/axios";
-import {BASE_URL_TICKETS} from "../../utils/config";
+import { BASE_URL_EMPLOYEE } from "../../utils/config";
+import { BASE_URL_TICKETS, BASE_URL_GENERIC } from "../../utils/config";
 
+// function fetchEmployeesApi(data) {
+//     return axios.request({
+//         method: "get",
+//         url: `${BASE_URL_EMPLOYEE}users/user/getAll`,
+//     });
+//     // console.log("value of data in fetchEMPApi", data)
+//     // console.log("empreq ::::", axios.request({
+//     //     method: 'GET',
+//     //     url: `${BASE_URL_EMPLOYEE}users/user/getAll`,
+//     //     // url: `${BASE_URL_EMPLOYEE}Employee/user/search?searchParam=${data.searchParam === undefined ? '' : data.searchParam}`,
+//     //     // url: `${BASE_URL_EMPLOYEE}users/user/firstname/firstname?firstname=${data.firstname === undefined ? data.firstname : ''}`,
+//     // }));
+//     // return axios.request({
+//     //     method: "get",
+//     //     // url: `${BASE_URL_EMPLOYEE}users/user/firstname/firstname?firstname=${data.firstname === undefined ? data.firstname : ''}`,
+//     //     url: `${BASE_URL_EMPLOYEE}Employee/user/search?searchParam=${data.searchParam === undefined ? '' : data.searchParam}`,
+//     // });
+// }
 function fetchEmployeesApi(data) {
-    console.log("value of data:::in fetchEMP::",data)
-    console.log("empreq ::::",   axios.request({
-        method: "get",
-        url: `${BASE_URL_TICKETS}Employee/user/search?searchParam=${data.searchParam===undefined?data.searchParam:''}`,
-    }))
+    // console.log("value of data:::in fetchEMP::", data)
+    // console.log("empreq ::::", axios.request({
+    //     method: "get",
+    //     url: `${BASE_URL_EMPLOYEE}users/user/firstname?firstname=${data.firstname === undefined ? data.firstname : ''}`,
+    // }))
+    // // http://134.209.147.111:8095/users/user/firstname?firstname=Swathi
+    // return axios.request({
+    //     method: "get",
+    //     url: `${BASE_URL_EMPLOYEE}users/user/firstname?firstname=${data.firstname === undefined ? '' : data.firstname}`,
+    // });
+    // http://134.209.147.111:8095/users/user/firstname?firstname=Swathi
     return axios.request({
         method: "get",
-        url: `${BASE_URL_TICKETS}Employee/user/search?searchParam=${data.searchParam===undefined?'':data.searchParam}`,
+        url: `${BASE_URL_EMPLOYEE}users/user/getAll`
     });
- }
- 
+}
+
 function fetchStateApi(data) {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_TICKETS}/Employee/utils/getstates`,
+        url: `${BASE_URL_GENERIC}general/states/find`,
     });
 }
 
 function fetchCityApi(data) {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_TICKETS}/Employee/utils/${data.state_id}/getcity`,
+        // http://localhost:8098/general/city/findAll?stateCode=AD
+        url: `${BASE_URL_GENERIC}general/city/findAll?stateCode=${data.stateCode}`,
     });
 }//*fetch All CityApi* */
 function fetchAllCityApi(data) {
@@ -53,9 +79,9 @@ function fetchAllCityApi(data) {
 }
 
 function* fetchAllCityActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
     try {
-        let {data} = yield call(fetchAllCityApi, payload);
+        let { data } = yield call(fetchAllCityApi, payload);
         yield put(setCity(data));
         if (resolve) resolve();
     } catch (e) {
@@ -68,14 +94,15 @@ export function* fetchAllCityActionWatcher() {
 }
 
 //**End */
+
 function* fetchEmployeesActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
 
     try {
         yield put(setPageLoaderStart());
-        let {data} = yield call(fetchEmployeesApi, payload);
+        let { data } = yield call(fetchEmployeesApi, payload);
         yield put(setPageLoaderFinish());
-        yield put(setEmployees(data));
+        yield put(setEmployees(data.content));
         if (resolve) resolve();
     } catch (e) {
         yield put(setEmployeesError(e));
@@ -84,10 +111,10 @@ function* fetchEmployeesActionEffect(action) {
 }
 
 function* fetchStateActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
 
     try {
-        let {data} = yield call(fetchStateApi, payload);
+        let { data } = yield call(fetchStateApi, payload);
         yield put(setStates(data));
         if (resolve) resolve();
     } catch (e) {
@@ -97,10 +124,10 @@ function* fetchStateActionEffect(action) {
 }
 
 function* fetchCityActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
 
     try {
-        let {data} = yield call(fetchCityApi, payload);
+        let { data } = yield call(fetchCityApi, payload);
         yield put(setCity(data));
         if (resolve) resolve();
     } catch (e) {
@@ -121,24 +148,57 @@ export function* fetchCityActionWatcher() {
     yield takeLatest(FETCH_CITY_WATCHER, fetchCityActionEffect);
 }
 
+// function fetchEmployeeByIdApi(data) {
+//     return axios.request({
+//         method: "get",
+//         url: `${BASE_URL_EMPLOYEE}users/user/userId?userId=${data.userId}`
+//     });
+// }
+
+// function* fetchEmployeeByIdActionEffect(action) {
+//     let { payload, resolve, reject } = action;
+
+//     try {
+//         yield put(setPageLoaderStart());
+//         let { data } = yield call(fetchEmployeeByIdApi, payload);
+//         console.log("employee data by id:::::::" + data.userId);
+//         yield put(setPageLoaderFinish());
+//         const employee = {
+//             firstName: data.firstName,
+//             middleName: data.middleName,
+//             lastName: data.lastName,
+//         };
+//         yield put(setEmployeeForm(data));
+//         yield put(setEmployee(data));
+//         if (resolve) resolve();
+//     } catch (e) {
+//         yield put(setEmployeesError(e));
+//         if (reject) reject(e);
+//     }
+// }
+
+// export function* fetchEmployeeByIdActionWatcher() {
+//     yield takeLatest(FETCH_EMPLOYEE_BY_ID_WATCHER, fetchEmployeeByIdActionEffect);
+// }
 function fetchEmployeeByIdApi(data) {
     return axios.request({
-        method: "get",
-        url: `${BASE_URL_TICKETS}Employee/user/` + data,
+        method: "GET",
+        // url: `${BASE_URL_EMPLOYEE}users/user/userId?userId=${data.userId}`,
+        url: `${BASE_URL_EMPLOYEE}users/user/userId?userId=` + data,
     });
 }
 
 function* fetchEmployeeByIdActionEffect(action) {
-    let {payload, resolve, reject} = action;
-
+    let { payload, resolve, reject } = action;
     try {
         yield put(setPageLoaderStart());
-        let {data} = yield call(fetchEmployeeByIdApi, payload);
+        let { data } = yield call(fetchEmployeeByIdApi, payload);
         yield put(setPageLoaderFinish());
         const employee = {
-            firstName: data.employeePersonalDetails.empFirstName,
-            middleName: data.employeePersonalDetails.empMiddleName,
-            lastName: data.employeePersonalDetails.empLastName,
+            firstName: data.firstName,
+            middleName: data.middleName,
+            lastName: data.lastName,
+            age: data.age,
         };
         yield put(setEmployeeForm(employee));
         yield put(setEmployee(data));
@@ -153,45 +213,63 @@ export function* fetchEmployeeByIdActionWatcher() {
     yield takeLatest(FETCH_EMPLOYEE_BY_ID_WATCHER, fetchEmployeeByIdActionEffect);
 }
 
-
 function createEmployeesApi(data) {
-
     return axios.request({
-        method: "post",
-        url: `${BASE_URL_TICKETS}Employee/user/create`,
-        data
+        method: 'post',
+        url: `${BASE_URL_EMPLOYEE}users/user/add`,
+        data: data,
+    }).then(function (response) {
+        console.log(response);
+    }).catch(function (error) {
+        console.log(error);
     });
 }
-async function fireBaseEmployeeCreate(data)
-{
-    var userId=null
-    await firebase.auth().createUserWithEmailAndPassword(data.employeePersonalDetails.empEmailAddress, data.employeePersonalDetails.empPhoneNumber).then(function(){     
-        userId=firebase.auth().currentUser.uid;
-        console.log(":fireBaseEmployeeCreate:id",userId)
-    }).catch(function(error) {
-        console.log(error.message)
-    });   
-}
+// async function fireBaseEmployeeCreate(data) {
+//     var userId = null
+//     await firebase.auth().createUserWithEmailAndPassword(data.employeePersonalDetails.empEmailAddress, data.employeePersonalDetails.empPhoneNumber).then(function () {
+//         userId = firebase.auth().currentUser.uid;
+//         console.log(":fireBaseEmployeeCreate:id", userId)
+//     }).catch(function (error) {
+//         console.log(error.message)
+//     });
+// }
 
 function* createEmployeesActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
 
     try {
         yield put(setPageLoaderStart());
-        yield call( fireBaseEmployeeCreate, payload);
-        Object.assign(payload.employeePersonalDetails,{"empFirebaseToken":firebase.auth().currentUser.uid})
-        console.log(firebase.auth().currentUser.uid);
-        if(firebase.auth().currentUser.uid){
-            yield call(createEmployeesApi, payload);
-        }
-        yield put(setPageLoaderFinish());
+        yield call(createEmployeesApi, payload);
         if (resolve) resolve();
-        yield put(showToastMessage({message: 'Employee created successfully', type: 'success'}));
+        yield put(showToastMessage({ message: 'Employee created successfully', type: 'success' }));
     } catch (e) {
         if (reject) reject(e);
-        yield put(showToastMessage({message: 'Internal error, Try again', type: 'error'}));
+        yield put(showToastMessage({ message: 'Internal error, Try again', type: 'error' }));
+    } finally {
+        yield put(setPageLoaderFinish());
     }
 }
+
+// function* createEmployeesActionEffect(action) {
+//     let { payload, resolve, reject } = action;
+
+//     try {
+//         yield call(createEmployeesApi, payload);
+//         yield put(setPageLoaderStart());
+//         yield call(fireBaseEmployeeCreate, payload);
+//         Object.assign(payload.employeePersonalDetails, { "empFirebaseToken": firebase.auth().currentUser.uid })
+//         console.log(firebase.auth().currentUser.uid);
+//         if (firebase.auth().currentUser.uid) {
+//             yield call(createEmployeesApi, payload);
+//         }
+//         yield put(setPageLoaderFinish());
+//         if (resolve) resolve();
+//         yield put(showToastMessage({ message: 'Employee created successfully', type: 'success' }));
+//     } catch (e) {
+//         if (reject) reject(e);
+//         yield put(showToastMessage({ message: 'Internal error, Try again', type: 'error' }));
+//     }
+// }
 
 export function* createEmployeesActionWatcher() {
     yield takeLatest(CREATE_EMPLOYEES_WATCHER, createEmployeesActionEffect);
@@ -205,24 +283,24 @@ export function* updateEmployeesActionWatcher() {
 function updateEmployeesApi(data) {
 
     return axios.request({
-        method: "put",
-        url: `${BASE_URL_TICKETS}Employee/user/update`,
+        method: "post",
+        url: `${BASE_URL_EMPLOYEE}users/user/update`,
         data
     });
 }
 
 function* updateEmployeesActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
 
     try {
         yield put(setPageLoaderStart());
         yield call(updateEmployeesApi, payload);
         yield put(setPageLoaderFinish());
         if (resolve) resolve();
-        yield put(showToastMessage({message: 'Employee updated successfully', type: 'success'}));
+        yield put(showToastMessage({ message: 'Employee updated successfully', type: 'success' }));
     } catch (e) {
         if (reject) reject(e);
-        yield put(showToastMessage({message: 'Internal error, Try again', type: 'error'}));
+        yield put(showToastMessage({ message: 'Internal error, Try again', type: 'error' }));
     }
 }
 
@@ -236,7 +314,7 @@ function deleteEmployeesApi(data) {
 }
 
 function* deleteEmployeesActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
 
     try {
         yield put(setPageLoaderStart());
@@ -262,11 +340,11 @@ function imageUploadApi(data) {
 }
 
 function* imageUploadActionEffect(action) {
-    let {payload, resolve, reject} = action;
+    let { payload, resolve, reject } = action;
 
     try {
         yield put(setPageLoaderStart());
-        let {data} = yield call(imageUploadApi, payload);
+        let { data } = yield call(imageUploadApi, payload);
         yield put(setPageLoaderFinish());
         if (resolve) resolve(data);
     } catch (e) {

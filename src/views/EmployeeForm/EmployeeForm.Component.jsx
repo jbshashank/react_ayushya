@@ -1,19 +1,19 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import {MuiPickersUtilsProvider} from 'material-ui-pickers';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';
 import validate from "../../utils/validate";
-
+import axios from "../../utils/axios";
 import FormBasic from "./FormBasic";
 import FormEducation from "./FormEducation";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import {BASE_URL, FILE_URL} from "../../utils/config";
+import { BASE_URL_EMPLOYEE, FILE_URL } from "../../utils/config";
 
 class EmployeeForm extends Component {
     constructor(props) {
@@ -23,79 +23,81 @@ class EmployeeForm extends Component {
             firstName: '',
             middleName: '',
             lastName: '',
-            pob: '',
             aboutMe: '',
-            dob: moment.now(),
-            doj: moment.now(),
-            location: '',
-            photo: [],
+            dateOfBirth: moment.now(),
+            dateOfJoining: moment.now(),
+            email: '',
+            phoneNumber: '',
+            // photo: [],
             skills: '',
-            expertiesLevel: '',
+            expertiseLevel: '',
             role: '',
-            fingerprint: '',
+            // fingerprint: '',
             salary: '',
             age: '',
-            address: '',
+            gender: '',
+            addr: '',
             city: '',
             state: '',
             pinCode: '',
-            educations: [],
-            gender: '',
-            id: '',
+            userId: '',
+            // educations: [],
             errorSalary: '',
             errorAge: '',
             formTitle: 'Add Employee',
-            imagePath: '',
-            uploadDir: '',
+            // imagePath: '',
+            // uploadDir: '',
             errorFirstName: '',
             errorLastName: '',
-            errorempPhoneNumber:'',
-            errorEmail:'',
-            errorexpertiesLevel:'',
-            errorSkills:'',
-            errorRole:'',
-            errorLocation:'',
+            errorPhoneNumber: '',
+            errorEmail: '',
+            errorexpertiesLevel: '',
+            errorSkills: '',
+            errorRole: '',
+            // errorLocation: '',
             isDisabledNext: true,
-            errorempMiddleName:'',
-            errorCity:'',
-            errorState:''
+            errorempMiddleName: '',
+            errorCity: '',
+            errorState: ''
         };
-        this.steps = [{title: "Basic Details"}, {title: "Educational Details"}];
+        this.steps = [{ title: "Basic Details" }, { title: "Educational Details" }];
     }
 
     componentDidMount() {
-        const id = this.props.match.params.id;
-        if (id) {
-            this.setState({id});
+        const userId = this.props.match.params.id;
+        // // const particularword = url.indexOf('employeesedit');
+        // const userId = window.location.pathname.split('/').pop().split("employeesedit").shift();
+        if (userId) {
+            this.setState({ userId });
+            console.log("inside userid");
             new Promise((resolve, reject) => {
-                this.props.fetchEmployeeByIdWatcher(id, () => {
-                    console.log("employee in resolve", this.props.employee);
+                this.props.fetchEmployeeByIdWatcher(userId, () => {
+                    console.log("inside fetchEmployeeByIdWatcher" + this.props.employee);
                     this.setState({
                         formTitle: 'Edit Employee',
-                        firstName: this.props.employee.employeePersonalDetails.empFirstName,
-                        middleName: this.props.employee.employeePersonalDetails.empMiddleName,
-                        lastName: this.props.employee.employeePersonalDetails.empLastName,
-                        age: this.props.employee.employeePersonalDetails.age,
-                        empEmailAddress: this.props.employee.employeePersonalDetails.empEmailAddress,
-                        empPhoneNumber: this.props.employee.employeePersonalDetails.empPhoneNumber,
-                        pob: this.props.employee.employeePersonalDetails.pob,
-                        aboutMe: this.props.employee.employeePersonalDetails.aboutMe,
-                        id: this.props.employee.id,
-                        educations: this.props.employee.employeeEducationDetails,
-                        doj: this.props.employee.employeePersonalDetails.doj,
-                        dob: this.props.employee.employeePersonalDetails.dob,
-                        location: this.props.employee.employeePersonalDetails.location,
-                        skills: this.props.employee.employeePersonalDetails.skills,
-                        expertiesLevel: this.props.employee.employeePersonalDetails.expertiesLevel,
-                        role: this.props.employee.employeePersonalDetails.role,
-                        salary: this.props.employee.employeePersonalDetails.salary,
-                        address: this.props.employee.employeePersonalDetails.address,
-                        gender: this.props.employee.employeePersonalDetails.gender,
-                        uploadDir: this.props.employee.employeePersonalDetails.uploadDir,
-                        city: this.props.employee.employeePersonalDetails.city,
-                        state: this.props.employee.employeePersonalDetails.state,
-                        pinCode: this.props.employee.employeePersonalDetails.pincode,
-                        imagePath: this.props.employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${this.props.employee.employeePersonalDetails.uploadDir}` : null,
+                        firstName: this.props.employee.firstName,
+                        middleName: this.props.employee.middleName,
+                        lastName: this.props.employee.lastName,
+                        aboutMe: this.props.employee.aboutMe,
+                        age: this.props.employee.age,
+                        email: this.props.employee.email,
+                        phoneNumber: this.props.employee.phoneNumber,
+                        userId: this.props.employee.userId,
+                        // educations: this.props.employee.employeeEducationDetails,
+                        dateOfJoining: this.props.employee.dateOfJoining,
+                        dateOfBirth: this.props.employee.dateOfBirth,
+                        // location: this.props.employee.employeePersonalDetails.location,
+                        skills: this.props.employee.skills,
+                        expertiseLevel: this.props.employee.expertiseLevel,
+                        role: this.props.employee.role,
+                        salary: this.props.employee.salary,
+                        addr: this.props.employee.addr,
+                        gender: this.props.employee.gender,
+                        // uploadDir: this.props.employee.employeePersonalDetails.uploadDir,
+                        city: this.props.employee.city,
+                        state: this.props.employee.state,
+                        pinCode: this.props.employee.pinCode,
+                        // imagePath: this.props.employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${this.props.employee.employeePersonalDetails.uploadDir}` : null,
                     });
                     resolve();
                 }, () => {
@@ -107,82 +109,88 @@ class EmployeeForm extends Component {
     }
 
     validateForm = (a) => {
-        let educationerror=''
+        // let educationerror = ''
         let {
             errorSalary, errorPinCode, errorAge, errorFirstName, errorLastName,
-            firstName, lastName, age, salary, skills,pinCode,empPhoneNumber,errorempPhoneNumber,
-            empEmailAddress, expertiesLevel,errorEmail,errorexpertiesLevel,
-            errorSkills,educations,activeStep, errorRole, errorLocation, role, location,errorempMiddleName,middleName, city, state, errorCity, errorState
+            firstName, lastName, age, salary, skills, pinCode, phoneNumber, errorPhoneNumber,
+            email, expertiseLevel, errorEmail, errorexpertiesLevel,
+            errorSkills,
+            // educations,
+            activeStep, errorRole, role, errorempMiddleName, middleName, city, state, errorCity, errorState
         } = this.state;
-        if(a==="dob")
-        {
+        if (a === "dateOfBirth") {
             errorAge = validate("age", age);
         }
-        else{
-        errorPinCode = validate("pinCode", pinCode);
-        errorSalary = validate("salary", salary);   
-        errorAge = validate("age", age);
-        errorFirstName = validate("firstName", firstName);
-        errorLastName = validate("lastName", lastName);
-        errorempPhoneNumber=validate("empPhoneNumber",empPhoneNumber);
-        errorEmail = validate("empEmailAddress",empEmailAddress)
-        errorexpertiesLevel=validate("expertiesLevel",expertiesLevel)
-        errorSkills=validate("skills",skills)
-        errorRole=validate("role",role)
-        errorLocation=validate("location",location)
-        errorempMiddleName=validate("middleName",middleName)
-        errorCity=validate("city",city)
-        errorState=validate("state",state)
-        educations.forEach(function(item){
-             if(item.education===""&&activeStep!==0)educationerror="educationerror"
-          });
+        else {
+            errorPinCode = validate("pinCode", pinCode);
+            errorSalary = validate("salary", salary
+            );
+            errorAge = validate("age", age);
+            errorFirstName = validate("firstName", firstName);
+            errorLastName = validate("lastName", lastName);
+            errorPhoneNumber = validate("phoneNumber", phoneNumber);
+            errorEmail = validate("email", email)
+            errorexpertiesLevel = validate("expertiseLevel", expertiseLevel)
+            errorSkills = validate("skills", skills)
+            errorRole = validate("role", role)
+            // errorLocation = validate("location", location)
+            errorempMiddleName = validate("middleName", middleName)
+            errorCity = validate("city", city)
+            errorState = validate("state", state)
+            // educations.forEach(function (item) {
+            //     if (item.education === "" && activeStep !== 0) educationerror = "educationerror"
+            // });
         }
-        
 
-        this.setState({errorPinCode, errorSalary, errorAge, errorFirstName, errorLastName, errorempPhoneNumber, errorEmail,errorexpertiesLevel,
-            errorSkills, errorRole, errorLocation,errorempMiddleName, errorState, errorCity
+
+        this.setState({
+            errorPinCode, errorSalary, errorAge, errorFirstName, errorLastName, errorPhoneNumber, errorEmail, errorexpertiesLevel,
+            errorSkills, errorRole, errorempMiddleName, errorState, errorCity
         });
 
         return !(errorLastName || errorFirstName ||
-            errorAge || errorSalary || errorPinCode || errorEmail || errorempPhoneNumber||errorexpertiesLevel||
-            errorSkills||educationerror || errorLocation || errorRole||errorempMiddleName || errorState || errorCity)
+            errorAge || errorSalary || errorPinCode || errorEmail || errorPhoneNumber || errorexpertiesLevel ||
+            errorSkills
+            // || educationerror
+            || errorRole || errorempMiddleName || errorState || errorCity)
     };
 
-    addEducation = () => {
-        const education = {yearOfCompletion: new Date(), education: ''};
-        this.setState({educations: this.state.educations.concat(education)});
-    };
+    // addEducation = () => {
+    //     const education = { yearOfCompletion: new Date(), education: '' };
+    //     this.setState({ educations: this.state.educations.concat(education) });
+    // };
 
-    removeEducation = (index) => {
-        const {educations} = this.state;
-        educations.splice(index, 1);
-        this.setState({educations});
-    };
+    // removeEducation = (index) => {
+    //     const { educations } = this.state;
+    //     educations.splice(index, 1);
+    //     this.setState({ educations });
+    // };
 
-    handleChangeEducation = (e, index) => {
-        console.log("Date change ", e);
-        const {educations} = this.state;
-        const education = {...educations[index]};
-        education[e.target.name] = e.target.value;
-        educations[index] = education;
-        this.setState({educations})
-    };
+    // handleChangeEducation = (e, index) => {
+    //     console.log("Date change ", e);
+    //     const { educations } = this.state;
+    //     const education = { ...educations[index] };
+    //     education[e.target.name] = e.target.value;
+    //     educations[index] = education;
+    //     this.setState({ educations })
+    // };
 
-    handleChangeEducationDate = (name, value, index) => {
-        const {educations} = this.state;
-        const education = {...educations[index]};
-        education[name] = value;
-        educations[index] = education;
-        this.setState({educations})
-    };
+    // handleChangeEducationDate = (name, value, index) => {
+    //     const { educations } = this.state;
+    //     const education = { ...educations[index] };
+    //     education[name] = value;
+    //     educations[index] = education;
+    //     this.setState({ educations })
+    // };
 
     handleChange = (event) => {
-        const {value, name} = event.target;
-        let {errorSalary, errorPinCode, errorAge, errorFirstName, errorLastName,errorempPhoneNumber,
-            errorEmail,errorexpertiesLevel,errorSkills, errorRole, errorLocation,errorempMiddleName,
-            errorCity, errorState} = this.state;
+        const { value, name } = event.target;
+        let { errorSalary, errorPinCode, errorAge, errorFirstName, errorLastName, errorPhoneNumber,
+            errorEmail, errorexpertiesLevel, errorSkills, errorRole, errorempMiddleName,
+            errorCity, errorState } = this.state;
 
         switch (name) {
+
             case 'pinCode':
                 errorPinCode = validate("pinCode", value);
                 this.setState({
@@ -219,20 +227,20 @@ class EmployeeForm extends Component {
                     errorLastName
                 });
                 break;
-            case "empPhoneNumber":
-                errorempPhoneNumber = validate("empPhoneNumber", value);
+            case "phoneNumber":
+                errorPhoneNumber = validate("phoneNumber", value);
                 this.setState({
-                    errorempPhoneNumber
+                    errorPhoneNumber
                 });
                 break;
-            case "empEmailAddress":
-                errorEmail = validate("empEmailAddress", value);
+            case "email":
+                errorEmail = validate("email", value);
                 this.setState({
                     errorEmail
                 });
                 break;
-            case "expertiesLevel":
-                errorexpertiesLevel = validate("expertiesLevel", value);
+            case "expertiseLevel":
+                errorexpertiesLevel = validate("expertiseLevel", value);
                 this.setState({
                     errorexpertiesLevel
                 });
@@ -242,31 +250,31 @@ class EmployeeForm extends Component {
                 this.setState({
                     errorSkills
                 });
-                break;  
+                break;
             case "role":
                 errorRole = validate("role", value);
                 this.setState({
                     errorRole
                 });
-                break;  
-            case "location":
-                errorLocation = validate("location", value);
-                this.setState({
-                    errorLocation
-                });
-            break;  
+                break;
+            // case "location":
+            //     errorLocation = validate("location", value);
+            //     this.setState({
+            //         errorLocation
+            //     });
+            //     break;
             case "city":
                 errorCity = validate("city", value);
                 this.setState({
                     errorCity
                 });
-            break;  
+                break;
             case "state":
                 errorState = validate("state", value);
                 this.setState({
                     errorState
                 });
-            break;                
+                break;
         }
         this.setState({
             [event.target.name]: event.target.value
@@ -274,41 +282,40 @@ class EmployeeForm extends Component {
     };
 
     handleDateChange = (name, value) => {
-        console.log("value of name:: value",name,value.toISOString())
-        if(name==="dob" ||name==="job")
-        {
-            this.setState({[name]: value.toISOString()});   
+        console.log("value of name:: value", name, value.toISOString())
+        if (name === "dateOfBirth" || name === "job") {
+            this.setState({ [name]: value.toISOString() });
         }
-        else{
-            this.setState({[name]: value});
+        else {
+            this.setState({ [name]: value });
         }
-        if(name === "dob"){
+        if (name === "dateOfBirth") {
             var selectedTime = moment(new Date(value));
             var currentTime = moment(new Date());
             const diffdata = moment.duration(currentTime.diff(selectedTime));
             console.log(diffdata);
             this.setState({
-                age:Math.round(diffdata.asYears())
-            },() => {
-                this.validateForm("dob");
-             });
-            
-        }       
+                age: Math.round(diffdata.asYears())
+            }, () => {
+                this.validateForm("dateOfBirth");
+            });
+
+        }
     };
 
     handleCityChange = event => {
-        this.setState({city: event.target.value});
+        this.setState({ city: event.target.value });
     };
 
     handleStateChange = event => {
-        this.setState({state: event.target.value});
-        this.props.fetchCityWatcher({state_id: event.target.value});
+        this.setState({ state: event.target.value });
+        this.props.fetchCityWatcher({ state_code: event.target.value });
     };
 
     handleNext = () => {
         if (!this.validateForm()) return;
 
-        const {activeStep} = this.state;
+        const { activeStep } = this.state;
         if (activeStep === this.steps.length - 1) return;
         this.setState({
             activeStep: activeStep + 1
@@ -341,81 +348,69 @@ class EmployeeForm extends Component {
     };
 
     handleSubmit = () => {
+        // console.log(firstName.value);
         if (!this.validateForm()) return;
         const {
             firstName,
             middleName,
             lastName,
             aboutMe,
-            educations,
-            pob,
+            // educations,
             age,
-            dob,
-            doj,
-            location,
-            photo,
+            dateOfBirth,
+            dateOfJoining,
             skills,
-            expertiesLevel,
+            expertiseLevel,
             role,
-            fingerprint,
             salary,
-            address,
+            addr,
             gender,
-            id,
+            userId,
             city,
             state,
             pinCode,
-            uploadDir,
-            empEmailAddress,
-            empPhoneNumber,
+            email,
+            phoneNumber,
         } = this.state;
         const payload = {
-            employeePersonalDetails: {
-                empFirstName: firstName,
-                empMiddleName: middleName,
-                empLastName: lastName,
-                aboutMe: aboutMe,
-                age : age,
-                doj: doj,
-                dob: dob,
-                location: location,
-                skills: skills,
-                expertiesLevel: expertiesLevel,
-                role: role,
-                salary: salary,
-                address: address,
-                gender: gender,
-                city: city,
-                state: state,
-                pincode: pinCode,
-                uploadDir: uploadDir,
-                empPhoneNumber:empPhoneNumber,
-                empEmailAddress:empEmailAddress,
-            },
-            employeeEducationDetails: educations
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName,
+            aboutMe: aboutMe,
+            age: age,
+            dateOfBirth: dateOfBirth,
+            dateOfJoining: dateOfJoining,
+            skills: skills,
+            expertiseLevel: expertiseLevel,
+            role: role,
+            salary: salary,
+            addr: addr,
+            gender: gender,
+            city: city,
+            state: state,
+            pinCode: pinCode,
+            // uploadDir: uploadDir,
+            phoneNumber: phoneNumber,
+            email: email,
+            // employeeEducationDetails: educations
         };
 
-        if (id) {
-            payload.id = id;
-             new Promise((resolve, reject) => {
-                 this.props.updateEmployeesWatcher(payload,()=>{this.props.history.push("/employees");
-                resolve();
-            });
-        })
-    } 
-        // else {
-        //     this.props.createEmployeesWatcher(payload);
-        // }
-        // setTimeout(() => {
-        //     this.props.history.push("/employees");
-        // }, 500);
-        else{
+        if (userId) {
+            payload.userId = userId;
             new Promise((resolve, reject) => {
-                this.props.createEmployeesWatcher(payload,()=>{this.props.history.push("/employees");
-               resolve();
-           });
-       })
-
+                this.props.updateEmployeesWatcher(payload, () => {
+                    this.props.history.push('/employees');
+                    resolve();
+                });
+            })
+        }
+        else {
+            new Promise((resolve, reject) => {
+                this.props.createEmployeesWatcher(payload, () => {
+                    this.props.history.push('/employees');
+                    resolve();
+                });
+            });
         }
     };
 
@@ -426,18 +421,18 @@ class EmployeeForm extends Component {
             middleName,
             lastName,
             aboutMe,
-            educations,
-            dob,
-            doj,
-            location,
-            photo,
+            // educations,
+            dateOfBirth,
+            dateOfJoining,
+            // location,
+            // photo,
             skills,
-            expertiesLevel,
+            expertiseLevel,
             role,
-            fingerprint,
+            // fingerprint,
             salary,
             age,
-            address,
+            addr,
             city,
             state,
             pinCode,
@@ -445,17 +440,17 @@ class EmployeeForm extends Component {
             errorSalary,
             errorAge,
             errorPinCode,
-            imagePath,
+            // imagePath,
             errorFirstName,
             errorLastName,
-            empPhoneNumber,
-            empEmailAddress,
-            errorempPhoneNumber,
+            phoneNumber,
+            email,
+            errorPhoneNumber,
             errorEmail,
             errorexpertiesLevel,
             errorSkills,
             errorRole,
-            errorLocation,
+            // errorLocation,
             errorempMiddleName,
             errorCity,
             errorState
@@ -465,28 +460,27 @@ class EmployeeForm extends Component {
             case 0:
                 return <MuiPickersUtilsProvider utils={MomentUtils}>
                     <FormBasic formTitle={formTitle} firstName={firstName} middleName={middleName} errorempMiddleName={errorempMiddleName} lastName={lastName}
-                               dob={dob} doj={doj} location={location} aboutMe={aboutMe} imagePath={imagePath}
-                               photo={photo} skills={skills} errorSkills={errorSkills} errorRole={errorRole} errorLocation={errorLocation} expertiesLevel={expertiesLevel} role={role}
-                               empPhoneNumber={empPhoneNumber} errorEmail={errorEmail} errorexpertiesLevel={errorexpertiesLevel} errorempPhoneNumber={errorempPhoneNumber} empEmailAddress={empEmailAddress}
-                               fingerprint={fingerprint} salary={salary} address={address} gender={gender} age={age}
-                               errorFirstName={errorFirstName} errorLastName={errorLastName}
-                               errorAge={errorAge} errorSalary={errorSalary} errorPinCode={errorPinCode}
-                               handleChange={this.handleChange} handleDateChange={this.handleDateChange}
-                               handleCityChange={this.handleCityChange} handleStateChange={this.handleStateChange}
-                               handleImageChange={this.handleImageChange} city={city} errorCity={errorCity} errorState={errorState} state={state} pinCode={pinCode}
-                               match={this.props.match}/>
+                        dateOfBirth={dateOfBirth} dateOfJoining={dateOfJoining} aboutMe={aboutMe} skills={skills} errorSkills={errorSkills} errorRole={errorRole} expertiseLevel={expertiseLevel} role={role}
+                        phoneNumber={phoneNumber} errorEmail={errorEmail} errorexpertiesLevel={errorexpertiesLevel} errorPhoneNumber={errorPhoneNumber} email={email}
+                        salary={salary} addr={addr} gender={gender} age={age}
+                        errorFirstName={errorFirstName} errorLastName={errorLastName}
+                        errorAge={errorAge} errorSalary={errorSalary} errorPinCode={errorPinCode}
+                        handleChange={this.handleChange} handleDateChange={this.handleDateChange}
+                        handleCityChange={this.handleCityChange} handleStateChange={this.handleStateChange}
+                        city={city} errorCity={errorCity} errorState={errorState} state={state} pinCode={pinCode}
+                        match={this.props.match} />
                 </MuiPickersUtilsProvider>;
-            case 1:
-                return <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <FormEducation formTitle={formTitle} educations={educations} addEducation={this.addEducation}
-                                   firstName={firstName} middleName={middleName} lastName={lastName}
-                                   aboutMe={aboutMe} imagePath={imagePath} role={role}
-                                   removeEducation={this.removeEducation}
-                                   handleChangeEducation={this.handleChangeEducation}
-                                   handleChangeEducationDate={this.handleChangeEducationDate}/>
-                </MuiPickersUtilsProvider>;
-            default:
-                return null;
+            // case 1:
+            //     return <MuiPickersUtilsProvider utils={MomentUtils}>
+            //         <FormEducation formTitle={formTitle} educations={educations} addEducation={this.addEducation}
+            //             firstName={firstName} middleName={middleName} lastName={lastName}
+            //             aboutMe={aboutMe} role={role}
+            //             removeEducation={this.removeEducation}
+            //             handleChangeEducation={this.handleChangeEducation}
+            //             handleChangeEducationDate={this.handleChangeEducationDate} />
+            //     </MuiPickersUtilsProvider>;
+            // default:
+            //     return null;
         }
     };
 
@@ -499,7 +493,7 @@ class EmployeeForm extends Component {
     };
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
         const {
             activeStep
         } = this.state;

@@ -14,6 +14,8 @@ import renderSelectField from "../../components/reduxFormComponents/renderSelect
 import GridItem from "../../components/Grid/GridItem.jsx";
 import GridContainer from "../../components/Grid/GridContainer.jsx";
 import DetailsFieldArray from "./detailsFieldArray";
+import axios from "../../utils/axios";
+import { BASE_URL, BASE_URL_TICKETS, BASE_URL_CLIENTS } from "../../utils/config";
 // import validate from "../../utils/validate";
 import {
   required,
@@ -32,13 +34,13 @@ class BusinessClientsForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.match.params.id) {
-      this.props.fetchBusinessClientByIdWatcher(this.props.match.params.id);      
-    }
+    // if (this.props.match.params.id) {
+    //   this.props.fetchBusinessClientByIdWatcher(this.props.match.params.id);
+    // }
     this.props.fetchStateWatcher();
     this.props.fetchAllCityWatcher();
     console.log("value of this props..", this.props.match.params.id)
-    // fetchBusinessClientByIdWatcher
+
 
   }
   handleStateChange(e) {
@@ -46,27 +48,49 @@ class BusinessClientsForm extends Component {
     const StateId = unProcesedKey.split("STATE_")[
       unProcesedKey.split("STATE_").length - 1
     ];
-    this.props.fetchCityWatcher({ state_id: StateId });
+    this.props.fetchCityWatcher({ stateCode: StateId });
   }
 
-  submitForm = values => {
-    console.log("submit form", values);
-    const id = this.props.match.params.id;
-    if (id) {
+  submitForm = (values) => {
+    // console.log("submit form", values);
+    const data = {
+      clientName: values.clientName,
+      clientAddress: values.clientAddress,
+      country: values.country,
+      state: values.state,
+      city: values.city,
+      pinCode: values.pinCode,
+      businessClientContactDetails: {
+        contactName: values.contactName,
+        contactEmail: values.contactEmail,
+        contactMobile: values.contactMobile,
+        contactLandline: values.contactLandline,
+        contactDesignation: values.contactDesignation
+      }
+
+    };
+    const clientId = this.props.match.params.id;
+    if (clientId) {
       new Promise((resolve, reject) => {
-        this.props.updateBusinessClientWatcher({ ...values, id }, () => {
-          this.props.history.push("/businessclientlist");
+        this.props.updateBusinessClientWatcher({ ...data, clientId }, () => {
+          this.props.history.push("/clients/create");
           resolve();
         });
       });
     } else {
       new Promise((resolve, reject) => {
-        this.props.createBusinessClientWatcher(values, () => {
-          this.props.history.push("/businessclientlist");
+        this.props.createBusinessClientWatcher(data, () => {
+          this.props.history.push('/clients/create');
           resolve();
         });
       });
     }
+
+    // axios.request({
+    //   method: 'post',
+    //   url: `http://localhost:8098/clients/create`,
+    //   data: data
+    // });
   };
 
   render() {
@@ -148,7 +172,7 @@ class BusinessClientsForm extends Component {
                         <InputLabel htmlFor="age-simple">Country*</InputLabel>
                         <Field
                           component={renderSelectField}
-                          name="clientCountry"
+                          name="country"
                           id="clientCountry"
                           className={classes.textField}
                           validate={[required]}
@@ -167,18 +191,18 @@ class BusinessClientsForm extends Component {
                         <InputLabel htmlFor="age-simple">State*</InputLabel>
                         <Field
                           component={renderSelectField}
-                          name="clientState"
+                          name="state"
                           id="clientState"
                           className={classes.textField}
                           onChange={e => this.handleStateChange(e)}
-                          validate={[required]}
+                        // validate={[required]}
                         >
                           {states.map(item => {
                             return (
                               <option
                                 className={classes.customOption}
                                 value={item.name}
-                                key={`STATE_${item.id}`}
+                                key={`STATE_${item.stateCode}`}
                               >
                                 {item.name}
                               </option>
@@ -192,10 +216,10 @@ class BusinessClientsForm extends Component {
                         <InputLabel htmlFor="age-simple">City*</InputLabel>
                         <Field
                           component={renderSelectField}
-                          name="clientCity"
+                          name="city"
                           id="clientCity"
                           className={classes.textField}
-                          validate={[required]}
+                        // validate={[required]}
                         >
                           {cities.map(item => {
                             return (
@@ -211,19 +235,19 @@ class BusinessClientsForm extends Component {
                       <FormControl className={classes.formControl}>
                         <Field
                           component={CustomTextField}
-                          name="clientPinCode"
-                          id="clientPinCode"
+                          name="pinCode"
+                          id="pinCode"
                           label="Pin Code*"
                           className={classes.textField}
                           validate={[required, pinCode]}
-                          // onChange={(e) => this.handleStateChange(e)}
+                        // onChange={(e) => this.handleStateChange(e)}
                         />
                       </FormControl>
                     </GridItem>
 
 
                   </GridContainer>
-                  <DetailsFieldArray BusinessClientsId={this.props.match.params.id}/>
+                  <DetailsFieldArray BusinessClientsId={this.props.match.params.id} />
                 </MuiPickersUtilsProvider>
               </CardBody>
 
@@ -247,5 +271,5 @@ class BusinessClientsForm extends Component {
 
 export default reduxForm({
   form: "BusinessClientsForm", // a unique identifier for this form
-  enableReinitialize:true 
+  enableReinitialize: true
 })(BusinessClientsForm);

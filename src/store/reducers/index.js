@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux';
-import {reducer as form} from 'redux-form'
+import { combineReducers } from 'redux';
+import { reducer as form } from 'redux-form'
 
 import employees from './employees';
 import pageLoader from './page_loader';
@@ -8,7 +8,7 @@ import tickets from './tickets';
 import businessclient from './businessclient'
 
 const rootReducer = combineReducers({
-    pageLoader, employees, form, employeeForm, tickets,businessclient
+    pageLoader, employees, form, employeeForm, tickets, businessclient
 });
 
 export default rootReducer;

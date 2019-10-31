@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import {Icon, IconButton} from '@material-ui/core';
+import { Icon, IconButton } from '@material-ui/core';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -9,13 +9,14 @@ import Card from "components/Card/Card.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardMedia from '@material-ui/core/CardMedia';
-
+import { BASE_URL_EMPLOYEE } from "../../utils/config";
 import CardActions from '@material-ui/core/CardActions';
-
+import axios from "../../utils/axios";
 import avatar from "assets/img/faces/marc.jpg";
 // import backgroundimg from "assets/img/Ayushya_Logo.png";
-import {EMPLOYEE_KEY, FILE_URL} from "../../utils/config";
-import {withRouter} from "react-router";
+import { EMPLOYEE_KEY, FILE_URL } from "../../utils/config";
+import { withRouter } from "react-router";
+import { isFirstDayOfMonth } from "date-fns";
 
 const styles = {
     cardCategoryWhite: {
@@ -46,43 +47,46 @@ class EmployeeList extends Component {
         super(props);
         this.state = {
             page: 0,
-            rowsPerPage: 5,
+            rowsPerPage: 5
         }
     }
 
-    removeRow = (id) => {
-        this.props.deleteEmployeesWatcher({id: id});
+    removeRow = (userId) => {
+        this.props.deleteEmployeesWatcher({ userId: userId });
         this.props.fetchEmployeesWatcher();
     };
 
-    handleOnEdit = (id) => {
-        console.log(id);
-        localStorage.setItem(EMPLOYEE_KEY.EDIT_EMPLOYEE, id);
-        this.props.history.push('/employeesedit/' + id);
+    handleOnEdit = (userId) => {
+        console.log(userId);
+        localStorage.setItem(EMPLOYEE_KEY.EDIT_EMPLOYEE, userId);
+        this.props.history.push('/employeesedit/' + userId);
     };
 
+    componentDidMount() {
+    }
+
     render() {
-        const {classes, employee} = this.props;
-        console.log("employee", employee);
+        const { classes, employee, userId } = this.props;
+        // console.log("employee", + employees);
         return (
             <div className="employeeList">
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card profile className="profileCard">
-                            <CardMedia
+                            {/* <CardMedia
                                 className={classes.media}
-                                title="Contemplative Reptile"/>
+                                title="Contemplative Reptile" />
                             <CardAvatar profile className="customCardAvtar">
                                 <a href="#pablo" onClick={e => e.preventDefault()}>
                                     <img src={employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${employee.employeePersonalDetails.uploadDir}` : avatar}
-                                         alt="..."/>
+                                        alt="..." />
                                 </a>
-                            </CardAvatar>
+                            </CardAvatar> */}
                             <CardBody profile className="customCardBody">
-                                <h4 className="customTitle">{employee.employeePersonalDetails.empFirstName} {employee.employeePersonalDetails.empLastName}</h4>
-                                <h5 className="customSubtitle">{employee.employeePersonalDetails.role}</h5>
-                                <h6 className="customSubtitle">{employee.employeePersonalDetails.skills}</h6>
-                                <h6 className="customSubtitle">{employee.employeePersonalDetails.empPhoneNumber}</h6>
+                                <h4 className="customTitle">{employee.firstName} {employee.lastName}</h4>
+                                <h5 className="customSubtitle">{employee.email}</h5>
+                                <h6 className="customSubtitle">{employee.pinCode}</h6>
+                                <h6 className="customSubtitle">{employee.phoneNumber}</h6>
                                 {/* <p className="customAboutme">
                                 {
                                     employee.employeePersonalDetails.aboutMe.length<=50 ? 
@@ -92,7 +96,11 @@ class EmployeeList extends Component {
                                 </p> */}
                             </CardBody>
                             <CardActions>
-                                <IconButton className="editIcon" onClick={() => this.handleOnEdit(`${employee.id}`)}>
+                                <IconButton className="editIcon"
+
+                                    onClick={() => this.handleOnEdit(`${employee.userId}`)}
+                                >
+
                                     <Icon>edit</Icon>
                                 </IconButton>
                                 {/*<IconButton className="editIcon" onClick={() => this.removeRow(`${employee.id}`)}>

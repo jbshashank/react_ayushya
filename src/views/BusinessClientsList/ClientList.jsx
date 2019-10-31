@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import {Icon, IconButton} from '@material-ui/core';
+import { Icon, IconButton } from '@material-ui/core';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -14,8 +14,8 @@ import CardActions from '@material-ui/core/CardActions';
 
 import avatar from "assets/img/faces/marc.jpg";
 import sidebarimg from "assets/img/sidebar-2_0.jpg";
-import {EMPLOYEE_KEY, FILE_URL} from "../../utils/config";
-import {withRouter} from "react-router";
+import { EMPLOYEE_KEY, FILE_URL } from "../../utils/config";
+import { withRouter } from "react-router";
 
 const styles = {
     cardCategoryWhite: {
@@ -38,7 +38,7 @@ const styles = {
         height: 140,
         borderRadius: "6px 6px 0px 0px"
     },
-    
+
 };
 
 class ClientList extends Component {
@@ -63,8 +63,8 @@ class ClientList extends Component {
     // };
 
     render() {
-        const {classes, Client} = this.props;
-        console.log(Client.businessClientContactDetails);    
+        const { classes, Client } = this.props;
+        console.log("client:::" + Client.businessClientContactDetails);
         // const {
         //     contactEmailAddress,
         //     contactMobile,
@@ -86,22 +86,22 @@ class ClientList extends Component {
                             </CardAvatar> */}
                             <CardBody profile className="customCardBody">
                                 <h4 className="customTitle">{Client.clientName}</h4>
-                                <h5 className="customSubtitle">{Client.clientState}</h5>
-                                <h6 className="customSubtitle">{this.props.Client.businessClientContactDetails. contactEmailAddress}</h6>
-                                
+                                <h5 className="customSubtitle">{Client.state}</h5>
+                                <h6 className="customSubtitle">{Client.businessClientContactDetails.contactEmail}</h6>
+
                                 {/* <h6 className="customSubtitle">{employee.employeePersonalDetails.empPhoneNumber}</h6> */}
-                                
-                                {/* <h6 className="customSubtitle">@{employee.employeePersonalDetails.empFirstName}{employee.employeePersonalDetails.empLastName}</h6>
+
+                                { /* <h6 className="customSubtitle">@{employee.employeePersonalDetails.empFirstName}{employee.employeePersonalDetails.empLastName}</h6>
                                 <p className="customAboutme">
                                 {
                                     employee.employeePersonalDetails.aboutMe.length<=50 ? 
                                     employee.employeePersonalDetails.aboutMe : 
                                     employee.employeePersonalDetails.aboutMe.substring(0,50)+"..."
                                 }
-                                </p> */}
+                            </p> */}
                             </CardBody>
                             <CardActions>
-                                <IconButton className="editIcon" onClick={() => this.props.history.push(`businessclients-edit/${Client.id}`)}>
+                                <IconButton className="editIcon" onClick={() => this.props.history.push(`businessclients-edit/${Client.clientId}`)}>
                                     <Icon>edit</Icon>
                                 </IconButton>
                             </CardActions>

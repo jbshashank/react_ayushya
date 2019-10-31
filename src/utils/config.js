@@ -1,6 +1,12 @@
 // export const BASE_URL = "http://13.127.92.65:8080/";
 export const BASE_URL = "https://services-2.finchtech.in/";
 export const BASE_URL_TICKETS = "https://services-1.finchtech.in/";
+export const BASE_URL_COMPLAINTS = "http://134.209.147.111:8091/";
+export const BASE_URL_PRODUCTS = "http://134.209.147.111:8093/";
+export const BASE_URL_EMPLOYEE = "http://134.209.147.111:8095/";
+export const BASE_URL_CLIENTS = "http://134.209.147.111:8098/";
+export const BASE_URL_GENERIC = "http://134.209.147.111:8098/"
+// export const BASE_URL_GENERIC = "http://134.209.147.111:8098/";
 export const FILE_URL = "https://services-1.finchtech.in/data/employeeportal/";
 // export const FILE_URL = "http://localhost:3002/";
 

@@ -39,59 +39,51 @@ import ReactTable from 'react-table';
 
 const columns = [
     {
-        Header: 'jobId',
-        accessor: 'jobId',
+        Header: 'jobCode',
+        accessor: 'jobCode',
     },
     {
-        Header: 'statusId',
-        accessor: 'statusId',
+        Header: 'generatedOn',
+        accessor: 'generatedOn',
     },
     {
-        Header: 'startDate',
-        accessor: 'startDate',
-    },
-    // {
-    //     Header: 'Open Date',
-    //     accessor: 'visit_time',
-    // },
-    {
-        Header: 'actualStartDate',
-        accessor: 'actualStartDate',
+        Header: 'couponCode',
+        accessor: 'couponCode',
     },
     {
-        Header: 'actualEndDate',
-        accessor: 'actualEndDate',
+        Header: 'subTotal',
+        accessor: 'subTotal',
     },
     {
-        Header: 'loggedBy',
-        accessor: 'loggedBy',
+        Header: 'grandTotal',
+        accessor: 'grandTotal',
     },
     {
-        Header: 'lastUpdatedOn',
-        accessor: 'lastUpdatedOn',
+        Header: 'paidStatus',
+        accessor: 'paidStatus',
     },
     {
-        Header: 'customerId',
-        accessor: 'customerId',
+        Header: 'requestedBy',
+        accessor: 'requestedBy',
     },
 ];
-export default class Reports extends Component {
+export default class ReportInvoice extends Component {
     constructor() {
         super();
         this.state = {
             tableData: [{
-                jobId: '',
-                statusId: '',
-                startDate: '',
-                actualEndDate: '',
-                loggedBy: '',
-                lastUpdatedOn: '',
-                customerId: ''
+                jobCode: '',
+                generatedOn: '',
+                couponCode: '',
+                subTotal: '',
+                grandTotal: '',
+                paidStatus: '',
+                requestedBy: ''
             }],
         };
     }
     componentDidMount() {
-        axios.get('http://192.168.1.5:8092/jobs/job/getAllJob')
+        axios.get('http://192.168.1.5:8096/payments/cashreceipt/getAllInvoice')
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })

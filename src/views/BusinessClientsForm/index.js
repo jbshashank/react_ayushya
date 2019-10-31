@@ -16,13 +16,13 @@ import {
 } from "../../store/actions/businessclient";
 
 const mapStateToProps = (state, props) => {
-  console.log("value of state in MSTP businesss",state.businessclient.businessClient)
+  // console.log("value of state in MSTP businesss",state.businessclient.businessClient)
   const id = props.match.params.id;
-  console.log("inside MSTP",id)
+  console.log("inside MSTP", id)
   return {
-    formData:state.form,
+    formData: state.form,
     cities: state.employees.cities,
-    states: state.employees.states,   
+    states: state.employees.states,
     // initialValues: id&&id===state.businessclient.businessClient.id?state.businessclient.businessClient:null
     initialValues: id && state.businessclient.businessClient
   };
@@ -35,8 +35,8 @@ const mapDispatchToProps = dispatch =>
       fetchAllCityWatcher,
       fetchCityWatcher,
       createBusinessClientWatcher,
-      updateBusinessClientWatcher,
-      fetchBusinessClientByIdWatcher
+      // updateBusinessClientWatcher,
+      // fetchBusinessClientByIdWatcher
     },
     dispatch
   );

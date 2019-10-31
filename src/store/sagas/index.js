@@ -1,4 +1,4 @@
-import {all} from "redux-saga/effects";
+import { all } from "redux-saga/effects";
 
 import {
     fetchEmployeesActionWatcher,
@@ -26,14 +26,14 @@ import {
     fetchAllProductActionWatcher,
     fetchAllModelActionWatcher,
     fetchProductSubcategoryActionWatcher,
-    fetchAllProductSubcategoryActionWatcher,
+    fetchAllProductSubcategoryActionWatcher
 } from './tickets';
-import {
-    createBusinessClientActionWatcher,
-    updateBusinessClientActionWatcher,
-    fetchBusinessClientActionWatcher,
-    fetchBusinessClientByIdActionWatcher
-} from "./businessclient"
+// import {
+//     createBusinessClientActionWatcher,
+//     updateBusinessClientActionWatcher,
+//     fetchBusinessClientActionWatcher,
+//     fetchBusinessClientByIdActionWatcher
+// } from "./businessclient"
 
 export default function* rootSaga() {
     yield all([
@@ -62,9 +62,9 @@ export default function* rootSaga() {
         fetchProductSubcategoryActionWatcher(),
         fetchAllProductSubcategoryActionWatcher(),
 
-        createBusinessClientActionWatcher(),
-        updateBusinessClientActionWatcher(),
-        fetchBusinessClientActionWatcher(),
-        fetchBusinessClientByIdActionWatcher()
+        // createBusinessClientActionWatcher(),
+        // updateBusinessClientActionWatcher(),
+        // fetchBusinessClientActionWatcher(),
+        // fetchBusinessClientByIdActionWatcher()
     ]);
 }

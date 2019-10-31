@@ -60,7 +60,7 @@ class LoginPage extends React.Component {
         this.props.history.push('/dashboard');
       })
       .catch((error) => {
-        this.setState({ errors: error});
+        this.setState({ errors: error });
       });
     // let loginRequest;
     // try {
@@ -128,7 +128,7 @@ class LoginPage extends React.Component {
                   <p
                     className={`${classes.textCenter} ${classes.checkboxLabel}`}
                   >
-                      <h4><strong>Sign in </strong><br/>to continue to Ayushya Portal</h4>
+                    <h4><strong>Sign in </strong><br />to continue to Ayushya Portal</h4>
                   </p>
                   <CustomInput
                     labelText="Email..."
@@ -190,7 +190,7 @@ class LoginPage extends React.Component {
                     }
                     label={<span>Remember me</span>}
                   />
-                  <br/>
+                  <br />
                   <div className="errorMessage">{this.state.errors.message}</div>
                 </CardBody>
                 <CardFooter className={classes.justifyContentCenter}>

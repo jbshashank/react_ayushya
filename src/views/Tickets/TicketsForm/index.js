@@ -1,6 +1,6 @@
-import {withStyles} from "@material-ui/core/styles";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import moment from 'moment';
 
 import {
@@ -21,39 +21,40 @@ import {
 } from "../../../store/actions";
 import Tickets from './TicketsForm.Component';
 import styles from './styles';
-import {ticket} from '../dummyData';
+import { ticket } from '../dummyData';
 
 const mapStateToProps = (state, props) => {
     // const {ticket} = state.tickets;
-    const {id} = props.match.params;
-    console.log("value of State in MSTP",state)
+    const { id } = props.match.params;
+    console.log("value of State in MSTP", state);
+    console.log("value of brands" + state.form);
     return {
-        formData:state.form,
-        brands:state.tickets.brand,
-        products:state.tickets.product,
-        models:state.tickets.models,
-        tech_name:state.employees.employees,
-        cities:state.employees.cities,
-        productSubcategory:state.tickets.productSubcategory,
+        formData: state.form,
+        brands: state.tickets.brand,
+        products: state.tickets.product,
+        models: state.tickets.models,
+        userId: state.employees.userId,
+        cities: state.employees.cities,
+        productSubcategory: state.tickets.productSubcategory,
         ticketTypes: [
-            {id: 'test_date', name: 'Text Data'}
+            { id: 'test_date', name: 'Text Data' }
         ],
         callTypes: [
-            {id: 'test_date', name: 'Text Data'}
+            { id: 'test_date', name: 'Text Data' }
         ],
         assignees: [
-            {id: 'test_date', name: 'Text Data'}
+            { id: 'test_date', name: 'Text Data' }
         ],
         statuses: [
-            {id: 'test_date', name: 'Text Data'}
+            { id: 'test_date', name: 'Text Data' }
         ],
         states: state.employees.states,
-        initialValues: 
-        id ?state.tickets.ticket
-         : {           
-            visit_time: +new Date(),
-            date_of_post:+new Date(),
-        }
+        initialValues:
+            id ? state.tickets.ticket
+                : {
+                    visitTime: +new Date(),
+                    visitDate: +new Date(),
+                }
     };
 };
 
@@ -64,7 +65,7 @@ const mapDispatchToProps = dispatch =>
         fetchProductByBrandIdWatcher, fetchModeByProductIdWatcher,
         fetchStateWatcher, fetchEmployeesWatcher,
         fetchCityWatcher, fetchAllProductWatcher,
-        fetchAllModelWatcher,fetchAllCityWatcher,
+        fetchAllModelWatcher, fetchAllCityWatcher,
         fetchProductSubcategoryByBrandIdAndProductIdWatcher,
         fetchAllProductSubCategoryWatcher
     }, dispatch);

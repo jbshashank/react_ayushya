@@ -22,6 +22,8 @@ import BusinessClientsForm from "../views/BusinessClientsForm/";
 import BusinessClientList from "../views/BusinessClientsList/"
 import Employees from "views/Employees";
 import Reportpage from "views/Reports/Reports.jsx";
+import ReportInvoice from "views/Reports/ReportInvoice.jsx";
+import ReportEstimate from "views/Reports/ReportEstimate.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/Ayushya_Logo.png";
@@ -170,6 +172,14 @@ class Admin extends React.Component {
                                 <Route
                                     path='/reports'
                                     component={Reportpage}
+                                />
+                                <Route
+                                    path='/reportInvoice'
+                                    component={ReportInvoice}
+                                />
+                                <Route
+                                    path='/reportEstimate'
+                                    component={ReportEstimate}
                                 />
                                 <Route
                                     path='/'

@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {DatePicker} from 'material-ui-pickers';
+import React, { Component } from "react";
+import { DatePicker } from 'material-ui-pickers';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Card from "components/Card/Card.jsx";
@@ -31,28 +31,27 @@ class FormEducation extends Component {
     }
 
     addEducation = () => {
-        const education = {yearOfCompletion: '', education: ''};
-        this.setState({educations: this.state.educations.concat(education)});
+        const education = { yearOfCompletion: '', education: '' };
+        this.setState({ educations: this.state.educations.concat(education) });
     };
 
     removeEducation = (index) => {
-        const {educations} = this.state;
+        const { educations } = this.state;
         educations.splice(index, 1);
-        this.setState({educations});
+        this.setState({ educations });
     };
 
     handleChangeEducation = (e, index) => {
-        const {educations} = this.state;
-        const education = {...educations[index]};
+        const { educations } = this.state;
+        const education = { ...educations[index] };
         education[e.target.name] = e.target.value;
         educations[index] = education;
-        this.setState({educations})
+        this.setState({ educations })
     };
 
     render() {
-        const {classes, educations} = this.props;
-        if(educations.length===0)
-        {this.props.addEducation()}
+        const { classes, educations } = this.props;
+        if (educations.length === 0) { this.props.addEducation() }
 
         return (
             <GridContainer>
@@ -65,9 +64,9 @@ class FormEducation extends Component {
                         <CardBody>
                             <GridContainer>
                                 <GridItem xs={9} sm={5} md={5}>
-                                        <div className="infoTitle">
-                                            <span>Add additional details for {this.props.firstName}</span>
-                                        </div>
+                                    <div className="infoTitle">
+                                        <span>Add additional details for {this.props.firstName}</span>
+                                    </div>
                                 </GridItem>
                                 <GridItem xs={3} sm={5} md={5}>
                                     <Button onClick={this.props.addEducation} variant="contained" color="primary">Add</Button>
@@ -82,11 +81,11 @@ class FormEducation extends Component {
                                                 label="Degree"
                                                 className={classes.textField}
                                                 name="education"
-                                                error={!education.education&&"error"}
+                                                error={!education.education && "error"}
                                                 value={education.education}
                                                 onChange={(e) => this.props.handleChangeEducation(e, index)}
                                             />
-                                            {!education.education&&<FormHelperText style={{color: 'red'}}>required education</FormHelperText>}
+                                            {!education.education && <FormHelperText style={{ color: 'red' }}>required education</FormHelperText>}
                                         </GridItem>
                                         <GridItem xs={12} sm={5} md={5}>
 
@@ -99,7 +98,7 @@ class FormEducation extends Component {
                                                 value={education.yearOfCompletion}
                                                 className={classes.textField}
                                                 onChange={(date) => {
-                                                    this.props.handleChangeEducationDate('yearOfCompletion', date,index);
+                                                    this.props.handleChangeEducationDate('yearOfCompletion', date, index);
                                                 }}
                                             />
 
@@ -130,18 +129,18 @@ class FormEducation extends Component {
                             className="customMedia"
                             image={sidebarimg}
                             title="Contemplative Reptile" />
-                        <Avatar alt="Remy Sharp" 
-                        src={this.props.imagePath ? this.props.imagePath : "https://www.pngarts.com/files/3/Avatar-Transparent-Image.png"}
-                                className={classes.profilePic} />
+                        <Avatar alt="Remy Sharp"
+                            src={this.props.imagePath ? this.props.imagePath : "https://www.pngarts.com/files/3/Avatar-Transparent-Image.png"}
+                            className={classes.profilePic} />
                         <CardBody>
                             <h4 className="customTitle">{this.props.firstName} {this.props.lastName}</h4>
                             <h6 className="customSubtitle">@{this.props.role}</h6>
                             <p className="customAboutme">
-                                
+
                                 {
-                                    this.props.aboutMe.length<=50 ? 
-                                    this.props.aboutMe : 
-                                    this.props.aboutMe.substring(0,50)+"..."
+                                    this.props.aboutMe.length <= 50 ?
+                                        this.props.aboutMe :
+                                        this.props.aboutMe.substring(0, 50) + "..."
                                 }
                             </p>
                         </CardBody>
