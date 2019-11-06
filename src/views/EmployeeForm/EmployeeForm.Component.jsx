@@ -69,7 +69,6 @@ class EmployeeForm extends Component {
         // const userId = window.location.pathname.split('/').pop().split("employeesedit").shift();
         if (userId) {
             this.setState({ userId });
-            console.log("inside userid");
             new Promise((resolve, reject) => {
                 this.props.fetchEmployeeByIdWatcher(userId, () => {
                     console.log("inside fetchEmployeeByIdWatcher" + this.props.employee);
@@ -94,8 +93,8 @@ class EmployeeForm extends Component {
                         addr: this.props.employee.addr,
                         gender: this.props.employee.gender,
                         // uploadDir: this.props.employee.employeePersonalDetails.uploadDir,
-                        city: this.props.employee.city,
                         state: this.props.employee.state,
+                        city: this.props.employee.city,
                         pinCode: this.props.employee.pinCode,
                         // imagePath: this.props.employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${this.props.employee.employeePersonalDetails.uploadDir}` : null,
                     });
@@ -307,9 +306,26 @@ class EmployeeForm extends Component {
         this.setState({ city: event.target.value });
     };
 
+    // handleStateChange(e) {
+    //     // this.setState({ state: event.target.value });
+    //     const unProcesedKey = e._targetInst.key;
+    //     console.log("unProcesedKey:::::::::" + unProcesedKey);
+    //     const StateId = unProcesedKey.split("STATE_")[
+    //         unProcesedKey.split("STATE_").length - 1
+    //     ];
+    //     this.props.fetchCityWatcher({ stateCode: StateId });
+    // }
     handleStateChange = event => {
+        // const unProcesedKey = event._targetInst.key;
+        // console.log("unProcesedKey:::::::::" + unProcesedKey);
+        // const StateId = unProcesedKey.split("STATE_")[
+        //     unProcesedKey.split("STATE_").length - 1
+        // ];
+
+        // this.setState({ state: event._targetInst.key });
+        // const StateId = this.state.state.split("STATE_")[this.state.state.split("STATE_").length - 1];
         this.setState({ state: event.target.value });
-        this.props.fetchCityWatcher({ state_code: event.target.value });
+        this.props.fetchCityWatcher({ stateCode: event.target.value });
     };
 
     handleNext = () => {
@@ -466,8 +482,8 @@ class EmployeeForm extends Component {
                         errorFirstName={errorFirstName} errorLastName={errorLastName}
                         errorAge={errorAge} errorSalary={errorSalary} errorPinCode={errorPinCode}
                         handleChange={this.handleChange} handleDateChange={this.handleDateChange}
-                        handleCityChange={this.handleCityChange} handleStateChange={this.handleStateChange}
-                        city={city} errorCity={errorCity} errorState={errorState} state={state} pinCode={pinCode}
+                        handleStateChange={this.handleStateChange}
+                        city={city} handleCityChange={this.handleCityChange} errorCity={errorCity} errorState={errorState} state={state} pinCode={pinCode}
                         match={this.props.match} />
                 </MuiPickersUtilsProvider>;
             // case 1:

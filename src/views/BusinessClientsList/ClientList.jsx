@@ -56,15 +56,14 @@ class ClientList extends Component {
     //     this.props.fetchEmployeesWatcher();
     // };
 
-    // handleOnEdit = (id) => {
-    //     console.log(id);
-    //     localStorage.setItem(EMPLOYEE_KEY.EDIT_EMPLOYEE, id);
-    //     this.props.history.push('/employeesedit/' + id);
-    // };
+    handleOnEdit = (id) => {
+        console.log(id);
+        localStorage.setItem(EMPLOYEE_KEY.EDIT_EMPLOYEE, id);
+        this.props.history.push('/employeesedit/' + id);
+    };
 
     render() {
         const { classes, Client } = this.props;
-        console.log("client:::" + Client.businessClientContactDetails);
         // const {
         //     contactEmailAddress,
         //     contactMobile,
@@ -87,18 +86,7 @@ class ClientList extends Component {
                             <CardBody profile className="customCardBody">
                                 <h4 className="customTitle">{Client.clientName}</h4>
                                 <h5 className="customSubtitle">{Client.state}</h5>
-                                <h6 className="customSubtitle">{Client.businessClientContactDetails.contactEmail}</h6>
-
-                                {/* <h6 className="customSubtitle">{employee.employeePersonalDetails.empPhoneNumber}</h6> */}
-
-                                { /* <h6 className="customSubtitle">@{employee.employeePersonalDetails.empFirstName}{employee.employeePersonalDetails.empLastName}</h6>
-                                <p className="customAboutme">
-                                {
-                                    employee.employeePersonalDetails.aboutMe.length<=50 ? 
-                                    employee.employeePersonalDetails.aboutMe : 
-                                    employee.employeePersonalDetails.aboutMe.substring(0,50)+"..."
-                                }
-                            </p> */}
+                                <h6 className="customSubtitle">{Client.clientContactDetails.contactMobile}</h6>
                             </CardBody>
                             <CardActions>
                                 <IconButton className="editIcon" onClick={() => this.props.history.push(`businessclients-edit/${Client.clientId}`)}>

@@ -36,7 +36,6 @@ const styles = {
         textDecoration: "none"
     },
     media: {
-        // height: 140,
         borderRadius: "6px 6px 0px 0px",
         marginTop: "50px",
     },
@@ -67,7 +66,6 @@ class EmployeeList extends Component {
 
     render() {
         const { classes, employee, userId } = this.props;
-        // console.log("employee", + employees);
         return (
             <div className="employeeList">
                 <GridContainer>
@@ -84,9 +82,10 @@ class EmployeeList extends Component {
                             </CardAvatar> */}
                             <CardBody profile className="customCardBody">
                                 <h4 className="customTitle">{employee.firstName} {employee.lastName}</h4>
-                                <h5 className="customSubtitle">{employee.email}</h5>
+                                <h5 className="customSubtitle">{employee.role}</h5>
                                 <h6 className="customSubtitle">{employee.pinCode}</h6>
                                 <h6 className="customSubtitle">{employee.phoneNumber}</h6>
+
                                 {/* <p className="customAboutme">
                                 {
                                     employee.employeePersonalDetails.aboutMe.length<=50 ? 

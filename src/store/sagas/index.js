@@ -9,7 +9,7 @@ import {
     imageUploadActionWatcher,
     fetchStateActionWatcher,
     fetchCityActionWatcher,
-    fetchAllCityActionWatcher,
+    // fetchAllCityActionWatcher,
 } from "./employees";
 
 import {
@@ -28,12 +28,12 @@ import {
     fetchProductSubcategoryActionWatcher,
     fetchAllProductSubcategoryActionWatcher
 } from './tickets';
-// import {
-//     createBusinessClientActionWatcher,
-//     updateBusinessClientActionWatcher,
-//     fetchBusinessClientActionWatcher,
-//     fetchBusinessClientByIdActionWatcher
-// } from "./businessclient"
+import {
+    createBusinessClientActionWatcher,
+    updateBusinessClientActionWatcher,
+    fetchBusinessClientActionWatcher,
+    fetchBusinessClientByIdActionWatcher
+} from "./businessclient"
 
 export default function* rootSaga() {
     yield all([
@@ -45,7 +45,7 @@ export default function* rootSaga() {
         imageUploadActionWatcher(),
         fetchStateActionWatcher(),
         fetchCityActionWatcher(),
-        fetchAllCityActionWatcher(),
+        // fetchAllCityActionWatcher(),
 
         fetchTicketByIdActionWatcher(),
         fetchTicketsActionWatcher(),
@@ -62,9 +62,9 @@ export default function* rootSaga() {
         fetchProductSubcategoryActionWatcher(),
         fetchAllProductSubcategoryActionWatcher(),
 
-        // createBusinessClientActionWatcher(),
-        // updateBusinessClientActionWatcher(),
-        // fetchBusinessClientActionWatcher(),
-        // fetchBusinessClientByIdActionWatcher()
+        createBusinessClientActionWatcher(),
+        updateBusinessClientActionWatcher(),
+        fetchBusinessClientActionWatcher(),
+        fetchBusinessClientByIdActionWatcher()
     ]);
 }

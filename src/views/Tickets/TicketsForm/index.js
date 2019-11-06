@@ -32,10 +32,10 @@ const mapStateToProps = (state, props) => {
         formData: state.form,
         brands: state.tickets.brand,
         products: state.tickets.product,
+        productSubcategory: state.tickets.productSubcategory,
         models: state.tickets.models,
         userId: state.employees.userId,
         cities: state.employees.cities,
-        productSubcategory: state.tickets.productSubcategory,
         ticketTypes: [
             { id: 'test_date', name: 'Text Data' }
         ],

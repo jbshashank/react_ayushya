@@ -37,63 +37,13 @@ class Tickets extends Component {
             visitDate: null,
             sortField: '',
             sortOrder: 'asc',
-            // tickets: {
-            //     "content": [
-            //         {
-            //             "id": 314,
-            //             "callType": "ViewSonic",
-            //             "brand": "Demonstration & Installation",
-            //             "category": "Tv problem",
-            //             "subCategory": "OPEN",
-            //             "model": "LED Monitor",
-            //             "serialNumber": "VA708a",
-            //             "warranty": "",
-            //             "visitTime": "",
-            //             "visitDate": "ATAS-CUST-311019-003",
-            //             "dealerName": "",
-            //             "description": "31-10-19",
-            //             "status": "123566",
-            //             "loggedon": "Monitor",
-            //             "lastupdatedon": "Out of Warranty",
-            //             "ticketId": "123",
-            //             "customerId": "ATAS-TKT-311019-002",
-            //             "customerDataModels": {
-            //                 "id": 313,
-            //                 "customerId": "ATAS-CUST-311019-003",
-            //                 "customerName": "",
-            //                 "address1": "No 9",
-            //                 "address2": "Inchara",
-            //                 "street": "",
-            //                 "state": "ANDRA PRADESH",
-            //                 "city": "test",
-            //                 "pinCode": "560067",
-            //                 "email": "test@gmail.com",
-            //                 "contactNumber": "9856322563",
-            //                 "alternateContact": ""
-            //             },
-            //             "productDataModel": null
-            //         }
-            //     ],
-            //     "pageable": "INSTANCE",
-            //     "last": true,
-            //     "totalPages": 1,
-            //     "totalElements": 1,
-            //     "first": true,
-            //     "sort": {
-            //         "sorted": false,
-            //         "unsorted": true
-            //     },
-            //     "numberOfElements": 1,
-            //     "size": 0,
-            //     "number": 0
-            // }
         };
         this.columns =
             [
                 { key: 'visitDate', label: 'Visit Date' },
                 { key: 'description', label: 'Complaint Description' },
                 { key: 'address ', label: 'Address ' },
-                // { key: 'service_engineer_name', label: 'Service engineer' },
+                { key: 'userId', label: 'Service engineer' },
                 { key: 'actions', label: 'Action' }
             ];
 
@@ -104,7 +54,7 @@ class Tickets extends Component {
                 { key: 'city', label: 'City', width: 150 },
                 { key: 'customerName', label: 'Customer Name', width: 150 },
                 { key: 'visitDate', label: 'Visit date', width: 150 },
-                { key: 'visitTime', label: 'Visit Time', width: 150 },
+                // { key: 'visitTime', label: 'Visit Time', width: 150 },
                 { key: 'actions', label: 'Actions', width: 150 }
             ]
     }
@@ -135,7 +85,6 @@ class Tickets extends Component {
     componentDidMount() {
         console.log("inside :componentDidMount:")
         this.props.fetchTicketsWatcher();
-        // console.log("tickets:::::" + this.props);
     }
     handleBulkFileUpload = (e) => {
         if (e.target && e.target.files && e.target.files.length > 0) {
@@ -180,6 +129,7 @@ class Tickets extends Component {
             var x = new Date(value);// x is now a date object
             x.setUTCHours(0, 0, 0, 0);
             value = new Date(x).toISOString();
+            console.log("value of visit date:::" + value);
         }
         this.setState({ page: 0, [name]: value });
         const payload = {
@@ -226,7 +176,7 @@ class Tickets extends Component {
                             name=" customerName"
                             label=" Customer Name"
                             className={classes.filterItem}
-                        // onChange={(e) => this.handleChange(e.target.name, e.target.value)}
+                            onChange={(e) => this.handleChange(e.target.name, e.target.value)}
                         />
                     </GridItem>
 
@@ -319,7 +269,7 @@ class Tickets extends Component {
                                                         return (
                                                             <TableRow key={row.ticketId}>
                                                                 {/* <TableRow> */}
-                                                                <TableCell style={{ width: "20%", padding: 15 }}>{moment(row.visitTime).format("HH:MM:SS")}</TableCell>
+                                                                <TableCell style={{ width: "20%", padding: 15 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</TableCell>
                                                                 <TableCell style={{ width: "25%", padding: 15 }}><div style={{}}>{row.description}</div></TableCell>
                                                                 <TableCell style={{ width: "30%", padding: 15 }}>
                                                                     <div>{this.address12Formation(row)}</div>
@@ -347,7 +297,7 @@ class Tickets extends Component {
                                                                         {row.name}
                                                                     </div>
                                                                 </TableCell>
-                                                                <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("DD-MM-YYYY")}</div></TableCell>
+                                                                <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
                                                                 <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM")}</div></TableCell>
                                                                 <TableCell style={{ padding: 15 }}>
                                                                     <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>

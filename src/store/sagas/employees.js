@@ -9,7 +9,7 @@ import {
     IMAGE_UPLOAD_WATCHER,
     FETCH_STATE_WATCHER,
     FETCH_CITY_WATCHER,
-    FETCH_All_CITY_WATCHER,
+    // FETCH_All_CITY_WATCHER,
 } from "../actionTypes";
 import * as firebase from "firebase";
 import {
@@ -30,7 +30,6 @@ import { BASE_URL_TICKETS, BASE_URL_GENERIC } from "../../utils/config";
 //     // console.log("empreq ::::", axios.request({
 //     //     method: 'GET',
 //     //     url: `${BASE_URL_EMPLOYEE}users/user/getAll`,
-//     //     // url: `${BASE_URL_EMPLOYEE}Employee/user/search?searchParam=${data.searchParam === undefined ? '' : data.searchParam}`,
 //     //     // url: `${BASE_URL_EMPLOYEE}users/user/firstname/firstname?firstname=${data.firstname === undefined ? data.firstname : ''}`,
 //     // }));
 //     // return axios.request({
@@ -40,21 +39,18 @@ import { BASE_URL_TICKETS, BASE_URL_GENERIC } from "../../utils/config";
 //     // });
 // }
 function fetchEmployeesApi(data) {
-    // console.log("value of data:::in fetchEMP::", data)
-    // console.log("empreq ::::", axios.request({
-    //     method: "get",
-    //     url: `${BASE_URL_EMPLOYEE}users/user/firstname?firstname=${data.firstname === undefined ? data.firstname : ''}`,
-    // }))
-    // // http://134.209.147.111:8095/users/user/firstname?firstname=Swathi
-    // return axios.request({
-    //     method: "get",
-    //     url: `${BASE_URL_EMPLOYEE}users/user/firstname?firstname=${data.firstname === undefined ? '' : data.firstname}`,
-    // });
-    // http://134.209.147.111:8095/users/user/firstname?firstname=Swathi
+    console.log("empreq ::::", axios.request({
+        method: "get",
+        url: `${BASE_URL_EMPLOYEE}userSearch?userSearch=${data.userSearch === undefined ? data.userSearch : ''}`
+    }));
     return axios.request({
         method: "get",
-        url: `${BASE_URL_EMPLOYEE}users/user/getAll`
+        url: `${BASE_URL_EMPLOYEE}userSearch?userSearch=${data.userSearch === undefined ? '' : data.userSearch}`,
     });
+    // return axios.request({
+    //     method: "get",
+    //     url: `${BASE_URL_EMPLOYEE}users/user/getAll`
+    // });
 }
 
 function fetchStateApi(data) {
@@ -71,27 +67,27 @@ function fetchCityApi(data) {
         url: `${BASE_URL_GENERIC}general/city/findAll?stateCode=${data.stateCode}`,
     });
 }//*fetch All CityApi* */
-function fetchAllCityApi(data) {
-    return axios.request({
-        method: "get",
-        url: `${BASE_URL_TICKETS}/Employee/utils/getAllcity`,
-    });
-}
+// function fetchAllCityApi(data) {
+//     return axios.request({
+//         method: "get",
+//         url: `${BASE_URL_TICKETS}/Employee/utils/getAllcity`,
+//     });
+// }
 
-function* fetchAllCityActionEffect(action) {
-    let { payload, resolve, reject } = action;
-    try {
-        let { data } = yield call(fetchAllCityApi, payload);
-        yield put(setCity(data));
-        if (resolve) resolve();
-    } catch (e) {
-        yield put(setCityError(e));
-        if (reject) reject(e);
-    }
-}
-export function* fetchAllCityActionWatcher() {
-    yield takeLatest(FETCH_All_CITY_WATCHER, fetchAllCityActionEffect);
-}
+// function* fetchAllCityActionEffect(action) {
+//     let { payload, resolve, reject } = action;
+//     try {
+//         let { data } = yield call(fetchAllCityApi, payload);
+//         yield put(setCity(data));
+//         if (resolve) resolve();
+//     } catch (e) {
+//         yield put(setCityError(e));
+//         if (reject) reject(e);
+//     }
+// }
+// export function* fetchAllCityActionWatcher() {
+//     yield takeLatest(FETCH_All_CITY_WATCHER, fetchAllCityActionEffect);
+// }
 
 //**End */
 
@@ -183,7 +179,6 @@ export function* fetchCityActionWatcher() {
 function fetchEmployeeByIdApi(data) {
     return axios.request({
         method: "GET",
-        // url: `${BASE_URL_EMPLOYEE}users/user/userId?userId=${data.userId}`,
         url: `${BASE_URL_EMPLOYEE}users/user/userId?userId=` + data,
     });
 }

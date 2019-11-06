@@ -63,7 +63,7 @@ let constraints = {
             notGreaterThan: "Age should be greater than 0"
         }
     },
-    expertiesLevel: {
+    expertiseLevel: {
         presence: { allowEmpty: false },
         format: {
             pattern: "[a-z_ ]+",

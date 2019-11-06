@@ -2,9 +2,9 @@ import { call, put, takeLatest } from "redux-saga/effects";
 
 import {
     CREATE_BUSINESSCLIENTS_WATCHER,
-    // UPDATE_BUSINESSCLIENTS_WATCHER,
-    // FETCH_BUSINESSCLIENT_WATCHER,
-    // FETCH_BUSINESSCLIENT_BY_ID_WATCHER,
+    UPDATE_BUSINESSCLIENTS_WATCHER,
+    FETCH_BUSINESSCLIENT_WATCHER,
+    FETCH_BUSINESSCLIENT_BY_ID_WATCHER,
 
 } from "../actionTypes";
 import { setBusinessClientList, setBusinessClientListError, setBusinessClient, setBusinessClientError } from "../actions";
@@ -16,7 +16,7 @@ import {
 
 } from "../actions";
 import axios from "../../utils/axios";
-import { BASE_URL, BASE_URL_TICKETS, BASE_URL_CLIENTS } from "../../utils/config";
+import { BASE_URL_CLIENTS } from "../../utils/config";
 
 //** create Business Client *//
 function createbusinessClientApi(data) {
@@ -54,7 +54,7 @@ function updatebusinessClientApi(data) {
 
     return axios.request({
         method: "put",
-        url: `${BASE_URL_TICKETS}Employee/businessclient/${data.id}`,
+        url: `${BASE_URL_CLIENTS}clients/updateClient`,
         data
     })
 }
@@ -81,10 +81,9 @@ export function* updateBusinessClientActionWatcher() {
 }
 //** Get all Business Client*/
 function fetchBusinessClientsApi(payload) {
-    // let url = `http://localhost:8098/clients/findAll`;
     return axios.request({
         method: "get",
-        url: 'http://localhost:8098/clients/findAll'
+        url: `${BASE_URL_CLIENTS}clients/findAll`,
     });
 }
 function* fetchBusinessClientsApiEffect(action) {
@@ -94,7 +93,7 @@ function* fetchBusinessClientsApiEffect(action) {
     try {
         yield put(setPageLoaderStart());
         let { data } = yield call(fetchBusinessClientsApi, payload);
-        yield put(setBusinessClientList(data));
+        yield put(setBusinessClientList(data.content));
         if (resolve) resolve();
     } catch (e) {
         yield put(setBusinessClientListError(e));
@@ -112,8 +111,8 @@ export function* fetchBusinessClientActionWatcher() {
 
 // ** * /
 //     **  //** Get Business Client by id*/ */
-function fetchBusinessClientByIdApi(payload) {
-    let url = `${BASE_URL_TICKETS}Employee/businessclient/${payload}`;
+function fetchBusinessClientByIdApi(data) {
+    let url = `${BASE_URL_CLIENTS}clients/getByClient?clientId=` + data;
     return axios.request({
         method: "get",
         url: url,

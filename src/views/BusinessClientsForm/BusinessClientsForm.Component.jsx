@@ -34,9 +34,12 @@ class BusinessClientsForm extends Component {
   }
 
   componentDidMount() {
-    // if (this.props.match.params.id) {
-    //   this.props.fetchBusinessClientByIdWatcher(this.props.match.params.id);
-    // }
+    const clientId = this.props.match.params.id;
+
+    if (clientId) {
+      this.setState({ clientId });
+      this.props.fetchBusinessClientByIdWatcher(clientId);
+    }
     this.props.fetchStateWatcher();
     this.props.fetchAllCityWatcher();
     console.log("value of this props..", this.props.match.params.id)
@@ -45,6 +48,7 @@ class BusinessClientsForm extends Component {
   }
   handleStateChange(e) {
     const unProcesedKey = e._targetInst.key;
+    console.log("unProcesedKey:::" + unProcesedKey);
     const StateId = unProcesedKey.split("STATE_")[
       unProcesedKey.split("STATE_").length - 1
     ];
@@ -60,37 +64,31 @@ class BusinessClientsForm extends Component {
       state: values.state,
       city: values.city,
       pinCode: values.pinCode,
-      businessClientContactDetails: {
+      clientContactDetails: {
         contactName: values.contactName,
         contactEmail: values.contactEmail,
         contactMobile: values.contactMobile,
         contactLandline: values.contactLandline,
         contactDesignation: values.contactDesignation
       }
-
     };
     const clientId = this.props.match.params.id;
+    console.log("client id is::::" + clientId);
     if (clientId) {
       new Promise((resolve, reject) => {
         this.props.updateBusinessClientWatcher({ ...data, clientId }, () => {
-          this.props.history.push("/clients/create");
+          this.props.history.push("/businessclientlist");
           resolve();
         });
       });
     } else {
       new Promise((resolve, reject) => {
         this.props.createBusinessClientWatcher(data, () => {
-          this.props.history.push('/clients/create');
+          this.props.history.push('/businessclientlist');
           resolve();
         });
       });
     }
-
-    // axios.request({
-    //   method: 'post',
-    //   url: `http://localhost:8098/clients/create`,
-    //   data: data
-    // });
   };
 
   render() {
@@ -103,7 +101,7 @@ class BusinessClientsForm extends Component {
       states
     } = this.props;
     const readOnly = false;
-    console.log("value of this.props...in businessClientForm", this.props);
+    console.log("value of this.props...in businessClientForm", +this.props);
 
     return (
       <GridContainer>
@@ -173,7 +171,7 @@ class BusinessClientsForm extends Component {
                         <Field
                           component={renderSelectField}
                           name="country"
-                          id="clientCountry"
+                          id="country"
                           className={classes.textField}
                           validate={[required]}
                         >
@@ -192,10 +190,10 @@ class BusinessClientsForm extends Component {
                         <Field
                           component={renderSelectField}
                           name="state"
-                          id="clientState"
+                          id="state"
                           className={classes.textField}
                           onChange={e => this.handleStateChange(e)}
-                        // validate={[required]}
+                          validate={[required]}
                         >
                           {states.map(item => {
                             return (
@@ -217,16 +215,13 @@ class BusinessClientsForm extends Component {
                         <Field
                           component={renderSelectField}
                           name="city"
-                          id="clientCity"
+                          id="city"
                           className={classes.textField}
-                        // validate={[required]}
+                          validate={[required]}
                         >
                           {cities.map(item => {
-                            return (
-                              <MenuItem value={item.name} key={item.id}>
-                                {item.name}
-                              </MenuItem>
-                            );
+                            return <MenuItem value={item.name}
+                              key={item.id}>{item.name}</MenuItem>
                           })}
                         </Field>
                       </FormControl>

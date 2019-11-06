@@ -27,7 +27,21 @@ class TicketsForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: []
+            userId: [],
+            customerDataModel: {
+                customerId: '',
+                customerName: '',
+                // address1: values.address1,
+                // address2: values.address2,
+                // street: values.street,
+                // state: values.state,
+                // city: values.city,
+                // pinCode: values.pinCode,
+                // email: values.email,
+                // contactNumber: values.contactNumber,
+                // alternateContact: values.alternateContact
+            }
+
         }
     }
     componentDidMount() {
@@ -35,13 +49,65 @@ class TicketsForm extends Component {
             .then(res => {
                 const users = res.data;
                 this.setState({ userId: users });
-            })
-
+            });
+        // this.props.fetchTicketsWatcher();
         const ticketId = this.props.match.params.id;
+        console.log("ticket id is" + ticketId);
         if (ticketId) {
+            this.setState({ ticketId });
             this.props.fetchTicketsByIdWatcher({ ticketId });
+            // new Promise((resolve, reject) => {
+            //     console.log("inside 33333");
+            //     this.props.fetchTicketsByIdWatcher(ticketId, () => {
+            //         console.log("inside fetchEmployeeByIdWatcher" + this.props.ticket);
+            //         this.setState({
+            //             callType: this.props.ticket.callType,
+            //             brand: this.props.ticket.brand,
+            //             category: this.props.ticket.category,
+            //             subCategory: this.props.ticket.subCategory,
+            //             model: this.props.ticket.model,
+            //             serialNumber: this.props.ticket.serialNumber,
+            //             warranty: this.props.ticket.warranty,
+            //             visitTime: this.props.ticket.visitTime,
+            //             visitDate: this.props.ticket.visitDate,
+            //             dealerName: this.props.ticket.dealerName,
+            //             description: this.props.ticket.description,
+            //             status: this.props.ticket.status,
+            //             loggedon: this.props.ticket.loggedon,
+            //             lastupdatedon: this.props.ticket.lastupdatedon,
+            //             ticketId: this.props.ticket.ticketId,
+            //             customerId: this.props.ticket.customerId,
+            //             productId: this.props.ticket.productId,
+            //             userId: this.props.ticket.userId,
+            //             // productModel: {
+            //             //     brand: values.brand,
+            //             //     category: values.category,
+            //             //     subCategory: values.subCategory,
+            //             //     model: values.model,
+            //             // },
+            //             customerDataModel: {
+            //                 customerId: this.props.ticket.customerId,
+            //                 customerName: this.props.ticket.customerName,
+            //                 address1: this.props.ticket.address1,
+            //                 address2: this.props.ticket.address2,
+            //                 street: this.props.ticket.street,
+            //                 state: this.props.ticket.state,
+            //                 city: this.props.ticket.city,
+            //                 pinCode: this.props.ticket.pinCode,
+            //                 email: this.props.ticket.email,
+            //                 contactNumber: this.props.ticket.contactNumber,
+            //                 alternateContact: this.props.ticket.alternateContact
+            //             }
+            //             // imagePath: this.props.employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${this.props.employee.employeePersonalDetails.uploadDir}` : null,
+            //         });
+            //         resolve();
+            //     }, () => {
+            //         reject();
+            //     });
+            // });
             this.props.fetchAllModelWatcher();
             this.props.fetchAllCityWatcher();
+
         }
         this.props.fetchBrandWatcher();
         this.props.fetchAllProductWatcher();
@@ -129,7 +195,6 @@ class TicketsForm extends Component {
 
         };
         const ticketId = this.props.match.params.id;
-        console.log("ticket id is" + ticketId);
         if (ticketId) {
             new Promise((resolve, reject) => {
                 this.props.updateTicketsWatcher({ ...data, ticketId }, () => {
@@ -150,7 +215,7 @@ class TicketsForm extends Component {
     render() {
         const {
             classes, ticketTypes, products, brands, models, callTypes, assignees, statuses, states,
-            handleSubmit, pristine, reset, submitting, userId, cities, productSubcategory, ticketId
+            handleSubmit, pristine, reset, submitting, userId, cities, productSubcategory, ticketId, tickets, ticket
         } = this.props;
         const isRescheduleTickets = this.props.match.path === "/rescheduletickets-edit/:ticketId"
         const readOnly = !!this.props.match.params.id;
@@ -253,7 +318,7 @@ class TicketsForm extends Component {
                                                     className={classes.textField}
                                                     disabled={readOnly ? readOnly : productSubcategory.length === 0 || isRescheduleTickets}
                                                     onChange={(e) => this.productSubcategoryOnChangeHandler(e)}
-                                                // validate={[required]}
+                                                    validate={[required]}
                                                 >
                                                     {productSubcategory.map(item => {
                                                         return <option className={classes.customOption} value={item.name}
@@ -275,7 +340,7 @@ class TicketsForm extends Component {
                                                     className={classes.textField}
                                                     disabled={(readOnly ? readOnly : models.length === 0) || isRescheduleTickets}
                                                     name="model"
-                                                // validate={[required]}
+                                                    validate={[required]}
                                                 >
                                                     {models.map(item => {
                                                         return <option className={classes.customOption} value={item.name}
@@ -327,7 +392,7 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
                                                 label="Time of visit*"
-                                            // validate={[required]} 
+                                                validate={[required]}
                                             />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
@@ -339,7 +404,7 @@ class TicketsForm extends Component {
                                                 name="visitDate"
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
-                                            // validate={[required]}
+                                                validate={[required]}
                                             />
                                         </GridItem>
                                     </GridContainer>
@@ -353,7 +418,8 @@ class TicketsForm extends Component {
                                                 name="customerName"
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
-                                                validate={[required, alpha]} />
+                                                validate={[required, alpha]}
+                                            />
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
@@ -368,7 +434,8 @@ class TicketsForm extends Component {
                                                 multiline={true}
                                                 rows={2}
                                                 rowsMax={2}
-                                                validate={[required]} />
+                                                validate={[required]}
+                                                value="address1" />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
@@ -467,6 +534,7 @@ class TicketsForm extends Component {
                                                 className={classes.textField}
                                                 name="contactNumber"
                                                 disabled={isRescheduleTickets}
+                                                value={ticket.customerDataModel.contactNumber}
                                                 validate={[required, phoneNumber]} />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>

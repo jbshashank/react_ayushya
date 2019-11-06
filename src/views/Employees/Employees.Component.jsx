@@ -47,8 +47,8 @@ class Employees extends Component {
         this.fetchEmployees('');
     }
 
-    fetchEmployees = (searchParam) => {
-        this.props.fetchEmployeesWatcher({ searchParam });
+    fetchEmployees = (userSearch) => {
+        this.props.fetchEmployeesWatcher({ userSearch });
     };
 
     resetEmployeesSearch = () => {

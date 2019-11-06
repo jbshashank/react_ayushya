@@ -19,14 +19,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import sidebarimg from "assets/img/sidebar-2_0.jpg";
 
 class FormBasic extends Component {
-    componentDidMount() {
-        // this.props.fetchStateWatcher();
-    }
-    handleStateChange(e) {
-        const unProcesedKey = e._targetInst.key
-        const StateId = unProcesedKey.split('STATE_')[unProcesedKey.split('STATE_').length - 1]
-        this.props.fetchCityWatcher({ stateCode: StateId })
-    }
     render() {
         const { classes } = this.props;
         const {
@@ -312,11 +304,18 @@ class FormBasic extends Component {
                                                 value={state}
                                                 className={classes.textField}
                                                 error={!!errorState}
+
                                                 onChange={handleStateChange}>
+                                                {states.map(item => {
+                                                    return <MenuItem value={item.stateCode}
+                                                        key={`STATE_${item.stateCode}`}>{item.name}</MenuItem>
+                                                })}>
+{/*                                                 
+                                                onChange={e => this.handleStateChange(e)}>
                                                 {states.map(item => {
                                                     return <MenuItem value={item.name}
                                                         key={`STATE_${item.stateCode}`}>{item.name}</MenuItem>
-                                                })}
+                                                })} */}
                                             </Select>
                                             {/* <FormHelperText style={{ color: 'red' }}>{errorState}</FormHelperText> */}
                                         </FormControl>
@@ -327,11 +326,15 @@ class FormBasic extends Component {
                                             <Select
                                                 className={classes.textField}
                                                 value={city}
-                                                error={!!errorCity}>
-                                                {/* onChange={handleCityChange}> */}
-                                                {cities.map(item => {
+                                                error={!!errorCity}
+                                                onChange={handleCityChange}>
+                                                {/* {cities.map(item => {
                                                     return <MenuItem value={item.name}
                                                         key={item.id}>{item.name}</MenuItem>
+                                                })} */}
+                                                {cities.map(item => {
+                                                    return <MenuItem value={item.name}
+                                                        key={`CITY_${item.id}`}>{item.name}</MenuItem>
                                                 })}
                                             </Select>
                                             {/* <FormHelperText style={{ color: 'red' }}>{errorCity}</FormHelperText> */}
