@@ -185,6 +185,8 @@ class Admin extends React.Component {
                                     path='/'
                                     component={Employees}
                                 />
+
+
                             </Switch>
                         </div>
                     </div>

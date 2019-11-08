@@ -83,7 +83,7 @@ export function* updateBusinessClientActionWatcher() {
 function fetchBusinessClientsApi(payload) {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_CLIENTS}clients/findAll`,
+        url: `${BASE_URL_CLIENTS}clients/findAllClients`,
     });
 }
 function* fetchBusinessClientsApiEffect(action) {
@@ -112,7 +112,7 @@ export function* fetchBusinessClientActionWatcher() {
 // ** * /
 //     **  //** Get Business Client by id*/ */
 function fetchBusinessClientByIdApi(data) {
-    let url = `${BASE_URL_CLIENTS}clients/getByClient?clientId=` + data;
+    let url = `${BASE_URL_CLIENTS}clients/findByClientId?clientId=` + data;
     return axios.request({
         method: "get",
         url: url,

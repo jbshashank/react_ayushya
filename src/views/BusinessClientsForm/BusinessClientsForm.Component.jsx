@@ -55,42 +55,61 @@ class BusinessClientsForm extends Component {
     this.props.fetchCityWatcher({ stateCode: StateId });
   }
 
-  submitForm = (values) => {
-    // console.log("submit form", values);
-    const data = {
-      clientName: values.clientName,
-      clientAddress: values.clientAddress,
-      country: values.country,
-      state: values.state,
-      city: values.city,
-      pinCode: values.pinCode,
-      clientContactDetails: {
-        contactName: values.contactName,
-        contactEmail: values.contactEmail,
-        contactMobile: values.contactMobile,
-        contactLandline: values.contactLandline,
-        contactDesignation: values.contactDesignation
-      }
-    };
+  // submitForm = (values) => {
+  //   // console.log("submit form", values);
+  //   const data = {
+  //     clientName: values.clientName,
+  //     clientAddress: values.clientAddress,
+  //     country: values.country,
+  //     state: values.state,
+  //     city: values.city,
+  //     pinCode: values.pinCode,
+  //     clientContactDetails: [{
+  //       contactName: values.contactName,
+  //       contactEmail: values.contactEmail,
+  //       contactMobile: values.contactMobile,
+  //       contactLandline: values.contactLandline,
+  //       contactDesignation: values.contactDesignation
+  //     }]
+  //   };
+  //   const clientId = this.props.match.params.id;
+  //   console.log("client id is::::" + clientId);
+  //   if (clientId) {
+  //     new Promise((resolve, reject) => {
+  //       this.props.updateBusinessClientWatcher({ ...data, clientId }, () => {
+  //         this.props.history.push("/businessclientlist");
+  //         resolve();
+  //       });
+  //     });
+  //   } else {
+  //     new Promise((resolve, reject) => {
+  //       this.props.createBusinessClientWatcher(data, () => {
+  //         this.props.history.push('/businessclientlist');
+  //         resolve();
+  //       });
+  //     });
+  //   }
+  // };
+
+  submitForm = values => {
+    console.log("submit form", values);
     const clientId = this.props.match.params.id;
-    console.log("client id is::::" + clientId);
     if (clientId) {
       new Promise((resolve, reject) => {
-        this.props.updateBusinessClientWatcher({ ...data, clientId }, () => {
+        this.props.updateBusinessClientWatcher({ ...values, clientId }, () => {
           this.props.history.push("/businessclientlist");
           resolve();
         });
       });
     } else {
       new Promise((resolve, reject) => {
-        this.props.createBusinessClientWatcher(data, () => {
-          this.props.history.push('/businessclientlist');
+        this.props.createBusinessClientWatcher(values, () => {
+          this.props.history.push("/businessclientlist");
           resolve();
         });
       });
     }
   };
-
   render() {
     const {
       classes,

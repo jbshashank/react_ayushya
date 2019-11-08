@@ -34,7 +34,9 @@ class LoginPage extends React.Component {
     super(props);
     this.state = {
       checked: [],
-      errors: {}
+      errors: {},
+      email: '',
+      password: ''
     };
   }
   login = async e => {
@@ -42,44 +44,56 @@ class LoginPage extends React.Component {
     e.preventDefault();
     const { history } = this.props;
 
-    const fields = ["username", "password"];
+    const fields = ["email", "password"];
     const formElements = e.target.elements;
+    // const { email, password } = this.state;
 
     const formValues = fields
       .map(field => ({
         [field]: formElements.namedItem(field).value
       }))
       .reduce((current, next) => ({ ...current, ...next }));
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(formValues.username, formValues.password)
-      // .doPasswordReset = username => this.auth.sendPasswordResetEmail(username)
-      // .doPasswordUpdate = password => this.auth.currentUser.updatePassword(password)
-      .then((user) => {
-        localStorage.setItem("userdetail", user);
-        this.props.history.push('/dashboard');
+    axios({
+      method: 'post',
+      url: `http://134.209.147.111:8095/login`,
+      data: {
+        email: formValues.email,
+        password: formValues.password
+      }
+      // withCredentials: true // True otherwise I receive another error
+    })
+      .then(response => {
+        localStorage.setItem("userdetail", response);
+        if (response.data.userId) {
+          this.props.history.push('/dashboard');
+        }
       })
-      .catch((error) => {
-        this.setState({ errors: error });
+      .catch(error => {
+        console.log("login error:::" + error);
       });
+
     // let loginRequest;
     // try {
     //   loginRequest = await axios.post(
-    //     `http://${REACT_APP_SERVER_URL}/login`,
+    //     `http://134.209.147.111:8095/login`,
     //     {
-    //       ...formValues
-    //     },
-    //     {
-    //       withCredentials: true
+    //       data: {
+    //         email: formValues.email,
+    //         password: formValues.password
+    //       }
     //     }
     //   );
     // } catch ({ response }) {
+    //   localStorage.setItem("userdetail", response);
+    //   if (response.data.userId) {
+    //     this.props.history.push('/dashboard');
+    //   }
     //   loginRequest = response;
     // }
     // const { data: loginRequestData } = loginRequest;
-    // if (loginRequestData.success) {
-    //   return history.push("/dashboard");
-    // }
+    // // if (loginRequestData) {
+    // //   return history.push("/dashboard");
+    // // }
 
     // this.setState({
     //   errors: loginRequestData.messages && loginRequestData.messages.errors
@@ -133,14 +147,14 @@ class LoginPage extends React.Component {
                   <CustomInput
                     labelText="Email..."
                     id="email"
-                    error={errors.username || errors.invalidEmailOrPassword}
+                    error={errors.email || errors.invalidEmailOrPassword}
                     formControlProps={{
                       fullWidth: true,
                       className: classes.formControlClassName
                     }}
                     inputProps={{
                       required: true,
-                      name: "username",
+                      name: "email",
                       endAdornment: (
                         <InputAdornment position="end">
                           <Email className={classes.inputAdornmentIcon} />

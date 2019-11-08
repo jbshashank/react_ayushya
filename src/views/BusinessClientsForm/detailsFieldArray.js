@@ -47,8 +47,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
           <GridContainer>
             <GridItem xs={12} sm={4} md={4}>
               <Field
-                // name="contactName"
-                name={`${member}.clientContactDetails.contactName`}
+                name={`${member}.contactName`}
                 component={CustomTextField}
                 label="Name*"
                 validate={[required, alpha]}
@@ -56,8 +55,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             </GridItem>
             <GridItem xs={12} sm={4} md={4}>
               <Field
-                // name={`${member}.contactEmail`}
-                name="contactEmail"
+                name={`${member}.contactEmail`}
+                // name="contactEmail"
                 type="text"
                 component={CustomTextField}
                 label="Email Address*"
@@ -66,8 +65,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             </GridItem>
             <GridItem xs={12} sm={4} md={4}>
               <Field
-                name="contactLandline"
-                // name={`${member}.contactLandline`}
+                // name="contactLandline"
+                name={`${member}.contactLandline`}
                 component={CustomTextField}
                 id="Landline"
                 label="Landline*"
@@ -76,8 +75,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             </GridItem>
             <GridItem xs={12} sm={4} md={4}>
               <Field
-                // name={`${member}.contactMobile`}
-                name="contactMobile"
+                name={`${member}.contactMobile`}
+                // name="contactMobile"
                 component={CustomTextField}
                 id="mobile"
                 label="Mobile Number*"
@@ -86,8 +85,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             </GridItem>
             <GridItem xs={12} sm={4} md={4}>
               <Field
-                name="contactDesignation"
-                // name={`${member}.contactDesignation`}
+                // name="contactDesignation"
+                name={`${member}.contactDesignation`}
                 component={CustomTextField}
                 id="designation"
                 label="Designation*"

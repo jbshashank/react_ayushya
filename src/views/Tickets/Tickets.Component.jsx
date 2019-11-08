@@ -267,8 +267,8 @@ class Tickets extends Component {
 
                                                     if (!isRescheduleTicketsPage) {
                                                         return (
-                                                            <TableRow key={row.ticketId}>
-                                                                {/* <TableRow> */}
+                                                            <TableRow>
+                                                                {/* <TableRow key={row.ticketId}> */}
                                                                 <TableCell style={{ width: "20%", padding: 15 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</TableCell>
                                                                 <TableCell style={{ width: "25%", padding: 15 }}><div style={{}}>{row.description}</div></TableCell>
                                                                 <TableCell style={{ width: "30%", padding: 15 }}>

@@ -40,22 +40,19 @@ import { BASE_URL, BASE_URL_TICKETS, BASE_URL_COMPLAINTS, BASE_URL_PRODUCTS } fr
 
 
 function fetchTicketsApi(payload) {
-    // let url = `${BASE_URL_COMPLAINTS}tickets/ticket/searchByCity`;
+    let url = `${BASE_URL_COMPLAINTS}tickets/ticket/getAllTickets/`;
 
-    // if (payload && payload.isFilter) {
-    //     url = `${url}${payload.city}/${payload.value}`;
-    // }
+    if (payload && payload.isFilter) {
+        url = `${url}${payload.name}/${payload.value}`;
+    }
+    url = `${url}/?page=${Number(payload ? payload.page : 0)}&size=${Number(payload ? payload.rowsPerPage : 10)}`;
 
-    // console.log("payload value" + payload.city);
-    // url = `${url}/?page=${Number(payload ? payload.page : 0)}&size=${Number(payload ? payload.rowsPerPage : 10)}`;
-
-    // if (payload && payload.sortField) {
-    //     url = `${url}&sort=${payload.sortField},${payload.sortOrder.toUpperCase()}`
-    // }
-
+    if (payload && payload.sortField) {
+        url = `${url}&sort=${payload.sortField},${payload.sortOrder.toUpperCase()}`
+    }
     return axios.request({
         method: "get",
-        url: `${BASE_URL_COMPLAINTS}tickets/ticket/getAllTickets`
+        url: url,
     });
 }
 

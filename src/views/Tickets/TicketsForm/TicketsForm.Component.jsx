@@ -534,7 +534,7 @@ class TicketsForm extends Component {
                                                 className={classes.textField}
                                                 name="contactNumber"
                                                 disabled={isRescheduleTickets}
-                                                value={ticket.customerDataModel.contactNumber}
+                                                // value={ticket.customerDataModel.contactNumber}
                                                 validate={[required, phoneNumber]} />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>

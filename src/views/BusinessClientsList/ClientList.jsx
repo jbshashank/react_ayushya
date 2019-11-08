@@ -86,7 +86,7 @@ class ClientList extends Component {
                             <CardBody profile className="customCardBody">
                                 <h4 className="customTitle">{Client.clientName}</h4>
                                 <h5 className="customSubtitle">{Client.state}</h5>
-                                <h6 className="customSubtitle">{Client.clientContactDetails.contactMobile}</h6>
+                                {/* <h6 className="customSubtitle">{Client.clientContactDetails.contactMobile}</h6> */}
                             </CardBody>
                             <CardActions>
                                 <IconButton className="editIcon" onClick={() => this.props.history.push(`businessclients-edit/${Client.clientId}`)}>
