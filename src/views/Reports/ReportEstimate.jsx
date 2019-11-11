@@ -78,7 +78,7 @@ export default class ReportEstimate extends Component {
         };
     }
     componentDidMount() {
-        axios.get('http://192.168.1.5:8096/payments/estimate/getAllEstimates')
+        axios.get('http://134.209.147.111:8096/payments/estimate/getAllEstimates')
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })

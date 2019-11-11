@@ -30,7 +30,7 @@ ReactDOM.render(
     <Router history={hist}>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route exact path="/passwordReset" component={PasswordReset} />
+        <Route exact path="/account/passwordReset" component={PasswordReset} />
         <ProtectedRoute path="/" component={Admin} />
       </Switch>
     </Router>

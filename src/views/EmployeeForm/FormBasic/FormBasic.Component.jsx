@@ -187,7 +187,7 @@ class FormBasic extends Component {
                                         </InputLabel>
                                         <CustomInput
                                             labelText=""
-                                            id="about-me"
+                                            id="aboutMe"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
@@ -283,7 +283,7 @@ class FormBasic extends Component {
                                             ref={ref => (this.pond = ref)}
                                             files={photo}
                                             allowMultiple={false}
-                                            onupdatefiles={fileItems => {
+                                            onupdatefiles={flieItems => {
                                                 // Set currently active file objects to this.state
                                                 handleDateChange('photo', fileItems)
                                             }}/>
@@ -298,7 +298,16 @@ class FormBasic extends Component {
                                         </div>
                                     </GridItem> */}
                                     <GridItem xs={12} sm={12} md={4}>
-                                        <FormControl className={classes.formControl}>
+                                        <TextField
+                                            id="state"
+                                            label="State*"
+                                            className={classes.textField}
+                                            name="state"
+                                            value={state}
+                                            error={!!errorState}
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorState}</FormHelperText>
+                                        {/* <FormControl className={classes.formControl}>
                                             <InputLabel htmlFor="age-simple">State*</InputLabel>
                                             <Select
                                                 value={state}
@@ -310,35 +319,34 @@ class FormBasic extends Component {
                                                     return <MenuItem value={item.stateCode}
                                                         key={`STATE_${item.stateCode}`}>{item.name}</MenuItem>
                                                 })}>
-{/*                                                 
-                                                onChange={e => this.handleStateChange(e)}>
-                                                {states.map(item => {
-                                                    return <MenuItem value={item.name}
-                                                        key={`STATE_${item.stateCode}`}>{item.name}</MenuItem>
-                                                })} */}
                                             </Select>
-                                            {/* <FormHelperText style={{ color: 'red' }}>{errorState}</FormHelperText> */}
-                                        </FormControl>
+                                            <FormHelperText style={{ color: 'red' }}>{errorState}</FormHelperText>
+                                        </FormControl> */}
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
-                                        <FormControl className={classes.formControl}>
+                                        {/* <FormControl className={classes.formControl}>
                                             <InputLabel htmlFor="age-simple">City*</InputLabel>
                                             <Select
                                                 className={classes.textField}
                                                 value={city}
                                                 error={!!errorCity}
-                                                onChange={handleCityChange}>
-                                                {/* {cities.map(item => {
-                                                    return <MenuItem value={item.name}
-                                                        key={item.id}>{item.name}</MenuItem>
-                                                })} */}
+                                                onChange={handleCityChange} required>
                                                 {cities.map(item => {
                                                     return <MenuItem value={item.name}
                                                         key={`CITY_${item.id}`}>{item.name}</MenuItem>
                                                 })}
                                             </Select>
-                                            {/* <FormHelperText style={{ color: 'red' }}>{errorCity}</FormHelperText> */}
-                                        </FormControl>
+                                            <FormHelperText style={{ color: 'red' }}>{errorCity}</FormHelperText>
+                                        </FormControl> */}
+                                        <TextField
+                                            id="city"
+                                            label="City*"
+                                            className={classes.textField}
+                                            name="city"
+                                            value={city}
+                                            error={!!errorCity}
+                                            onChange={handleChange} />
+                                        <FormHelperText style={{ color: 'red' }}>{errorCity}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField

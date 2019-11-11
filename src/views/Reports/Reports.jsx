@@ -91,7 +91,7 @@ export default class Reports extends Component {
         };
     }
     componentDidMount() {
-        axios.get('http://192.168.1.5:8092/jobs/job/getAllJob')
+        axios.get('http://134.209.147.111:8092/jobs/job/getAllJob')
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })

@@ -51,11 +51,11 @@ export function* createBusinessClientActionWatcher() {
 // ** update Business Client *//
 
 function updatebusinessClientApi(data) {
-
+    // let url = `${BASE_URL_CLIENTS}clients/updateClientDetails?clientId=` + data;
     return axios.request({
         method: "put",
-        url: `${BASE_URL_CLIENTS}clients/updateClient`,
-        data
+        url: `${BASE_URL_CLIENTS}clients/updateClientDetails?clientId=${data.clientId}`,
+        data: data
     })
 }
 function* updateBusinessClientApiActionEffect(action) {

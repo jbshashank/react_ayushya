@@ -96,20 +96,20 @@ let constraints = {
         // }
     },
     city: {
-        presence: { allowEmpty: true },
-        // format: {
-        //     pattern:"[a-zA-Z]+",
-        //     // flags: "i",
-        //     message: "can only contain alphabets"
-        // }
+        presence: { allowEmpty: false },
+        format: {
+            pattern: "[a-z_ ]+",
+            flags: "i",
+            message: "can only contain alphabets"
+        }
     },
     state: {
-        presence: { allowEmpty: true },
-        // format: {
-        //     pattern:"[a-zA-Z]+",
-        //     // flags: "i",
-        //     message: "can only contain alphabets"
-        // }
+        presence: { allowEmpty: false },
+        format: {
+            pattern: "[a-z_ ]+",
+            flags: "i",
+            message: "can only contain alphabets"
+        }
     },
 
 };

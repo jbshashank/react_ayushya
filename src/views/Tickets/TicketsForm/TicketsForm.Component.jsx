@@ -23,6 +23,8 @@ import GridContainer from "../../../components/Grid/GridContainer.jsx";
 import { required, email, alphaNumeric, alpha, phoneNumber, number, pinCode } from '../../../utils/reduxFormValiadtion';
 import axios from "../../../utils/axios";
 
+
+
 class TicketsForm extends Component {
     constructor(props) {
         super(props);
@@ -204,7 +206,7 @@ class TicketsForm extends Component {
             });
         } else {
             new Promise((resolve, reject) => {
-                this.props.createTicketsWatcher({ ...data, ticketId }, () => {
+                this.props.createTicketsWatcher(data, () => {
                     this.props.history.push('/tickets');
                     resolve();
                 })
@@ -270,8 +272,6 @@ class TicketsForm extends Component {
                                                     onChange={(e) => {
                                                         this.brandOnChangeHandler(e)
                                                     }}
-                                                    // brandId={this.state.brandId}
-                                                    // onChange={this.brandOnChangeHandler}
                                                     disabled={readOnly}
                                                     validate={[required]}>
                                                     {brands.map(item => {
@@ -364,25 +364,6 @@ class TicketsForm extends Component {
                                                 name="serialNumber"
                                                 validate={[required]} />
                                         </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={8} md={8}>
-                                            <Field
-                                                lable="Waranty*"
-                                                component={renderRadioGroup}
-                                                name="warranty"
-                                                disabled={isRescheduleTickets}
-                                                className={classes.group}
-                                                validate={[required]}>
-                                                <FormControlLabel value="Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />} label="Warranty" />
-                                                <FormControlLabel value="Out of Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
-                                                    label="Out of Warranty" />
-                                                <FormControlLabel value="Extended Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
-                                                    label="Extended Warranty" />
-                                            </Field>
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={renderTimePicker}
@@ -409,6 +390,24 @@ class TicketsForm extends Component {
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
+                                        <GridItem xs={12} sm={8} md={8}>
+                                            <Field
+                                                lable="Waranty*"
+                                                component={renderRadioGroup}
+                                                name="warranty"
+                                                disabled={isRescheduleTickets}
+                                                className={classes.group}
+                                                validate={[required]}>
+                                                <FormControlLabel value="Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />} label="Warranty" />
+                                                <FormControlLabel value="Out of Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
+                                                    label="Out of Warranty" />
+                                                <FormControlLabel value="Extended Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
+                                                    label="Extended Warranty" />
+                                            </Field>
+                                        </GridItem>
+                                    </GridContainer>
+
+                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
@@ -421,8 +420,6 @@ class TicketsForm extends Component {
                                                 validate={[required, alpha]}
                                             />
                                         </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
@@ -450,6 +447,9 @@ class TicketsForm extends Component {
                                                 rowsMax={2}
                                                 validate={[required]} />
                                         </GridItem>
+                                    </GridContainer>
+                                    <GridContainer>
+
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
@@ -464,7 +464,17 @@ class TicketsForm extends Component {
                                         </GridItem>
 
                                         <GridItem xs={12} sm={4} md={4}>
-                                            <FormControl className={classes.formControl}>
+                                            <Field
+                                                component={CustomTextField}
+                                                id="state"
+                                                label="State*"
+                                                disabled={isRescheduleTickets}
+                                                className={classes.textField}
+                                                name="state"
+                                                validate={[alpha]}
+                                                onChange={this.handleChange}
+                                            />
+                                            {/* <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
                                                     State*
                                                 </InputLabel>
@@ -482,10 +492,20 @@ class TicketsForm extends Component {
                                                             {item.name}</option>
                                                     })}
                                                 </Field>
-                                            </FormControl>
+                                            </FormControl> */}
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
-                                            <FormControl className={classes.formControl}>
+                                            <Field
+                                                component={CustomTextField}
+                                                id="city"
+                                                label="City*"
+                                                disabled={isRescheduleTickets}
+                                                className={classes.textField}
+                                                name="city"
+                                                validate={[alpha]}
+                                                onChange={this.handleChange}
+                                            />
+                                            {/* <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
                                                     City*
                                                 </InputLabel>
@@ -501,8 +521,10 @@ class TicketsForm extends Component {
                                                             key={item.id}>{item.name}</MenuItem>
                                                     })}
                                                 </Field>
-                                            </FormControl>
+                                            </FormControl> */}
                                         </GridItem>
+                                    </GridContainer>
+                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
@@ -514,8 +536,6 @@ class TicketsForm extends Component {
                                                 name="pinCode"
                                                 validate={[required, pinCode]} />
                                         </GridItem>
-                                        {/* </GridContainer>
-                                    <GridContainer> */}
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
@@ -537,6 +557,8 @@ class TicketsForm extends Component {
                                                 // value={ticket.customerDataModel.contactNumber}
                                                 validate={[required, phoneNumber]} />
                                         </GridItem>
+                                    </GridContainer>
+                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
                                                 component={CustomTextField}
@@ -547,8 +569,6 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 validate={[phoneNumber]} />
                                         </GridItem>
-                                        {/* </GridContainer>
-                                    <GridContainer> */}
                                         <GridItem xs={12} sm={4} md={12}>
                                             <Field
                                                 component={CustomTextField}
@@ -579,6 +599,8 @@ class TicketsForm extends Component {
                                                 </Field>
                                             </FormControl>}
                                         </GridItem>
+                                    </GridContainer>
+                                    <GridContainer>
                                         <GridItem xs={12} sm={4} md={12}>
                                             <Field
                                                 component={CustomTextField}
@@ -614,6 +636,7 @@ class TicketsForm extends Component {
                                                         disableFuture={true}
                                                     />
                                                 </GridItem>
+                                                {/* <CustomerDetails TicketId={this.props.match.params.id} /> */}
                                             </>}
 
                                     </GridContainer>

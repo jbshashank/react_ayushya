@@ -83,7 +83,7 @@ export default class ReportInvoice extends Component {
         };
     }
     componentDidMount() {
-        axios.get('http://192.168.1.5:8096/payments/cashreceipt/getAllInvoice')
+        axios.get('http://134.209.147.111:8096/payments/cashreceipt/getAllInvoice')
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })

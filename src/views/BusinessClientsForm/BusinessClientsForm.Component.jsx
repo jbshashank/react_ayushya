@@ -96,8 +96,9 @@ class BusinessClientsForm extends Component {
     const clientId = this.props.match.params.id;
     if (clientId) {
       new Promise((resolve, reject) => {
-        this.props.updateBusinessClientWatcher({ ...values, clientId }, () => {
-          this.props.history.push("/businessclientlist");
+        this.props.updateBusinessClientWatcher({ ...values }, () => {
+          console.log('values in upadte client' + values);
+          this.props.history.push('/businessclientlist');
           resolve();
         });
       });
@@ -204,7 +205,7 @@ class BusinessClientsForm extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4}>
-                      <FormControl className={classes.formControl}>
+                      {/* <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="age-simple">State*</InputLabel>
                         <Field
                           component={renderSelectField}
@@ -226,10 +227,30 @@ class BusinessClientsForm extends Component {
                             );
                           })}
                         </Field>
-                      </FormControl>
+                      </FormControl> */}
+
+                      <Field
+                        component={CustomTextField}
+                        id="state"
+                        label="State*"
+                        disabled={readOnly}
+                        className={classes.textField}
+                        name="state"
+                        validate={[required, alpha]}
+                      />
+
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4}>
-                      <FormControl className={classes.formControl}>
+                      <Field
+                        component={CustomTextField}
+                        id="city"
+                        label="City*"
+                        disabled={readOnly}
+                        className={classes.textField}
+                        name="city"
+                        validate={[required, alpha]}
+                      />
+                      {/* <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="age-simple">City*</InputLabel>
                         <Field
                           component={renderSelectField}
@@ -243,7 +264,7 @@ class BusinessClientsForm extends Component {
                               key={item.id}>{item.name}</MenuItem>
                           })}
                         </Field>
-                      </FormControl>
+                      </FormControl> */}
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4}>
                       <FormControl className={classes.formControl}>

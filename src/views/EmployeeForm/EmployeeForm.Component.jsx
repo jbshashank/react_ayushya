@@ -105,6 +105,7 @@ class EmployeeForm extends Component {
             });
         }
         this.props.fetchStateWatcher();
+        // this.props.fetchAllCityWatcher();
     }
 
     validateForm = (a) => {
@@ -302,6 +303,26 @@ class EmployeeForm extends Component {
         }
     };
 
+    handleStateChange = event => {
+        // const unProcesedKey = event._targetInst.key;
+        // console.log("unProcesedKey:::::::::" + unProcesedKey);
+        // const StateId = unProcesedKey.split("STATE_")[
+        //     unProcesedKey.split("STATE_").length - 1
+        // ];
+
+        // this.setState({ state: event._targetInst.key });
+        // const StateId = this.state.state.split("STATE_")[this.state.state.split("STATE_").length - 1];
+        this.setState({ state: event.target.value });
+        this.props.fetchCityWatcher({ stateCode: event.target.value });
+
+        // const unProcesedKey = e._targetInst.key;
+        // console.log("unProcesedKey:::" + unProcesedKey);
+        // const StateId = unProcesedKey.split("STATE_")[
+        //     unProcesedKey.split("STATE_").length - 1
+        // ];
+        // this.props.fetchCityWatcher({ stateCode: StateId });
+    };
+
     handleCityChange = event => {
         this.setState({ city: event.target.value });
     };
@@ -315,18 +336,7 @@ class EmployeeForm extends Component {
     //     ];
     //     this.props.fetchCityWatcher({ stateCode: StateId });
     // }
-    handleStateChange = event => {
-        // const unProcesedKey = event._targetInst.key;
-        // console.log("unProcesedKey:::::::::" + unProcesedKey);
-        // const StateId = unProcesedKey.split("STATE_")[
-        //     unProcesedKey.split("STATE_").length - 1
-        // ];
 
-        // this.setState({ state: event._targetInst.key });
-        // const StateId = this.state.state.split("STATE_")[this.state.state.split("STATE_").length - 1];
-        this.setState({ state: event.target.value });
-        this.props.fetchCityWatcher({ stateCode: event.target.value });
-    };
 
     handleNext = () => {
         if (!this.validateForm()) return;
