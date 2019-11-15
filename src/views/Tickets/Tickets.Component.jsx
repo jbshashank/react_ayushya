@@ -38,7 +38,6 @@ class Tickets extends Component {
             sortField: '',
             sortOrder: 'asc',
         };
-        this.handleBulkFileUpload = this.handleBulkFileUpload.bind(this);
         this.columns =
             [
                 { key: 'visitDate', label: 'Visit Date' },
@@ -74,7 +73,7 @@ class Tickets extends Component {
             isFilter: visitDate || city,
             name: visitDate ? 'visitDate' : city ? 'city' : '',
             value: visitDate ? visitDate : city ? city : '',
-            page: 0,
+            page: this.state.page,
             rowsPerPage: this.state.rowsPerPage,
             sortField: row.key,
             sortOrder: isDesc ? 'asc' : 'desc'

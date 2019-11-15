@@ -21,13 +21,40 @@ import {
   pinCode
 } from "../../../utils/reduxFormValiadtion";
 
-const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
-  if (fields.length === 0) {
-    fields.push({})
+// const renderMultipleFields = ({ }) => {
+//   // if (fields.length === 0) {
+//   //   fields.push({})
+//   // }
+//   return (
+//     <>
+//       {/* {fields.map((member, index) => ( */}
+
+//       {/* ))} */}
+//     </>
+//   );
+// }
+
+class customerDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ticket: '',
+    }
   }
-  return (
-    <>
-      {fields.map((member, index) => (
+  componentDidMount() {
+    // const ticketId = this.props.match.params.id;
+    // if (ticketId) {
+    //   this.setState({ ticketId });
+    //   this.props.fetchTicketsByIdWatcher({ ticketId });
+    //   this.setState({ ticket })
+    // }
+  }
+  render() {
+    return (
+      // <div>
+      //   <FieldArray name="customerDataModel" component={renderMultipleFields} />
+      // </div>
+      <div>
         <>
           <GridContainer>
             <GridItem xs={12} sm={4} md={4}>
@@ -36,10 +63,11 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 id="customerName"
                 label="Cusomer Name*"
                 // className={classes.textField}
-                // name="customerName"
-                name={`${member}.customerName`}
+                name="customerName"
+                value="customerName"
+                // name={`${member}.customerName`}
                 // disabled={isRescheduleTickets}
-                onChange={this.handleChange}
+                // onChange={this.handleChange}
                 validate={[required, alpha]}
               />
             </GridItem>
@@ -51,8 +79,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 id="address1"
                 label="Address 1*"
                 // className={classes.textField}
-                // name="address1"
-                name={`${member}.address1`}
+                name="address1"
+                // name={`${member}.address1`}
                 // disabled={isRescheduleTickets}
                 multiline={true}
                 rows={2}
@@ -66,8 +94,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 id="address2"
                 label="Address 2*"
                 // className={classes.textField}
-                // name="address2"
-                name={`${member}.address2`}
+                name="address2"
+                // name={`${member}.address2`}
                 // disabled={isRescheduleTickets}
                 multiline={true}
                 rows={2}
@@ -80,11 +108,11 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 id="street"
                 label="Street*"
                 // className={classes.textField}
-                // name="street"
-                name={`${member}.street`}
+                name="street"
+                // name={`${member}.street`}
                 // disabled={isRescheduleTickets}
-                onChange={this.handleChange}
-                validate={[alpha]}
+                // onChange={this.handleChange}
+                validate={[required, alpha]}
               />
             </GridItem>
 
@@ -96,14 +124,14 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                   State*
                                                 </InputLabel>
                 <Field
-                  component={renderSelectField}
-                  // name="state"
-                  name={`${member}.state`}
+                  component={CustomTextField}
+                  name="state"
+                  // name={`${member}.state`}
                   id="state"
                   // disabled={isRescheduleTickets}
                   // className={classes.textField}
-                  onChange={(e) => this.handleStateChange(e)}
-                  validate={[required]}>
+                  // onChange={(e) => this.handleStateChange(e)}
+                  validate={[required, alpha]}>
                   {/* {states.map(item => {
                     return <option className={classes.customOption} value={item.name}
                       key={`STATE_${item.stateCode}`}>
@@ -120,13 +148,13 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                   City*
                                                 </InputLabel>
                 <Field
-                  component={renderSelectField}
-                  // name="city"
-                  name={`${member}.city`}
+                  component={CustomTextField}
+                  name="city"
+                  // name={`${member}.city`}
                   id="city"
                   // disabled={isRescheduleTickets}
                   // className={classes.textField}
-                  validate={[required]}>
+                  validate={[required, alpha]}>
                   {/* {cities.map(item => {
                     return <MenuItem value={item.name}
                       key={item.id}>{item.name}</MenuItem>
@@ -142,8 +170,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 // disabled={isRescheduleTickets}
                 // disabled={}
                 // className={classes.textField}
-                // name="pinCode"
-                name={`${member}.pinCode`}
+                name="pinCode"
+                // name={`${member}.pinCode`}
                 validate={[required, pinCode]} />
             </GridItem>
             {/* </GridContainer>
@@ -154,8 +182,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 id="email"
                 label="Email Address*"
                 // className={classes.textField}
-                // name="email"
-                name={`${member}.email`}
+                name="email"
+                // name={`${member}.email`}
                 // disabled={isRescheduleTickets}
                 validate={[required, email]} />
             </GridItem>
@@ -165,8 +193,8 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 id="contactNumber"
                 label="Contact Number*"
                 // className={classes.textField}
-                // name="contactNumber"
-                name={`${member}.contactNumber`}
+                name="contactNumber"
+                // name={`${member}.contactNumber`}
                 // disabled={isRescheduleTickets}
                 // value={ticket.customerDataModel.contactNumber}
                 validate={[required, phoneNumber]} />
@@ -177,26 +205,13 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 id="alternateContact"
                 label="Alternate Contact Number"
                 // className={classes.textField}
-                // name="alternateContact"
-                name={`${member}.alternateContact`}
+                name="alternateContact"
+                // name={`${member}.alternateContact`}
                 // disabled={isRescheduleTickets}
                 validate={[phoneNumber]} />
             </GridItem>
           </GridContainer>
         </>
-      ))}
-    </>
-  );
-}
-
-class customerDetails extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div>
-        <FieldArray name="customerDataModel" component={renderMultipleFields} />
       </div>
     );
   }

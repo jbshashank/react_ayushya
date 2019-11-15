@@ -126,7 +126,8 @@ export function* fetchAllProductActionWatcher() {
 function fetchAllModelsApi() {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_TICKETS}Employee/models`,
+        url: `${BASE_URL_PRODUCTS}products/model/findAll`,
+
     });
 }
 function* fetchAllModelActionEffect(action) {
@@ -221,7 +222,7 @@ export function* fetchProductSubcategoryActionWatcher() {
 function fetchAllProductSubcategoryApi(payload) {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_TICKETS}Employee/productsubcategory/`,
+        url: `${BASE_URL_PRODUCTS}products/subcategory/findAll`,
     });
 }
 function* fetchAllProductSubcategoryActionEffect(action) {
@@ -242,8 +243,12 @@ export function* fetchAllProductSubcategoryActionWatcher() {
 function fetchTicketByIdApi(data) {
     return axios.request({
         method: "get",
+        // url: `${BASE_URL_COMPLAINTS}tickets/ticket/getByTicketId?ticketId=${data.ticketId}`,
         url: `${BASE_URL_COMPLAINTS}tickets/ticket/getByTicketId?ticketId=${data.ticketId}`,
         data
+        // url: 'http://192.168.1.9:8091/tickets/ticket/getByTicketAndCustomer?ticketId=ATAS-TKT-151119-022'
+
+        // data
     });
 }
 
@@ -253,6 +258,7 @@ function* fetchTicketByIdActionEffect(action) {
     try {
         yield put(setPageLoaderStart());
         let { data } = yield call(fetchTicketByIdApi, payload);
+        yield put(setPageLoaderFinish());
         yield put(setTicket(data));
         if (resolve) resolve();
     } catch (e) {
@@ -330,7 +336,7 @@ function updateTicketsApi(data) {
 
     return axios.request({
         method: "put",
-        url: `${BASE_URL}tickets/${data.ticketId}`,
+        url: `${BASE_URL_COMPLAINTS}tickets/${data.ticketId}`,
         data
     });
 }

@@ -30,7 +30,7 @@ class TicketsForm extends Component {
         moment.locale('en');
         this.state = {
             userId: [],
-            ticket: {},
+            // ticket: {},
             callType: '',
             brand: '',
             category: '',
@@ -69,11 +69,12 @@ class TicketsForm extends Component {
                 this.setState({ userId: users });
             });
         // this.props.fetchTicketsWatcher();
-        // const { tickets } = this.props;
         const ticketId = this.props.match.params.id;
         if (ticketId) {
             this.setState({ ticketId });
             this.props.fetchTicketsByIdWatcher({ ticketId });
+
+            // this.setState({ makeId: this.props.ticket.callType });
             // this.setState({ customerName: 'hi' });
             // console.log('customer name:::::' + this.state.customerName);
             // new Promise((resolve, reject) => {
@@ -90,7 +91,6 @@ class TicketsForm extends Component {
             //             visitDate: this.props.ticket.visitDate,
             //             dealerName: this.props.ticket.dealerName,
             //             description: this.props.ticket.description,
-            //             userId: this.props.ticket.userId,
             //             // productModel: {
             //             //     brand: values.brand,
             //             //     category: values.category,
@@ -98,7 +98,6 @@ class TicketsForm extends Component {
             //             //     model: values.model,
             //             // },
             //             customerDataModel: {
-            //                 customerId: this.props.ticket.customerId,
             //                 customerName: this.props.ticket.customerName,
             //                 address1: this.props.ticket.address1,
             //                 address2: this.props.ticket.address2,
@@ -113,17 +112,21 @@ class TicketsForm extends Component {
             //             // imagePath: this.props.employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${this.props.employee.employeePersonalDetails.uploadDir}` : null,
             //         });
             //         this.props.history.push('/tickets');
-
+            //         console.log('inside ticket update');
             //         resolve();
+            //     }, () => {
+            //         reject();
             //     });
-            // })
-            this.props.fetchAllModelWatcher();
-            this.props.fetchAllCityWatcher();
+            // });
+            // this.props.fetchAllModelWatcher();
+            // this.props.fetchAllCityWatcher();
 
         }
         this.props.fetchBrandWatcher();
         this.props.fetchAllProductWatcher();
-        this.props.fetchStateWatcher();
+        this.props.fetchAllProductSubCategoryWatcher();
+        this.props.fetchAllModelWatcher();
+        // this.props.fetchAllCityWatcher();
         this.props.fetchEmployeesWatcher({});
     }
     componentWillReceiveProps(nextProps) {
@@ -494,7 +497,7 @@ class TicketsForm extends Component {
                                                     State*
                                                 </InputLabel>
                                                 <Field
-                                                    component={renderSelectField}
+                                                    component={CustomTextField}
                                                     name="state"
                                                     id="state"
                                                     disabled={isRescheduleTickets}
@@ -629,6 +632,7 @@ class TicketsForm extends Component {
                                                 rowsMax={2}
                                                 validate={[required]} />
                                         </GridItem>
+                                        {/* <CustomerDetails TicketId={this.props.match.params.id} /> */}
                                         {isRescheduleTickets &&
                                             <>
                                                 <GridItem xs={12} sm={4} md={4}>
@@ -651,7 +655,7 @@ class TicketsForm extends Component {
                                                         disableFuture={true}
                                                     />
                                                 </GridItem>
-                                                <CustomerDetails TicketId={this.props.match.params.id} />
+
                                             </>}
 
                                     </GridContainer>

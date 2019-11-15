@@ -135,17 +135,3 @@ export const deleteTicketsWatcher = (payload, resolve, reject) => {
 export const uploadTicketsWatcher = (payload, resolve, reject) => {
   return { type: UPLOAD_TICKETS_WATCHER, payload, resolve, reject }
 };
-
-// import { craeteAction } from "redux-actions";
-
-//action type
-//request REQUEST_*
-//receive RECEIVE_*
-
-
-/** brand action */
-// import { FETCH_BRAND, FETCH_SUCCEEDED, FETCH_FAILED } from '../actionTypes';
-
-// export const fetchBrandAction = () => ({ type: FETCH_BRAND });
-// export const fetchSuccessBrandAction = (receivedBrand) => ({ type: FETCH_SUCCEEDED, receivedBrand });
-// export const fetchFailedBrandAction = (error) => ({ type: FETCH_FAILED, error });
