@@ -204,8 +204,9 @@ class TicketsForm extends Component {
         };
         const ticketId = this.props.match.params.id;
         if (ticketId) {
+            // data.ticketId = ticketId;
             new Promise((resolve, reject) => {
-                this.props.updateTicketsWatcher({ ...data, ticketId }, () => {
+                this.props.updateTicketsWatcher({ ...data }, () => {
                     this.props.history.push('/tickets');
                     resolve();
                 })
