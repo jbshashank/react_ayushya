@@ -21,23 +21,6 @@ import axios from "../../utils/axios";
 import { BASE_URL_EMPLOYEE } from "../../utils/config";
 import { BASE_URL_TICKETS, BASE_URL_GENERIC } from "../../utils/config";
 
-// function fetchEmployeesApi(data) {
-//     return axios.request({
-//         method: "get",
-//         url: `${BASE_URL_EMPLOYEE}users/user/getAll`,
-//     });
-//     // console.log("value of data in fetchEMPApi", data)
-//     // console.log("empreq ::::", axios.request({
-//     //     method: 'GET',
-//     //     url: `${BASE_URL_EMPLOYEE}users/user/getAll`,
-//     //     // url: `${BASE_URL_EMPLOYEE}users/user/firstname/firstname?firstname=${data.firstname === undefined ? data.firstname : ''}`,
-//     // }));
-//     // return axios.request({
-//     //     method: "get",
-//     //     // url: `${BASE_URL_EMPLOYEE}users/user/firstname/firstname?firstname=${data.firstname === undefined ? data.firstname : ''}`,
-//     //     url: `${BASE_URL_EMPLOYEE}Employee/user/search?searchParam=${data.searchParam === undefined ? '' : data.searchParam}`,
-//     // });
-// }
 function fetchEmployeesApi(data) {
     console.log("empreq ::::", axios.request({
         method: "get",
@@ -47,10 +30,6 @@ function fetchEmployeesApi(data) {
         method: "get",
         url: `${BASE_URL_EMPLOYEE}userSearch?userSearch=${data.userSearch === undefined ? '' : data.userSearch}`,
     });
-    // return axios.request({
-    //     method: "get",
-    //     url: `${BASE_URL_EMPLOYEE}users/user/getAll`
-    // });
 }
 
 function fetchStateApi(data) {
@@ -63,7 +42,6 @@ function fetchStateApi(data) {
 function fetchCityApi(data) {
     return axios.request({
         method: "get",
-        // http://localhost:8098/general/city/findAll?stateCode=AD
         url: `${BASE_URL_GENERIC}general/city/findAll?stateCode=${data.stateCode}`,
     });
 }//*fetch All CityApi* */
@@ -143,39 +121,6 @@ export function* fetchStateActionWatcher() {
 export function* fetchCityActionWatcher() {
     yield takeLatest(FETCH_CITY_WATCHER, fetchCityActionEffect);
 }
-
-// function fetchEmployeeByIdApi(data) {
-//     return axios.request({
-//         method: "get",
-//         url: `${BASE_URL_EMPLOYEE}users/user/userId?userId=${data.userId}`
-//     });
-// }
-
-// function* fetchEmployeeByIdActionEffect(action) {
-//     let { payload, resolve, reject } = action;
-
-//     try {
-//         yield put(setPageLoaderStart());
-//         let { data } = yield call(fetchEmployeeByIdApi, payload);
-//         console.log("employee data by id:::::::" + data.userId);
-//         yield put(setPageLoaderFinish());
-//         const employee = {
-//             firstName: data.firstName,
-//             middleName: data.middleName,
-//             lastName: data.lastName,
-//         };
-//         yield put(setEmployeeForm(data));
-//         yield put(setEmployee(data));
-//         if (resolve) resolve();
-//     } catch (e) {
-//         yield put(setEmployeesError(e));
-//         if (reject) reject(e);
-//     }
-// }
-
-// export function* fetchEmployeeByIdActionWatcher() {
-//     yield takeLatest(FETCH_EMPLOYEE_BY_ID_WATCHER, fetchEmployeeByIdActionEffect);
-// }
 function fetchEmployeeByIdApi(data) {
     return axios.request({
         method: "GET",

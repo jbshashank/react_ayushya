@@ -22,29 +22,45 @@ import GridItem from "../../../components/Grid/GridItem.jsx";
 import GridContainer from "../../../components/Grid/GridContainer.jsx";
 import { required, email, alphaNumeric, alpha, phoneNumber, number, pinCode } from '../../../utils/reduxFormValiadtion';
 import axios from "../../../utils/axios";
-
-
+import CustomerDetails from './customerDetails';
 
 class TicketsForm extends Component {
     constructor(props) {
         super(props);
+        moment.locale('en');
         this.state = {
             userId: [],
+            ticket: {},
+            callType: '',
+            brand: '',
+            category: '',
+            subCategory: '',
+            model: '',
+            serialNumber: '',
+            warranty: '',
+            visitTime: '',
+            visitDate: '',
+            dealerName: '',
+            description: '',
+            customerId: '',
             customerDataModel: {
-                customerId: '',
                 customerName: '',
-                // address1: values.address1,
-                // address2: values.address2,
-                // street: values.street,
-                // state: values.state,
-                // city: values.city,
-                // pinCode: values.pinCode,
-                // email: values.email,
-                // contactNumber: values.contactNumber,
-                // alternateContact: values.alternateContact
+                address1: '',
+                address2: '',
+                street: '',
+                state: '',
+                city: '',
+                pinCode: '',
+                email: '',
+                contactNumber: '',
+                alternateContact: ''
             }
-
-        }
+        };
+        this.handleTime = this.handleTime.bind(this);
+        // this.handleDateChange = this.handleDateChange.bind(this);
+    }
+    handleTime(event, visitTime) {
+        this.setState({ visitTime: visitTime })
     }
     componentDidMount() {
         axios.get('http://134.209.147.111:8095/users/user/getAllUserLocation')
@@ -53,15 +69,15 @@ class TicketsForm extends Component {
                 this.setState({ userId: users });
             });
         // this.props.fetchTicketsWatcher();
+        // const { tickets } = this.props;
         const ticketId = this.props.match.params.id;
-        console.log("ticket id is" + ticketId);
         if (ticketId) {
             this.setState({ ticketId });
             this.props.fetchTicketsByIdWatcher({ ticketId });
+            // this.setState({ customerName: 'hi' });
+            // console.log('customer name:::::' + this.state.customerName);
             // new Promise((resolve, reject) => {
-            //     console.log("inside 33333");
             //     this.props.fetchTicketsByIdWatcher(ticketId, () => {
-            //         console.log("inside fetchEmployeeByIdWatcher" + this.props.ticket);
             //         this.setState({
             //             callType: this.props.ticket.callType,
             //             brand: this.props.ticket.brand,
@@ -74,12 +90,6 @@ class TicketsForm extends Component {
             //             visitDate: this.props.ticket.visitDate,
             //             dealerName: this.props.ticket.dealerName,
             //             description: this.props.ticket.description,
-            //             status: this.props.ticket.status,
-            //             loggedon: this.props.ticket.loggedon,
-            //             lastupdatedon: this.props.ticket.lastupdatedon,
-            //             ticketId: this.props.ticket.ticketId,
-            //             customerId: this.props.ticket.customerId,
-            //             productId: this.props.ticket.productId,
             //             userId: this.props.ticket.userId,
             //             // productModel: {
             //             //     brand: values.brand,
@@ -102,11 +112,11 @@ class TicketsForm extends Component {
             //             }
             //             // imagePath: this.props.employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${this.props.employee.employeePersonalDetails.uploadDir}` : null,
             //         });
+            //         this.props.history.push('/tickets');
+
             //         resolve();
-            //     }, () => {
-            //         reject();
             //     });
-            // });
+            // })
             this.props.fetchAllModelWatcher();
             this.props.fetchAllCityWatcher();
 
@@ -123,13 +133,6 @@ class TicketsForm extends Component {
     }
     handleTechChange(e) {
         console.log("tech name change:" + e.target.value);
-        // this.fetchEmployeesWatcher();
-        //     if (e.target.value == e.target.empEmailAddress) {
-        //         this.setState({
-        //             technicianUniqueId: this.employeePersonalDetails.empEmailAddress
-        //         });
-        //     this.technicianUniqueId = this.props.employeePersonalDetails.empEmailAddress
-        // }
     }
     brandOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key;
@@ -164,8 +167,8 @@ class TicketsForm extends Component {
             model: values.model,
             serialNumber: values.serialNumber,
             warranty: values.warranty,
-            visitTime: values.visitTime,
-            visitDate: values.visitDate,
+            visitTime: moment.utc(values.visitTime),
+            visitDate: moment.utc(values.visitDate),
             dealerName: values.dealerName,
             description: values.description,
             status: values.status,
@@ -214,14 +217,18 @@ class TicketsForm extends Component {
         }
     };
 
+    // handleDateChange = (e) => {
+
+    //     this.setState({ [e.target.name]: moment(e.target.value).format('DD/MM/YYYY') });
+    //     console.log("value of name:: value", moment(e.target.value).format('DD/MM/YYYY'));
+    // }
     render() {
         const {
-            classes, ticketTypes, products, brands, models, callTypes, assignees, statuses, states,
-            handleSubmit, pristine, reset, submitting, userId, cities, productSubcategory, ticketId, tickets, ticket
+            classes, ticketTypes, products, ticket, brands, models, callTypes, assignees, statuses, states,
+            handleSubmit, pristine, reset, submitting, userId, cities, productSubcategory, ticketId, tickets
         } = this.props;
-        const isRescheduleTickets = this.props.match.path === "/rescheduletickets-edit/:ticketId"
+        const isRescheduleTickets = this.props.match.path === "/ticketsedit/:ticketId"
         const readOnly = !!this.props.match.params.id;
-
         return (
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
@@ -374,6 +381,8 @@ class TicketsForm extends Component {
                                                 className={classes.textField}
                                                 label="Time of visit*"
                                                 validate={[required]}
+                                            // onChange={this.handleTime}
+                                            // value={this.state.visitTime}
                                             />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
@@ -384,8 +393,13 @@ class TicketsForm extends Component {
                                                 className={classes.textField}
                                                 name="visitDate"
                                                 disabled={isRescheduleTickets}
-                                                onChange={this.handleChange}
                                                 validate={[required]}
+                                                mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
+                                            // onChange={(date) => {
+                                            //     handleDateChange('visitDate', date);
+                                            // }}
+                                            // onChange={this.handleDateChange}
+                                            // value={this.state.visitDate}
                                             />
                                         </GridItem>
                                     </GridContainer>
@@ -418,6 +432,7 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
                                                 validate={[required, alpha]}
+                                                value={this.state.customerDataModel.customerName}
                                             />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
@@ -636,7 +651,7 @@ class TicketsForm extends Component {
                                                         disableFuture={true}
                                                     />
                                                 </GridItem>
-                                                {/* <CustomerDetails TicketId={this.props.match.params.id} /> */}
+                                                <CustomerDetails TicketId={this.props.match.params.id} />
                                             </>}
 
                                     </GridContainer>
@@ -659,5 +674,4 @@ class TicketsForm extends Component {
 
 export default reduxForm({
     form: 'ticket', // a unique identifier for this form
-
 })(TicketsForm);

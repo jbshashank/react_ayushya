@@ -29,7 +29,7 @@ class FormBasic extends Component {
             dateOfBirth,
             dateOfJoining,
             // location,
-            // imagePath,
+            imageUpload,
             skills,
             expertiseLevel,
             role,
@@ -46,7 +46,7 @@ class FormBasic extends Component {
             handleDateChange,
             handleCityChange,
             handleStateChange,
-            // handleImageChange,
+            handleImageChange,
             gender,
             errorSalary,
             errorPhoneNumber,
@@ -277,7 +277,7 @@ class FormBasic extends Component {
                                         <FormHelperText style={{ color: 'red' }}>{errorSalary}</FormHelperText>
                                     </GridItem>
                                 </GridContainer>
-                                {/*<GridContainer>
+                                {/* <GridContainer>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <FilePond
                                             ref={ref => (this.pond = ref)}
@@ -288,7 +288,7 @@ class FormBasic extends Component {
                                                 handleDateChange('photo', fileItems)
                                             }}/>
                                     </GridItem>
-                                </GridContainer>*/}
+                                </GridContainer> */}
 
                                 <GridContainer>
                                     {/* <GridItem xs={12} sm={12} md={12}>

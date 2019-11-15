@@ -53,7 +53,7 @@ const mapStateToProps = (state, props) => {
             id ? state.tickets.ticket
                 : {
                     visitTime: +new Date(),
-                    visitDate: +new Date(),
+                    visitDate: +new Date()
                 }
     };
 };

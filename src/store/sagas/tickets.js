@@ -50,6 +50,7 @@ function fetchTicketsApi(payload) {
     if (payload && payload.sortField) {
         url = `${url}&sort=${payload.sortField},${payload.sortOrder.toUpperCase()}`
     }
+
     return axios.request({
         method: "get",
         url: url,
@@ -242,6 +243,7 @@ function fetchTicketByIdApi(data) {
     return axios.request({
         method: "get",
         url: `${BASE_URL_COMPLAINTS}tickets/ticket/getByTicketId?ticketId=${data.ticketId}`,
+        data
     });
 }
 
@@ -298,7 +300,7 @@ export function* createTicketsActionWatcher() {
 function createBulkTicketsApi(data) {
     return axios.request({
         method: "post",
-        url: `${BASE_URL}excel/`,
+        url: `${BASE_URL_COMPLAINTS}tickets/ticket/readFromExcel`,
         data
     });
 }
@@ -328,7 +330,7 @@ function updateTicketsApi(data) {
 
     return axios.request({
         method: "put",
-        url: `${BASE_URL}tickets/${data.id}`,
+        url: `${BASE_URL}tickets/${data.ticketId}`,
         data
     });
 }
@@ -384,7 +386,8 @@ export function* deleteTicketsActionWatcher() {
 function uploadTicketsApi(data) {
     return axios.request({
         method: "post",
-        url: `${BASE_URL}excel`,
+        // url: `${BASE_URL_COMPLAINTS}tickets/ticket/readFromExcel`,
+        url: `${BASE_URL_COMPLAINTS}tickets/ticket/readFromExcel`,
         data
     });
 }

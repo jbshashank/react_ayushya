@@ -38,6 +38,7 @@ class Tickets extends Component {
             sortField: '',
             sortOrder: 'asc',
         };
+        this.handleBulkFileUpload = this.handleBulkFileUpload.bind(this);
         this.columns =
             [
                 { key: 'visitDate', label: 'Visit Date' },
@@ -54,7 +55,7 @@ class Tickets extends Component {
                 { key: 'city', label: 'City', width: 150 },
                 { key: 'customerName', label: 'Customer Name', width: 150 },
                 { key: 'visitDate', label: 'Visit date', width: 150 },
-                // { key: 'visitTime', label: 'Visit Time', width: 150 },
+                { key: 'visitTime', label: 'Visit Time', width: 150 },
                 { key: 'actions', label: 'Actions', width: 150 }
             ]
     }
@@ -88,9 +89,13 @@ class Tickets extends Component {
     }
     handleBulkFileUpload = (e) => {
         if (e.target && e.target.files && e.target.files.length > 0) {
+            console.log('inside file 1' + e.target.files);
             let formData = new FormData();
-            formData.append("file", e.target.files[0]);
-            this.props.createBulkTicketsWatcher(formData)
+            console.log('inside file 2 formadate' + formData);
+            formData.append('file', e.target.files[0]);
+            console.log('inside file 3 file' + formData);
+            this.props.createBulkTicketsWatcher(formData);
+            console.log('inside file 3 file' + formData);
         }
     }
     handleChangePage = (event, page) => {
@@ -107,7 +112,7 @@ class Tickets extends Component {
         this.props.fetchTicketsWatcher({ page: 0, rowsPerPage: event.target.value });
     };
 
-    handleEdit = (id) => {
+    handleEdit = (ticketId) => {
 
     };
 
@@ -176,7 +181,7 @@ class Tickets extends Component {
                             name=" customerName"
                             label=" Customer Name"
                             className={classes.filterItem}
-                            onChange={(e) => this.handleChange(e.target.name, e.target.value)}
+                        // onChange={(e) => this.handleChange(e.target.name, e.target.value)}
                         />
                     </GridItem>
 
@@ -216,7 +221,8 @@ class Tickets extends Component {
                                     </InputLabel>
                                     <input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile" onChange={this.handleBulkFileUpload} /> */}
                                         <Button variant="contained" color="primary">
-                                            Upload Bulk Complaints<input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile" onChange={this.handleBulkFileUpload} />
+                                            Upload Bulk Complaints<input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile"
+                                                onChange={this.handleBulkFileUpload} />
                                         </Button>
                                     </div>
                                 </GridItem>}
@@ -267,8 +273,8 @@ class Tickets extends Component {
 
                                                     if (!isRescheduleTicketsPage) {
                                                         return (
-                                                            <TableRow>
-                                                                {/* <TableRow key={row.ticketId}> */}
+                                                            // <TableRow>
+                                                            <TableRow key={row.ticketId}>
                                                                 <TableCell style={{ width: "20%", padding: 15 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</TableCell>
                                                                 <TableCell style={{ width: "25%", padding: 15 }}><div style={{}}>{row.description}</div></TableCell>
                                                                 <TableCell style={{ width: "30%", padding: 15 }}>
@@ -298,7 +304,7 @@ class Tickets extends Component {
                                                                     </div>
                                                                 </TableCell>
                                                                 <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
-                                                                <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM")}</div></TableCell>
+                                                                <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM:SS")}</div></TableCell>
                                                                 <TableCell style={{ padding: 15 }}>
                                                                     <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>
                                                                         {/* <IconButton onClick={() => this.redirectToRescheduleTickets()}> */}
