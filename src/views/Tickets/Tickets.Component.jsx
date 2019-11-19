@@ -129,11 +129,8 @@ class Tickets extends Component {
     handleChange = (name, value) => {
         this.props.resetTicketsPagination();
         if (name == "visitDate") {
-            // var x = new Date(value);// x is now a date object
-            var x = new Date(value);// x is now a date object
-            x.setUTCHours(0, 0, 0, 0);
-            value = new Date(x).toISOString();
-            console.log("value of visit date:::" + value);
+            var x = new Date(value);
+            value = new Date(x).toISOString().substring(0, 10);
         }
         this.setState({ page: 0, [name]: value });
         const payload = {
@@ -160,7 +157,6 @@ class Tickets extends Component {
 
     render() {
         const { classes, totalElements, tickets } = this.props;
-        // console.log("tickets in the list::::" + tickets);
         const { page, rowsPerPage, sortField, sortOrder } = this.state;
         const isRescheduleTicketsPage = this.props.match.path === "/rescheduletickets"
         let searchColumns
@@ -172,7 +168,6 @@ class Tickets extends Component {
                         name="ticketId"
                         label="Ticket Id"
                         className={classes.filterItem}
-                    // onChange={(e) => this.handleChange(e.target.name, e.target.value)}
                     />
                 </GridItem>
                     <GridItem xs={12} sm={12} md={4}>
@@ -180,7 +175,6 @@ class Tickets extends Component {
                             name=" customerName"
                             label=" Customer Name"
                             className={classes.filterItem}
-                        // onChange={(e) => this.handleChange(e.target.name, e.target.value)}
                         />
                     </GridItem>
 

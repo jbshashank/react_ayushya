@@ -27,42 +27,13 @@ import CustomerDetails from './customerDetails';
 class TicketsForm extends Component {
     constructor(props) {
         super(props);
-        moment.locale('en');
         this.state = {
             userId: [],
-            // ticket: {},
-            callType: '',
-            brand: '',
-            category: '',
-            subCategory: '',
-            model: '',
-            serialNumber: '',
-            warranty: '',
-            visitTime: '',
-            visitDate: '',
-            dealerName: '',
-            description: '',
-            customerId: '',
-            customerDataModel: {
-                customerName: '',
-                address1: '',
-                address2: '',
-                street: '',
-                state: '',
-                city: '',
-                pinCode: '',
-                email: '',
-                contactNumber: '',
-                alternateContact: ''
-            }
         };
-        this.handleTime = this.handleTime.bind(this);
-        // this.handleDateChange = this.handleDateChange.bind(this);
-    }
-    handleTime(event, visitTime) {
-        this.setState({ visitTime: visitTime })
     }
     componentDidMount() {
+        this.props.fetchStateWatcher();
+        this.props.fetchCityWatcher();
         axios.get('http://134.209.147.111:8095/users/user/getAllUserLocation')
             .then(res => {
                 const users = res.data;
@@ -119,13 +90,14 @@ class TicketsForm extends Component {
             //     });
             // });
             // this.props.fetchAllModelWatcher();
-            // this.props.fetchAllCityWatcher();
+
 
         }
         this.props.fetchBrandWatcher();
         this.props.fetchAllProductWatcher();
         this.props.fetchAllProductSubCategoryWatcher();
         this.props.fetchAllModelWatcher();
+        // this.props.fetchAllCityWatcher();
         // this.props.fetchAllCityWatcher();
         this.props.fetchEmployeesWatcher({});
     }
@@ -170,8 +142,8 @@ class TicketsForm extends Component {
             model: values.model,
             serialNumber: values.serialNumber,
             warranty: values.warranty,
-            visitTime: moment.utc(values.visitTime),
-            visitDate: moment.utc(values.visitDate),
+            visitTime: values.visitTime,
+            visitDate: values.visitDate,
             dealerName: values.dealerName,
             description: values.description,
             status: values.status,
@@ -180,6 +152,7 @@ class TicketsForm extends Component {
             ticketId: values.ticketId,
             customerId: values.customerId,
             productId: values.productId,
+            customerId: values.customerId,
             userId: values.userId,
             // productModel: {
             //     brand: values.brand,
@@ -385,6 +358,7 @@ class TicketsForm extends Component {
                                                 className={classes.textField}
                                                 label="Time of visit*"
                                                 validate={[required]}
+                                            // mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
                                             // onChange={this.handleTime}
                                             // value={this.state.visitTime}
                                             />
@@ -436,7 +410,6 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 onChange={this.handleChange}
                                                 validate={[required, alpha]}
-                                                value={this.state.customerDataModel.customerName}
                                             />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
@@ -450,8 +423,7 @@ class TicketsForm extends Component {
                                                 multiline={true}
                                                 rows={2}
                                                 rowsMax={2}
-                                                validate={[required]}
-                                                value="address1" />
+                                                validate={[required]} />
                                         </GridItem>
                                         <GridItem xs={12} sm={4} md={4}>
                                             <Field
@@ -490,7 +462,7 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
                                                 name="state"
-                                                validate={[alpha]}
+                                                validate={[alpha, required]}
                                                 onChange={this.handleChange}
                                             />
                                             {/* <FormControl className={classes.formControl}>
@@ -498,7 +470,7 @@ class TicketsForm extends Component {
                                                     State*
                                                 </InputLabel>
                                                 <Field
-                                                    component={CustomTextField}
+                                                    component={renderSelectField}
                                                     name="state"
                                                     id="state"
                                                     disabled={isRescheduleTickets}
@@ -521,7 +493,7 @@ class TicketsForm extends Component {
                                                 disabled={isRescheduleTickets}
                                                 className={classes.textField}
                                                 name="city"
-                                                validate={[alpha]}
+                                                validate={[alpha, required]}
                                                 onChange={this.handleChange}
                                             />
                                             {/* <FormControl className={classes.formControl}>

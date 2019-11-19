@@ -47,6 +47,7 @@ class FormBasic extends Component {
             handleCityChange,
             handleStateChange,
             handleImageChange,
+            fileUploadHandler,
             gender,
             errorSalary,
             errorPhoneNumber,
@@ -65,8 +66,9 @@ class FormBasic extends Component {
             errorCity,
             errorState
         } = this.props;
-
+        const readOnly = !!this.props.match.params.id;
         return (
+
             <div>
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={8}>
@@ -89,6 +91,7 @@ class FormBasic extends Component {
                                             id="firstName"
                                             label="First Name*"
                                             className={classes.textField}
+                                            disabled={readOnly}
                                             name="firstName"
                                             value={firstName}
                                             error={!!errorFirstName}
@@ -100,6 +103,7 @@ class FormBasic extends Component {
                                             id="middleName"
                                             label="Middle Name"
                                             className={classes.textField}
+                                            disabled={readOnly}
                                             name="middleName"
                                             value={middleName}
                                             error={!!errorempMiddleName}
@@ -110,6 +114,7 @@ class FormBasic extends Component {
                                         <TextField
                                             id="lastName"
                                             label="Last Name*"
+                                            disabled={readOnly}
                                             className={classes.textField}
                                             name="lastName"
                                             error={!!errorLastName}
@@ -227,8 +232,7 @@ class FormBasic extends Component {
                                             onChange={(date) => {
                                                 handleDateChange('dateOfJoining', date);
                                             }}
-                                            disableFuture={false}
-                                        />
+                                            disableFuture={false} />
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
@@ -398,15 +402,15 @@ class FormBasic extends Component {
                         </Card>
                     </GridItem>
 
-                    {/* <GridItem xs={12} sm={12} md={4}>
+                    <GridItem xs={12} sm={12} md={4}>
                         <Card profile>
                             <CardMedia
                                 className="customMedia"
                                 image={sidebarimg}
                                 title="Contemplative Reptile" />
-                            <Avatar alt="Remy Sharp"
+                            {/* <Avatar alt="Remy Sharp"
                                 src={imagePath ? imagePath : "https://www.pngarts.com/files/3/Avatar-Transparent-Image.png"}
-                                className={classes.profilePic} />
+                                className={classes.profilePic} /> */}
                             <CardBody>
                                 <h4 className="customTitle">{firstName} {lastName}</h4>
                                 <h6 className="customSubtitle">@{role}</h6>
@@ -420,13 +424,15 @@ class FormBasic extends Component {
                             </CardBody>
                             <GridItem xs={12} sm={12} md={12}>
                                 <div className="upload-btn-wrapper">
-                                    <Button variant="contained" color="primary">
+                                    <input type="file" name="myfile" onChange={fileUploadHandler} />
+                                    <Button variant="contained" color="primary" onCLick={this.handleImageChange}></Button><br />
+                                    {/* <Button variant="contained" color="primary">
                                         Browse Image  <input type="file" name="myfile" onChange={handleImageChange} />
-                                    </Button><br />
+                                    </Button><br /> */}
                                 </div>
                             </GridItem>
                         </Card>
-                    </GridItem> */}
+                    </GridItem>
                 </GridContainer>
             </div>
         )

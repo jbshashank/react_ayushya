@@ -18,6 +18,7 @@ import { BASE_URL_EMPLOYEE, FILE_URL } from "../../utils/config";
 class EmployeeForm extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             activeStep: 0,
             firstName: '',
@@ -58,7 +59,8 @@ class EmployeeForm extends Component {
             isDisabledNext: true,
             errorempMiddleName: '',
             errorCity: '',
-            errorState: ''
+            errorState: '',
+            selectedFile: null
         };
         this.steps = [{ title: "Basic Details" }, { title: "Educational Details" }];
     }
@@ -105,7 +107,7 @@ class EmployeeForm extends Component {
             });
         }
         this.props.fetchStateWatcher();
-        // this.props.fetchAllCityWatcher();
+        this.props.fetchCityWatcher();
     }
 
     validateForm = (a) => {
@@ -281,14 +283,15 @@ class EmployeeForm extends Component {
         });
     };
 
+
     handleDateChange = (name, value) => {
         console.log("value of name:: value", name, value.toISOString())
-        if (name === "dateOfBirth" || name === "job") {
+        if (name === "dateOfBirth" || name === "dateOfJoining") {
             this.setState({ [name]: value.toISOString() });
         }
-        else {
-            this.setState({ [name]: value });
-        }
+        // else {
+        //     this.setState({ [name]: value });
+        // }
         if (name === "dateOfBirth") {
             var selectedTime = moment(new Date(value));
             var currentTime = moment(new Date());
@@ -327,15 +330,15 @@ class EmployeeForm extends Component {
         this.setState({ city: event.target.value });
     };
 
-    // handleStateChange(e) {
-    //     // this.setState({ state: event.target.value });
-    //     const unProcesedKey = e._targetInst.key;
-    //     console.log("unProcesedKey:::::::::" + unProcesedKey);
-    //     const StateId = unProcesedKey.split("STATE_")[
-    //         unProcesedKey.split("STATE_").length - 1
-    //     ];
-    //     this.props.fetchCityWatcher({ stateCode: StateId });
-    // }
+    handleStateChange(e) {
+        // this.setState({ state: event.target.value });
+        const unProcesedKey = e._targetInst.key;
+        console.log("unProcesedKey:::::::::" + unProcesedKey);
+        const StateId = unProcesedKey.split("STATE_")[
+            unProcesedKey.split("STATE_").length - 1
+        ];
+        this.props.fetchCityWatcher({ stateCode: StateId });
+    }
 
 
     handleNext = () => {
@@ -373,6 +376,12 @@ class EmployeeForm extends Component {
 
     };
 
+    fileUploadHandler = event => {
+        this.setState({ selectedFile: event.target.files[0] });
+    }
+    // handleImageChange = (e) => {
+
+    // }
     handleSubmit = () => {
         // console.log(firstName.value);
         if (!this.validateForm()) return;

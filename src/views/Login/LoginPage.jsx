@@ -59,13 +59,15 @@ class LoginPage extends React.Component {
       data: {
         email: formValues.email,
         password: formValues.password
-      }
+      },
       // withCredentials: true // True otherwise I receive another error
     })
       .then(response => {
         localStorage.setItem("userdetail", response);
         if (response.data.userId) {
           this.props.history.push('/dashboard');
+        } else if (response.data.role == "user") {
+          // disaply only particular views
         }
       })
       .catch(error => {

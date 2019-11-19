@@ -9,7 +9,7 @@ import {
     IMAGE_UPLOAD_WATCHER,
     FETCH_STATE_WATCHER,
     FETCH_CITY_WATCHER,
-    // FETCH_All_CITY_WATCHER,
+    FETCH_All_CITY_WATCHER,
 } from "../actionTypes";
 import * as firebase from "firebase";
 import {
@@ -44,28 +44,30 @@ function fetchCityApi(data) {
         method: "get",
         url: `${BASE_URL_GENERIC}general/city/findAll?stateCode=${data.stateCode}`,
     });
-}//*fetch All CityApi* */
-// function fetchAllCityApi(data) {
-//     return axios.request({
-//         method: "get",
-//         url: `${BASE_URL_TICKETS}/Employee/utils/getAllcity`,
-//     });
-// }
+}
+//*fetch All CityApi* */
+function fetchAllCityApi(data) {
+    return axios.request({
+        method: "get",
+        // url: `${BASE_URL_GENERIC}general/city/findAll`,
+        url: `${BASE_URL_GENERIC}general/city/findAllCitygeneral/city/findAllCity`
+    });
+}
 
-// function* fetchAllCityActionEffect(action) {
-//     let { payload, resolve, reject } = action;
-//     try {
-//         let { data } = yield call(fetchAllCityApi, payload);
-//         yield put(setCity(data));
-//         if (resolve) resolve();
-//     } catch (e) {
-//         yield put(setCityError(e));
-//         if (reject) reject(e);
-//     }
-// }
-// export function* fetchAllCityActionWatcher() {
-//     yield takeLatest(FETCH_All_CITY_WATCHER, fetchAllCityActionEffect);
-// }
+function* fetchAllCityActionEffect(action) {
+    let { payload, resolve, reject } = action;
+    try {
+        let { data } = yield call(fetchAllCityApi, payload);
+        yield put(setCity(data));
+        if (resolve) resolve();
+    } catch (e) {
+        yield put(setCityError(e));
+        if (reject) reject(e);
+    }
+}
+export function* fetchAllCityActionWatcher() {
+    yield takeLatest(FETCH_All_CITY_WATCHER, fetchAllCityActionEffect);
+}
 
 //**End */
 
@@ -223,8 +225,8 @@ export function* updateEmployeesActionWatcher() {
 function updateEmployeesApi(data) {
 
     return axios.request({
-        method: "post",
-        url: `${BASE_URL_EMPLOYEE}users/user/update`,
+        method: "put",
+        url: `${BASE_URL_EMPLOYEE}users/user/update?userId=${data.userId}`,
         data
     });
 }

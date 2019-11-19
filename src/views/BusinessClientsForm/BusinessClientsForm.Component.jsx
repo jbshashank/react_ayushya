@@ -120,7 +120,7 @@ class BusinessClientsForm extends Component {
       cities,
       states
     } = this.props;
-    const readOnly = false;
+    const readOnly = !!this.props.match.params.id;
     console.log("value of this.props...in businessClientForm", +this.props);
 
     return (
@@ -205,8 +205,8 @@ class BusinessClientsForm extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4}>
-                      {/* <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">State*</InputLabel>
+                      <FormControl className={classes.formControl}>
+                        {/* <InputLabel htmlFor="age-simple">State*</InputLabel>
                         <Field
                           component={renderSelectField}
                           name="state"
@@ -226,18 +226,17 @@ class BusinessClientsForm extends Component {
                               </option>
                             );
                           })}
-                        </Field>
-                      </FormControl> */}
-
-                      <Field
-                        component={CustomTextField}
-                        id="state"
-                        label="State*"
-                        disabled={readOnly}
-                        className={classes.textField}
-                        name="state"
-                        validate={[required, alpha]}
-                      />
+                        </Field> */}
+                        <Field
+                          component={CustomTextField}
+                          id="state"
+                          label="State*"
+                          disabled={readOnly}
+                          className={classes.textField}
+                          name="state"
+                          validate={[required, alpha]}
+                        />
+                      </FormControl>
 
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4}>

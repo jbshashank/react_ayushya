@@ -336,7 +336,7 @@ function updateTicketsApi(data) {
 
     return axios.request({
         method: "put",
-        url: `${BASE_URL_COMPLAINTS}tickets/ticket/updateBasedOnTicketId?ticketId=${data.ticketId}`,
+        url: `http://192.168.1.9:8091/tickets/ticket/updateBasedOnTicketId?ticketId=${data.ticketId}`,
         data
     });
 }
