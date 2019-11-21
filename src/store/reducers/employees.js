@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     employees: [],
     states: [],
     cities: [],
+    // roles: ['Admin', 'Manager', 'Service Engineer'],
     employee: null,
     error: null
 };

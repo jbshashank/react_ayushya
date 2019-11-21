@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import { withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Grow from "@material-ui/core/Grow";
@@ -40,7 +40,7 @@ class HeaderLinks extends React.Component {
   };
 
   onClickLogout = (event) => {
-    localStorage.removeItem('userdetail');
+    localStorage.removeItem('roles');
     this.props.history.push('/login');
   }
 
@@ -100,23 +100,23 @@ class HeaderLinks extends React.Component {
           
         </div>  */}
         <div>
-        <Button
-        buttonRef={node => {
-          this.anchorEl = node;
-        }}
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Person"
-          onClick={this.handleToggle}
-          className={classes.buttonLink}
-        >
-          <Person className={classes.icons} />
-          <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Profile</p>
-          </Hidden>
-        </Button>
-        <Poppers
+          <Button
+            buttonRef={node => {
+              this.anchorEl = node;
+            }}
+            color={window.innerWidth > 959 ? "transparent" : "white"}
+            justIcon={window.innerWidth > 959}
+            simple={!(window.innerWidth > 959)}
+            aria-label="Person"
+            onClick={this.handleToggle}
+            className={classes.buttonLink}
+          >
+            <Person className={classes.icons} />
+            <Hidden mdUp implementation="css">
+              <p className={classes.linkText}>Profile</p>
+            </Hidden>
+          </Button>
+          <Poppers
             open={open}
             anchorEl={this.anchorEl}
             transition

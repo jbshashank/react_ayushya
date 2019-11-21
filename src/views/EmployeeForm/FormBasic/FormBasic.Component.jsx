@@ -5,7 +5,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { FormControl, Select, MenuItem, Fab, Avatar, Button } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Fab, Avatar, Button, Field } from '@material-ui/core';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Icon from '@material-ui/core/Icon';
 
@@ -15,6 +15,9 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import renderSelectField from '../../../components/reduxFormComponents/renderSelectField';
+
+// import { Field } from 'redux-form';
 import CardMedia from '@material-ui/core/CardMedia';
 import sidebarimg from "assets/img/sidebar-2_0.jpg";
 
@@ -43,6 +46,7 @@ class FormBasic extends Component {
             email,
             phoneNumber,
             handleChange,
+            handleRoleChange,
             handleDateChange,
             handleCityChange,
             handleStateChange,
@@ -67,6 +71,7 @@ class FormBasic extends Component {
             errorState
         } = this.props;
         const readOnly = !!this.props.match.params.id;
+        console.log("role is" + this.props.role);
         return (
 
             <div>
@@ -212,7 +217,7 @@ class FormBasic extends Component {
                                         </div>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
-                                        <TextField
+                                        {/* <TextField
                                             id="role"
                                             label="Role*"
                                             className={classes.textField}
@@ -220,7 +225,23 @@ class FormBasic extends Component {
                                             value={role}
                                             error={!!errorRole}
                                             onChange={handleChange} />
-                                        <FormHelperText style={{ color: 'red' }}>{errorRole}</FormHelperText>
+                                        <FormHelperText style={{ color: 'red' }}>{errorRole}</FormHelperText> */}
+                                        <FormControl className={classes.formControl}>
+                                            <InputLabel htmlFor="age-simple">Role*</InputLabel>
+                                            <Select
+                                                id="role"
+                                                label="Role"
+                                                name="role"
+                                                className={classes.TextField}
+                                                error={!!errorRole}
+                                                value={role}
+                                                onChange={handleChange}>
+                                                <MenuItem value={"Admin"}>Admin</MenuItem>
+                                                <MenuItem value={"Manager"}>Manager</MenuItem>
+                                                <MenuItem value={"ServiceEngineer"}>ServiceEngineer</MenuItem>
+                                            </Select>
+                                            <FormHelperText style={{ color: 'red' }}>{errorState}</FormHelperText>
+                                        </FormControl>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <DatePicker
@@ -245,8 +266,6 @@ class FormBasic extends Component {
                                             onChange={handleChange} />
                                         <FormHelperText style={{ color: 'red' }}>{errorexpertiesLevel}</FormHelperText>
                                     </GridItem>
-
-
                                 </GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={12} md={4}>
@@ -402,16 +421,16 @@ class FormBasic extends Component {
                         </Card>
                     </GridItem>
 
-                    <GridItem xs={12} sm={12} md={4}>
+                    {/* <GridItem xs={12} sm={12} md={4}>
                         <Card profile>
                             <CardMedia
                                 className="customMedia"
                                 image={sidebarimg}
-                                title="Contemplative Reptile" />
-                            {/* <Avatar alt="Remy Sharp"
+                                title="Contemplative Reptile" /> */}
+                    {/* <Avatar alt="Remy Sharp"
                                 src={imagePath ? imagePath : "https://www.pngarts.com/files/3/Avatar-Transparent-Image.png"}
                                 className={classes.profilePic} /> */}
-                            <CardBody>
+                    {/* <CardBody>
                                 <h4 className="customTitle">{firstName} {lastName}</h4>
                                 <h6 className="customSubtitle">@{role}</h6>
                                 <p className="customAboutme">
@@ -421,20 +440,20 @@ class FormBasic extends Component {
                                             aboutMe.substring(0, 50) + "..."
                                     }
                                 </p>
-                            </CardBody>
-                            <GridItem xs={12} sm={12} md={12}>
+                            </CardBody> */}
+                    {/* <GridItem xs={12} sm={12} md={12}>
                                 <div className="upload-btn-wrapper">
                                     <input type="file" name="myfile" onChange={fileUploadHandler} />
-                                    <Button variant="contained" color="primary" onCLick={this.handleImageChange}></Button><br />
-                                    {/* <Button variant="contained" color="primary">
+                                    <Button variant="contained" color="primary" onCLick={this.handleImageChange}></Button><br /> */}
+                    {/* <Button variant="contained" color="primary">
                                         Browse Image  <input type="file" name="myfile" onChange={handleImageChange} />
                                     </Button><br /> */}
-                                </div>
+                    {/* </div>
                             </GridItem>
-                        </Card>
-                    </GridItem>
+                        </Card> */}
+                    {/* </GridItem> */}
                 </GridContainer>
-            </div>
+            </div >
         )
 
     }

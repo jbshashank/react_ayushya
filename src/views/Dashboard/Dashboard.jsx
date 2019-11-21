@@ -29,6 +29,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import Employees from "views/Employees";
 import "../../index.js";
 
 import { bugs, website, server } from "variables/general.jsx";
@@ -54,8 +55,11 @@ class Dashboard extends React.Component {
   };
   render() {
     const { classes } = this.props;
+    // const token = JSON.parse(localStorage.getItem('roles') == "Manager");
     return (
       <div>
+        {/* {token
+          ? <div> */}
         <GridContainer>
           <GridItem xs={12} sm={6} md={3}>
             <Card>
@@ -74,7 +78,7 @@ class Dashboard extends React.Component {
                     <Warning />
                   </Danger>
                   <a href="#pablo" onClick={e => e.preventDefault()}>
-                   Updated a week ago
+                    Updated a week ago
                   </a>
                 </div>
               </CardFooter>
@@ -293,7 +297,7 @@ class Dashboard extends React.Component {
               ]}
             />
           </GridItem>
-            
+
           {/* <GridItem xs={12} sm={12} md={6}>
             <Card>
               <CardHeader color="warning">
@@ -317,6 +321,7 @@ class Dashboard extends React.Component {
             </Card>
           </GridItem> */}
         </GridContainer>
+        {/* </div> : <Employees />} */}
       </div>
     );
   }

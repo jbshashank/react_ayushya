@@ -227,7 +227,6 @@ class TicketsForm extends Component {
                                                     component={renderSelectField}
                                                     name="callType"
                                                     id="callType"
-                                                    disabled={readOnly}
                                                     className={classes.textField}
                                                     validate={[required]}>
                                                     <MenuItem value={"Demonstration & Installation"}

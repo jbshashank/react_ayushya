@@ -131,6 +131,7 @@ class Tickets extends Component {
         if (name == "visitDate") {
             var x = new Date(value);
             value = new Date(x).toISOString().substring(0, 10);
+            console.log('value of date is :::' + value);
         }
         this.setState({ page: 0, [name]: value });
         const payload = {
@@ -160,7 +161,7 @@ class Tickets extends Component {
         const { page, rowsPerPage, sortField, sortOrder } = this.state;
         const isRescheduleTicketsPage = this.props.match.path === "/rescheduletickets"
         let searchColumns
-
+        
         if (isRescheduleTicketsPage) {
             searchColumns = (
                 <><GridItem xs={12} sm={12} md={4}>

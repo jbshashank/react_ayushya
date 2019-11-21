@@ -14,6 +14,8 @@ import renderSelectField from "../../components/reduxFormComponents/renderSelect
 import GridItem from "../../components/Grid/GridItem.jsx";
 import GridContainer from "../../components/Grid/GridContainer.jsx";
 import DetailsFieldArray from "./detailsFieldArray";
+import EmployeeList from "../EmployeeList/EmployeeList";
+import Dashboard from "../Dashboard/Dashboard";
 import axios from "../../utils/axios";
 import { BASE_URL, BASE_URL_TICKETS, BASE_URL_CLIENTS } from "../../utils/config";
 // import validate from "../../utils/validate";
@@ -121,20 +123,25 @@ class BusinessClientsForm extends Component {
       states
     } = this.props;
     const readOnly = !!this.props.match.params.id;
+    const token = !JSON.parse(localStorage.getItem('roles') == "Service Engineer");
     console.log("value of this.props...in businessClientForm", +this.props);
 
     return (
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <form onSubmit={handleSubmit(this.submitForm)}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>Business Clients</h4>
-              </CardHeader>
-              <CardBody>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                  <GridContainer>
-                    {/* <GridItem xs={12} sm={4} md={4}>
+      <div>
+        {token
+          ?
+          <div>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <form onSubmit={handleSubmit(this.submitForm)}>
+                  <Card>
+                    <CardHeader color="primary">
+                      <h4 className={classes.cardTitleWhite}>Business Clients</h4>
+                    </CardHeader>
+                    <CardBody>
+                      <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <GridContainer>
+                          {/* <GridItem xs={12} sm={4} md={4}>
                       <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="age-simple">
                           Client Code
@@ -162,51 +169,51 @@ class BusinessClientsForm extends Component {
                         </Field>
                       </FormControl>
                     </GridItem> */}
-                    <GridItem xs={12} sm={4} md={4}>
-                      <Field
-                        component={CustomTextField}
-                        id="clientName"
-                        label="Client Name*"
-                        disabled={readOnly}
-                        className={classes.textField}
-                        name="clientName"
-                        validate={[required, alpha]}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={4} md={4}>
-                      <Field
-                        component={CustomTextField}
-                        id="clientAddress"
-                        label="Client Address*"
-                        disabled={readOnly}
-                        className={classes.textField}
-                        name="clientAddress"
-                        validate={[required]}
-                      />
-                    </GridItem>
+                          <GridItem xs={12} sm={4} md={4}>
+                            <Field
+                              component={CustomTextField}
+                              id="clientName"
+                              label="Client Name*"
+                              disabled={readOnly}
+                              className={classes.textField}
+                              name="clientName"
+                              validate={[required, alpha]}
+                            />
+                          </GridItem>
+                          <GridItem xs={12} sm={4} md={4}>
+                            <Field
+                              component={CustomTextField}
+                              id="clientAddress"
+                              label="Client Address*"
+                              disabled={readOnly}
+                              className={classes.textField}
+                              name="clientAddress"
+                              validate={[required]}
+                            />
+                          </GridItem>
 
-                    <GridItem xs={12} sm={4} md={4}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">Country*</InputLabel>
-                        <Field
-                          component={renderSelectField}
-                          name="country"
-                          id="country"
-                          className={classes.textField}
-                          validate={[required]}
-                        >
-                          <MenuItem value={"India"} key={`India`}>
-                            India
+                          <GridItem xs={12} sm={4} md={4}>
+                            <FormControl className={classes.formControl}>
+                              <InputLabel htmlFor="age-simple">Country*</InputLabel>
+                              <Field
+                                component={renderSelectField}
+                                name="country"
+                                id="country"
+                                className={classes.textField}
+                                validate={[required]}
+                              >
+                                <MenuItem value={"India"} key={`India`}>
+                                  India
                           </MenuItem>
-                          <MenuItem value={"USA"} key={`USA`}>
-                            USA
+                                <MenuItem value={"USA"} key={`USA`}>
+                                  USA
                           </MenuItem>
-                        </Field>
-                      </FormControl>
-                    </GridItem>
-                    <GridItem xs={12} sm={4} md={4}>
-                      <FormControl className={classes.formControl}>
-                        {/* <InputLabel htmlFor="age-simple">State*</InputLabel>
+                              </Field>
+                            </FormControl>
+                          </GridItem>
+                          <GridItem xs={12} sm={4} md={4}>
+                            <FormControl className={classes.formControl}>
+                              {/* <InputLabel htmlFor="age-simple">State*</InputLabel>
                         <Field
                           component={renderSelectField}
                           name="state"
@@ -227,29 +234,29 @@ class BusinessClientsForm extends Component {
                             );
                           })}
                         </Field> */}
-                        <Field
-                          component={CustomTextField}
-                          id="state"
-                          label="State*"
-                          disabled={readOnly}
-                          className={classes.textField}
-                          name="state"
-                          validate={[required, alpha]}
-                        />
-                      </FormControl>
+                              <Field
+                                component={CustomTextField}
+                                id="state"
+                                label="State*"
+                                disabled={readOnly}
+                                className={classes.textField}
+                                name="state"
+                                validate={[required, alpha]}
+                              />
+                            </FormControl>
 
-                    </GridItem>
-                    <GridItem xs={12} sm={4} md={4}>
-                      <Field
-                        component={CustomTextField}
-                        id="city"
-                        label="City*"
-                        disabled={readOnly}
-                        className={classes.textField}
-                        name="city"
-                        validate={[required, alpha]}
-                      />
-                      {/* <FormControl className={classes.formControl}>
+                          </GridItem>
+                          <GridItem xs={12} sm={4} md={4}>
+                            <Field
+                              component={CustomTextField}
+                              id="city"
+                              label="City*"
+                              disabled={readOnly}
+                              className={classes.textField}
+                              name="city"
+                              validate={[required, alpha]}
+                            />
+                            {/* <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="age-simple">City*</InputLabel>
                         <Field
                           component={renderSelectField}
@@ -264,41 +271,43 @@ class BusinessClientsForm extends Component {
                           })}
                         </Field>
                       </FormControl> */}
-                    </GridItem>
-                    <GridItem xs={12} sm={4} md={4}>
-                      <FormControl className={classes.formControl}>
-                        <Field
-                          component={CustomTextField}
-                          name="pinCode"
-                          id="pinCode"
-                          label="Pin Code*"
-                          className={classes.textField}
-                          validate={[required, pinCode]}
-                        // onChange={(e) => this.handleStateChange(e)}
-                        />
-                      </FormControl>
-                    </GridItem>
+                          </GridItem>
+                          <GridItem xs={12} sm={4} md={4}>
+                            <FormControl className={classes.formControl}>
+                              <Field
+                                component={CustomTextField}
+                                name="pinCode"
+                                id="pinCode"
+                                label="Pin Code*"
+                                className={classes.textField}
+                                validate={[required, pinCode]}
+                              // onChange={(e) => this.handleStateChange(e)}
+                              />
+                            </FormControl>
+                          </GridItem>
 
 
-                  </GridContainer>
-                  <DetailsFieldArray BusinessClientsId={this.props.match.params.id} />
-                </MuiPickersUtilsProvider>
-              </CardBody>
+                        </GridContainer>
+                        <DetailsFieldArray BusinessClientsId={this.props.match.params.id} />
+                      </MuiPickersUtilsProvider>
+                    </CardBody>
 
-              <CardFooter>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={pristine || submitting}
-                >
-                  Submit
+                    <CardFooter>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={pristine || submitting}
+                      >
+                        Submit
                 </Button>
-              </CardFooter>
-            </Card>
-          </form>
-        </GridItem>
-      </GridContainer>
+                    </CardFooter>
+                  </Card>
+                </form>
+              </GridItem>
+            </GridContainer>
+          </div> : <Dashboard path='/dashboard' />}
+      </div>
     );
   }
 }

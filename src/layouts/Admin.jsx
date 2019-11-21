@@ -11,6 +11,7 @@ import Navbar from "components/Navbars/Navbar.jsx";
 // import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import routes from "routes";
+// import * as routes from "routes";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import EmployeeForm from "views/EmployeeForm";

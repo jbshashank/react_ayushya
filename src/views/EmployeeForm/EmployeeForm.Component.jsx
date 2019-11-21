@@ -33,7 +33,6 @@ class EmployeeForm extends Component {
             skills: '',
             expertiseLevel: '',
             role: '',
-            // fingerprint: '',
             salary: '',
             age: '',
             gender: '',
@@ -67,8 +66,6 @@ class EmployeeForm extends Component {
 
     componentDidMount() {
         const userId = this.props.match.params.id;
-        // // const particularword = url.indexOf('employeesedit');
-        // const userId = window.location.pathname.split('/').pop().split("employeesedit").shift();
         if (userId) {
             this.setState({ userId });
             new Promise((resolve, reject) => {
@@ -184,7 +181,11 @@ class EmployeeForm extends Component {
     //     educations[index] = education;
     //     this.setState({ educations })
     // };
-
+    handleRoleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
     handleChange = (event) => {
         const { value, name } = event.target;
         let { errorSalary, errorPinCode, errorAge, errorFirstName, errorLastName, errorPhoneNumber,

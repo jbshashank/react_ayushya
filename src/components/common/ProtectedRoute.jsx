@@ -6,8 +6,7 @@ import { Route, Redirect } from 'react-router-dom';
 // if there is no onboarding status then have to redirect to resprctive dashboard
 
 const LoginRoute = ({ component: Component, ...rest }) => {
-    const userToken = localStorage.getItem('userdetail');
-
+    const userToken = localStorage.getItem('roles');
     return (
         <Route
             {...rest}

@@ -8,10 +8,14 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { FormControl, MenuItem } from '@material-ui/core';
+import renderSelectField from '../../components/reduxFormComponents/renderSelectField';
+import { Field, reduxForm } from 'redux-form';
+import { required } from '../../utils/reduxFormValiadtion';
+import InputLabel from "@material-ui/core/InputLabel";
 
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-import Check from "@material-ui/icons/Check";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -22,9 +26,6 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
-import * as firebase from "firebase";
-
 import loginPageStyle from "assets/jss/material-dashboard-react/views/loginPageStyle.jsx";
 
 const { REACT_APP_SERVER_URL } = process.env;
@@ -33,6 +34,7 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      selected: '',
       checked: [],
       errors: {},
       email: '',
@@ -40,19 +42,15 @@ class LoginPage extends React.Component {
     };
   }
   login = async e => {
-
-    e.preventDefault();
-    const { history } = this.props;
-
     const fields = ["email", "password"];
     const formElements = e.target.elements;
-    // const { email, password } = this.state;
-
+    const { history } = this.props;
     const formValues = fields
       .map(field => ({
         [field]: formElements.namedItem(field).value
       }))
       .reduce((current, next) => ({ ...current, ...next }));
+    e.preventDefault();
     axios({
       method: 'post',
       url: `http://134.209.147.111:8095/login`,
@@ -60,48 +58,16 @@ class LoginPage extends React.Component {
         email: formValues.email,
         password: formValues.password
       },
-      // withCredentials: true // True otherwise I receive another error
     })
       .then(response => {
-        localStorage.setItem("userdetail", response);
-        if (response.data.userId) {
-          this.props.history.push('/dashboard');
-        } else if (response.data.role == "user") {
-          // disaply only particular views
-        }
+        console.log('response data' + response.data);
+        localStorage.setItem('roles', JSON.stringify(response.data.role));
+        this.props.history.push('/dashboard');
       })
       .catch(error => {
         console.log("login error:::" + error);
       });
-
-    // let loginRequest;
-    // try {
-    //   loginRequest = await axios.post(
-    //     `http://134.209.147.111:8095/login`,
-    //     {
-    //       data: {
-    //         email: formValues.email,
-    //         password: formValues.password
-    //       }
-    //     }
-    //   );
-    // } catch ({ response }) {
-    //   localStorage.setItem("userdetail", response);
-    //   if (response.data.userId) {
-    //     this.props.history.push('/dashboard');
-    //   }
-    //   loginRequest = response;
-    // }
-    // const { data: loginRequestData } = loginRequest;
-    // // if (loginRequestData) {
-    // //   return history.push("/dashboard");
-    // // }
-
-    // this.setState({
-    //   errors: loginRequestData.messages && loginRequestData.messages.errors
-    // });
-
-  };
+  }
   handleToggle = value => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -125,8 +91,6 @@ class LoginPage extends React.Component {
         <GridContainer justify="center">
           <GridItem xs={12} sm={8}>
             <h4 className={classes.textCenter} style={{ marginTop: 0 }}>
-              {/* Log in to see how you can speed up your web development with out
-              of the box CRUD for #User Management and more.{" "} */}
             </h4>
           </GridItem>
         </GridContainer>
@@ -149,14 +113,14 @@ class LoginPage extends React.Component {
                   <CustomInput
                     labelText="Email..."
                     id="email"
-                    error={errors.email || errors.invalidEmailOrPassword}
+                    error={errors.username || errors.invalidEmailOrPassword}
                     formControlProps={{
                       fullWidth: true,
                       className: classes.formControlClassName
                     }}
                     inputProps={{
                       required: true,
-                      name: "email",
+                      name: "username",
                       endAdornment: (
                         <InputAdornment position="end">
                           <Email className={classes.inputAdornmentIcon} />
@@ -184,29 +148,6 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
-                  <FormControlLabel
-                    classes={{
-                      root:
-                        classes.checkboxLabelControl +
-                        " " +
-                        classes.checkboxLabelControlClassName,
-                      label: classes.checkboxLabel
-                    }}
-                    control={
-                      <Checkbox
-                        tabIndex={-1}
-                        onClick={() => this.handleToggle(1)}
-                        checkedIcon={<Check className={classes.checkedIcon} />}
-                        icon={<Check className={classes.uncheckedIcon} />}
-                        classes={{
-                          checked: classes.checked,
-                          root: classes.checkRoot
-                        }}
-                      />
-                    }
-                    label={<span>Remember me</span>}
-                  />
-                  <br />
                   <div className="errorMessage">{this.state.errors.message}</div>
                 </CardBody>
                 <CardFooter className={classes.justifyContentCenter}>
