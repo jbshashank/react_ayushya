@@ -332,7 +332,7 @@ function updateTicketsApi(data) {
 
     return axios.request({
         method: "put",
-        url: `{BASE_URL_COMPLAINTS}tickets/ticket/updateBasedOnTicketId?ticketId=${data.ticketId}`,
+        url: `${BASE_URL_COMPLAINTS}tickets/ticket/updateBasedOnTicketId?ticketId=${data.ticketId}`,
         data
     });
 }
