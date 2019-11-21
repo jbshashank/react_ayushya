@@ -243,12 +243,8 @@ export function* fetchAllProductSubcategoryActionWatcher() {
 function fetchTicketByIdApi(data) {
     return axios.request({
         method: "get",
-        // url: `${BASE_URL_COMPLAINTS}tickets/ticket/getByTicketId?ticketId=${data.ticketId}`,
         url: `${BASE_URL_COMPLAINTS}tickets/ticket/getByTicketId?ticketId=${data.ticketId}`,
         data
-        // url: 'http://192.168.1.9:8091/tickets/ticket/getByTicketAndCustomer?ticketId=ATAS-TKT-151119-022'
-
-        // data
     });
 }
 
@@ -336,7 +332,7 @@ function updateTicketsApi(data) {
 
     return axios.request({
         method: "put",
-        url: `http://192.168.1.9:8091/tickets/ticket/updateBasedOnTicketId?ticketId=${data.ticketId}`,
+        url: `{BASE_URL_COMPLAINTS}tickets/ticket/updateBasedOnTicketId?ticketId=${data.ticketId}`,
         data
     });
 }
@@ -392,7 +388,6 @@ export function* deleteTicketsActionWatcher() {
 function uploadTicketsApi(data) {
     return axios.request({
         method: "post",
-        // url: `${BASE_URL_COMPLAINTS}tickets/ticket/readFromExcel`,
         url: `${BASE_URL_COMPLAINTS}tickets/ticket/readFromExcel`,
         data
     });
