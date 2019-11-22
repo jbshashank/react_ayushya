@@ -238,7 +238,7 @@ class FormBasic extends Component {
                                                 onChange={handleChange}>
                                                 <MenuItem value={"Admin"}>Admin</MenuItem>
                                                 <MenuItem value={"Manager"}>Manager</MenuItem>
-                                                <MenuItem value={"ServiceEngineer"}>ServiceEngineer</MenuItem>
+                                                <MenuItem value={"Service Engineer"}>Service Engineer</MenuItem>
                                             </Select>
                                             <FormHelperText style={{ color: 'red' }}>{errorState}</FormHelperText>
                                         </FormControl>

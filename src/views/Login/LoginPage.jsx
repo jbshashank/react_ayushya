@@ -61,7 +61,7 @@ class LoginPage extends React.Component {
     })
       .then(response => {
         console.log('response data' + response.data);
-        localStorage.setItem('roles', JSON.stringify(response.data.role));
+        localStorage.setItem('roles', response.data.role);
         this.props.history.push('/dashboard');
       })
       .catch(error => {

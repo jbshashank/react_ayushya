@@ -206,265 +206,270 @@ class TicketsForm extends Component {
         } = this.props;
         const isRescheduleTickets = this.props.match.path === "/ticketsedit/:ticketId"
         const readOnly = !!this.props.match.params.id;
+        const token = JSON.parse(localStorage.getItem('roles') == "Manager") || JSON.parse(localStorage.getItem('roles') == "Admin");
+
         return (
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                    <form onSubmit={handleSubmit(this.submitForm)}>
-                        <Card>
-                            <CardHeader color="primary">
-                                <h4 className={classes.cardTitleWhite}>Complaint Form</h4>
-                                <p className={classes.cardCategoryWhite}>Complete the compliant form</p>
-                            </CardHeader>
-                            <CardBody>
-                                <MuiPickersUtilsProvider utils={MomentUtils}>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <FormControl className={classes.formControl}>
-                                                <InputLabel htmlFor="age-simple">
-                                                    Call Type*
+            <div>
+                {token
+                    ? <div>
+                        <GridContainer>
+                            <GridItem xs={12} sm={12} md={12}>
+                                <form onSubmit={handleSubmit(this.submitForm)}>
+                                    <Card>
+                                        <CardHeader color="primary">
+                                            <h4 className={classes.cardTitleWhite}>Complaint Form</h4>
+                                            <p className={classes.cardCategoryWhite}>Complete the compliant form</p>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <MuiPickersUtilsProvider utils={MomentUtils}>
+                                                <GridContainer>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <FormControl className={classes.formControl}>
+                                                            <InputLabel htmlFor="age-simple">
+                                                                Call Type*
                                                 </InputLabel>
-                                                <Field
-                                                    component={renderSelectField}
-                                                    name="callType"
-                                                    id="callType"
-                                                    className={classes.textField}
-                                                    validate={[required]}>
-                                                    <MenuItem value={"Demonstration & Installation"}
-                                                        key={`CALL_TYPE_DEMONSTRATION_&_INSTALLATION}`}>Demonstration & Installation</MenuItem>
-                                                    <MenuItem value={"Home Service"}
-                                                        key={`CALL_TYPE_HOME_SERVICE`}>Home Service</MenuItem>
-                                                    <MenuItem value={"Escalation"}
-                                                        key={`CALL_TYPE_ESCALATION`}>Escalation</MenuItem>
-                                                    <MenuItem value={"Pre-Sale Query"}
-                                                        key={`CALL_TYPE_PRE_SALES_QUERY`}>Pre-Sale Query</MenuItem>
-                                                </Field>
-                                            </FormControl>
-                                        </GridItem>
-                                        {/* </GridContainer>
+                                                            <Field
+                                                                component={renderSelectField}
+                                                                name="callType"
+                                                                id="callType"
+                                                                className={classes.textField}
+                                                                validate={[required]}>
+                                                                <MenuItem value={"Demonstration & Installation"}
+                                                                    key={`CALL_TYPE_DEMONSTRATION_&_INSTALLATION}`}>Demonstration & Installation</MenuItem>
+                                                                <MenuItem value={"Home Service"}
+                                                                    key={`CALL_TYPE_HOME_SERVICE`}>Home Service</MenuItem>
+                                                                <MenuItem value={"Escalation"}
+                                                                    key={`CALL_TYPE_ESCALATION`}>Escalation</MenuItem>
+                                                                <MenuItem value={"Pre-Sale Query"}
+                                                                    key={`CALL_TYPE_PRE_SALES_QUERY`}>Pre-Sale Query</MenuItem>
+                                                            </Field>
+                                                        </FormControl>
+                                                    </GridItem>
+                                                    {/* </GridContainer>
                                     <GridContainer> */}
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <FormControl className={classes.formControl}>
-                                                <InputLabel htmlFor="age-simple">
-                                                    Brand*
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <FormControl className={classes.formControl}>
+                                                            <InputLabel htmlFor="age-simple">
+                                                                Brand*
                                                 </InputLabel>
-                                                <Field
-                                                    component={renderSelectField}
-                                                    name="brand"
-                                                    className={classes.textField}
-                                                    id="brandId"
-                                                    onChange={(e) => {
-                                                        this.brandOnChangeHandler(e)
-                                                    }}
-                                                    disabled={readOnly}
-                                                    validate={[required]}>
-                                                    {brands.map(item => {
-                                                        return <option className={classes.customOption} value={item.name}
-                                                            key={`BRAND_${item.makeId}`}
-                                                        >
-                                                            {item.name}
-                                                        </option>
-                                                    })}
-                                                </Field>
-                                            </FormControl>
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <FormControl className={classes.formControl}>
-                                                <InputLabel htmlFor="age-simple">
-                                                    Product Category*
+                                                            <Field
+                                                                component={renderSelectField}
+                                                                name="brand"
+                                                                className={classes.textField}
+                                                                id="brandId"
+                                                                onChange={(e) => {
+                                                                    this.brandOnChangeHandler(e)
+                                                                }}
+                                                                disabled={readOnly}
+                                                                validate={[required]}>
+                                                                {brands.map(item => {
+                                                                    return <option className={classes.customOption} value={item.name}
+                                                                        key={`BRAND_${item.makeId}`}
+                                                                    >
+                                                                        {item.name}
+                                                                    </option>
+                                                                })}
+                                                            </Field>
+                                                        </FormControl>
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <FormControl className={classes.formControl}>
+                                                            <InputLabel htmlFor="age-simple">
+                                                                Product Category*
                                                 </InputLabel>
-                                                <Field
-                                                    component={renderSelectField}
-                                                    name="category"
-                                                    id="category"
-                                                    className={classes.textField}
-                                                    disabled={readOnly ? readOnly : products.length === 0 || isRescheduleTickets}
-                                                    onChange={(e) => this.productOnChangeHandler(e)}
-                                                    validate={[required]}>
-                                                    {products.map(item => {
-                                                        return <option className={classes.customOption} value={item.name}
-                                                            key={`PRODUCT_${item.categoryId}`}>
-                                                            {item.name}
-                                                        </option>
-                                                    })}
-                                                </Field>
-                                            </FormControl>
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <FormControl className={classes.formControl}>
-                                                <InputLabel htmlFor="age-simple">
-                                                    Product Sub Category*
+                                                            <Field
+                                                                component={renderSelectField}
+                                                                name="category"
+                                                                id="category"
+                                                                className={classes.textField}
+                                                                disabled={readOnly ? readOnly : products.length === 0 || isRescheduleTickets}
+                                                                onChange={(e) => this.productOnChangeHandler(e)}
+                                                                validate={[required]}>
+                                                                {products.map(item => {
+                                                                    return <option className={classes.customOption} value={item.name}
+                                                                        key={`PRODUCT_${item.categoryId}`}>
+                                                                        {item.name}
+                                                                    </option>
+                                                                })}
+                                                            </Field>
+                                                        </FormControl>
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <FormControl className={classes.formControl}>
+                                                            <InputLabel htmlFor="age-simple">
+                                                                Product Sub Category*
                                                 </InputLabel>
-                                                <Field
-                                                    component={renderSelectField}
-                                                    name="subCategory"
-                                                    id="subCategory"
-                                                    className={classes.textField}
-                                                    disabled={readOnly ? readOnly : productSubcategory.length === 0 || isRescheduleTickets}
-                                                    onChange={(e) => this.productSubcategoryOnChangeHandler(e)}
-                                                    validate={[required]}
-                                                >
-                                                    {productSubcategory.map(item => {
-                                                        return <option className={classes.customOption} value={item.name}
-                                                            key={`PRODUCT_SUBCATEGORY_${item.subCategoryId}`}>
-                                                            {item.name}
-                                                        </option>
-                                                    })}
-                                                </Field>
-                                            </FormControl>
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <FormControl className={classes.formControl}>
-                                                <InputLabel htmlFor="age-simple">
-                                                    Model Name*
+                                                            <Field
+                                                                component={renderSelectField}
+                                                                name="subCategory"
+                                                                id="subCategory"
+                                                                className={classes.textField}
+                                                                disabled={readOnly ? readOnly : productSubcategory.length === 0 || isRescheduleTickets}
+                                                                onChange={(e) => this.productSubcategoryOnChangeHandler(e)}
+                                                                validate={[required]}
+                                                            >
+                                                                {productSubcategory.map(item => {
+                                                                    return <option className={classes.customOption} value={item.name}
+                                                                        key={`PRODUCT_SUBCATEGORY_${item.subCategoryId}`}>
+                                                                        {item.name}
+                                                                    </option>
+                                                                })}
+                                                            </Field>
+                                                        </FormControl>
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <FormControl className={classes.formControl}>
+                                                            <InputLabel htmlFor="age-simple">
+                                                                Model Name*
                                                 </InputLabel>
-                                                <Field
-                                                    component={renderSelectField}
-                                                    label="Model Name"
-                                                    className={classes.textField}
-                                                    disabled={(readOnly ? readOnly : models.length === 0) || isRescheduleTickets}
-                                                    name="model"
-                                                    validate={[required]}
-                                                >
-                                                    {models.map(item => {
-                                                        return <option className={classes.customOption} value={item.name}
-                                                            key={`PRODUCT_${item.modelId}`}>
-                                                            {item.name}
-                                                        </option>
-                                                    })}
+                                                            <Field
+                                                                component={renderSelectField}
+                                                                label="Model Name"
+                                                                className={classes.textField}
+                                                                disabled={(readOnly ? readOnly : models.length === 0) || isRescheduleTickets}
+                                                                name="model"
+                                                                validate={[required]}
+                                                            >
+                                                                {models.map(item => {
+                                                                    return <option className={classes.customOption} value={item.name}
+                                                                        key={`PRODUCT_${item.modelId}`}>
+                                                                        {item.name}
+                                                                    </option>
+                                                                })}
 
-                                                </Field>
-                                            </FormControl>
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="serialNumber"
-                                                label="Serial Number*"
-                                                disabled={readOnly || isRescheduleTickets}
-                                                className={classes.textField}
-                                                name="serialNumber"
-                                                validate={[required]} />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={renderTimePicker}
-                                                clearable
-                                                ampm={false}
-                                                name="visitTime"
-                                                disabled={isRescheduleTickets}
-                                                className={classes.textField}
-                                                label="Time of visit*"
-                                                validate={[required]}
-                                            // mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
-                                            // onChange={this.handleTime}
-                                            // value={this.state.visitTime}
-                                            />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={renderDataPicker}
-                                                clearable
-                                                label="Visit Date*"
-                                                className={classes.textField}
-                                                name="visitDate"
-                                                disabled={isRescheduleTickets}
-                                                validate={[required]}
-                                                mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
-                                            // onChange={(date) => {
-                                            //     handleDateChange('visitDate', date);
-                                            // }}
-                                            // onChange={this.handleDateChange}
-                                            // value={this.state.visitDate}
-                                            />
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={8} md={8}>
-                                            <Field
-                                                lable="Waranty*"
-                                                component={renderRadioGroup}
-                                                name="warranty"
-                                                disabled={isRescheduleTickets}
-                                                className={classes.group}
-                                                validate={[required]}>
-                                                <FormControlLabel value="Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />} label="Warranty" />
-                                                <FormControlLabel value="Out of Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
-                                                    label="Out of Warranty" />
-                                                <FormControlLabel value="Extended Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
-                                                    label="Extended Warranty" />
-                                            </Field>
-                                        </GridItem>
-                                    </GridContainer>
+                                                            </Field>
+                                                        </FormControl>
+                                                    </GridItem>
+                                                </GridContainer>
+                                                <GridContainer>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="serialNumber"
+                                                            label="Serial Number*"
+                                                            disabled={readOnly || isRescheduleTickets}
+                                                            className={classes.textField}
+                                                            name="serialNumber"
+                                                            validate={[required]} />
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={renderTimePicker}
+                                                            clearable
+                                                            ampm={false}
+                                                            name="visitTime"
+                                                            disabled={isRescheduleTickets}
+                                                            className={classes.textField}
+                                                            label="Time of visit*"
+                                                            validate={[required]}
+                                                        // mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
+                                                        // onChange={this.handleTime}
+                                                        // value={this.state.visitTime}
+                                                        />
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={renderDataPicker}
+                                                            clearable
+                                                            label="Visit Date*"
+                                                            className={classes.textField}
+                                                            name="visitDate"
+                                                            disabled={isRescheduleTickets}
+                                                            validate={[required]}
+                                                            mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
+                                                        // onChange={(date) => {
+                                                        //     handleDateChange('visitDate', date);
+                                                        // }}
+                                                        // onChange={this.handleDateChange}
+                                                        // value={this.state.visitDate}
+                                                        />
+                                                    </GridItem>
+                                                </GridContainer>
+                                                <GridContainer>
+                                                    <GridItem xs={12} sm={8} md={8}>
+                                                        <Field
+                                                            lable="Waranty*"
+                                                            component={renderRadioGroup}
+                                                            name="warranty"
+                                                            disabled={isRescheduleTickets}
+                                                            className={classes.group}
+                                                            validate={[required]}>
+                                                            <FormControlLabel value="Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />} label="Warranty" />
+                                                            <FormControlLabel value="Out of Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
+                                                                label="Out of Warranty" />
+                                                            <FormControlLabel value="Extended Warranty" control={<Radio disabled={isRescheduleTickets} color="primary" />}
+                                                                label="Extended Warranty" />
+                                                        </Field>
+                                                    </GridItem>
+                                                </GridContainer>
 
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="customerName"
-                                                label="Cusomer Name*"
-                                                className={classes.textField}
-                                                name="customerName"
-                                                disabled={isRescheduleTickets}
-                                                onChange={this.handleChange}
-                                                validate={[required, alpha]}
-                                            />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="address1"
-                                                label="Address 1*"
-                                                className={classes.textField}
-                                                name="address1"
-                                                disabled={isRescheduleTickets}
-                                                multiline={true}
-                                                rows={2}
-                                                rowsMax={2}
-                                                validate={[required]} />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="address2"
-                                                label="Address 2*"
-                                                className={classes.textField}
-                                                name="address2"
-                                                disabled={isRescheduleTickets}
-                                                multiline={true}
-                                                rows={2}
-                                                rowsMax={2}
-                                                validate={[required]} />
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
+                                                <GridContainer>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="customerName"
+                                                            label="Cusomer Name*"
+                                                            className={classes.textField}
+                                                            name="customerName"
+                                                            disabled={isRescheduleTickets}
+                                                            onChange={this.handleChange}
+                                                            validate={[required, alpha]}
+                                                        />
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="address1"
+                                                            label="Address 1*"
+                                                            className={classes.textField}
+                                                            name="address1"
+                                                            disabled={isRescheduleTickets}
+                                                            multiline={true}
+                                                            rows={2}
+                                                            rowsMax={2}
+                                                            validate={[required]} />
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="address2"
+                                                            label="Address 2*"
+                                                            className={classes.textField}
+                                                            name="address2"
+                                                            disabled={isRescheduleTickets}
+                                                            multiline={true}
+                                                            rows={2}
+                                                            rowsMax={2}
+                                                            validate={[required]} />
+                                                    </GridItem>
+                                                </GridContainer>
+                                                <GridContainer>
 
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="street"
-                                                label="Street*"
-                                                className={classes.textField}
-                                                name="street"
-                                                disabled={isRescheduleTickets}
-                                                onChange={this.handleChange}
-                                                validate={[alpha]}
-                                            />
-                                        </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="street"
+                                                            label="Street*"
+                                                            className={classes.textField}
+                                                            name="street"
+                                                            disabled={isRescheduleTickets}
+                                                            onChange={this.handleChange}
+                                                            validate={[alpha]}
+                                                        />
+                                                    </GridItem>
 
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="state"
-                                                label="State*"
-                                                disabled={isRescheduleTickets}
-                                                className={classes.textField}
-                                                name="state"
-                                                validate={[alpha, required]}
-                                                onChange={this.handleChange}
-                                            />
-                                            {/* <FormControl className={classes.formControl}>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="state"
+                                                            label="State*"
+                                                            disabled={isRescheduleTickets}
+                                                            className={classes.textField}
+                                                            name="state"
+                                                            validate={[alpha, required]}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                        {/* <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
                                                     State*
                                                 </InputLabel>
@@ -483,19 +488,19 @@ class TicketsForm extends Component {
                                                     })}
                                                 </Field>
                                             </FormControl> */}
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="city"
-                                                label="City*"
-                                                disabled={isRescheduleTickets}
-                                                className={classes.textField}
-                                                name="city"
-                                                validate={[alpha, required]}
-                                                onChange={this.handleChange}
-                                            />
-                                            {/* <FormControl className={classes.formControl}>
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="city"
+                                                            label="City*"
+                                                            disabled={isRescheduleTickets}
+                                                            className={classes.textField}
+                                                            name="city"
+                                                            validate={[alpha, required]}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                        {/* <FormControl className={classes.formControl}>
                                                 <InputLabel htmlFor="age-simple">
                                                     City*
                                                 </InputLabel>
@@ -512,138 +517,140 @@ class TicketsForm extends Component {
                                                     })}
                                                 </Field>
                                             </FormControl> */}
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="pinCode"
-                                                label="Pin Code*"
-                                                disabled={isRescheduleTickets}
-                                                // disabled={}
-                                                className={classes.textField}
-                                                name="pinCode"
-                                                validate={[required, pinCode]} />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="email"
-                                                label="Email Address*"
-                                                className={classes.textField}
-                                                name="email"
-                                                disabled={isRescheduleTickets}
-                                                validate={[required, email]} />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="contactNumber"
-                                                label="Contact Number*"
-                                                className={classes.textField}
-                                                name="contactNumber"
-                                                disabled={isRescheduleTickets}
-                                                // value={ticket.customerDataModel.contactNumber}
-                                                validate={[required, phoneNumber]} />
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={4} md={4}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="alternateContact"
-                                                label="Alternate Contact Number"
-                                                className={classes.textField}
-                                                name="alternateContact"
-                                                disabled={isRescheduleTickets}
-                                                validate={[phoneNumber]} />
-                                        </GridItem>
-                                        <GridItem xs={12} sm={4} md={12}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="dealerName"
-                                                label="Dealer Name"
-                                                disabled={readOnly}
-                                                className={classes.textField}
-                                                name="dealerName"
-                                                onChange={this.handleChange}
-                                                validate={[alpha]} />
-                                            {(this.props.userId !== [] && readOnly) && <FormControl className={classes.formControl}>
-                                                <InputLabel htmlFor="age-simple">
-                                                    Tech Name*
+                                                    </GridItem>
+                                                </GridContainer>
+                                                <GridContainer>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="pinCode"
+                                                            label="Pin Code*"
+                                                            disabled={isRescheduleTickets}
+                                                            // disabled={}
+                                                            className={classes.textField}
+                                                            name="pinCode"
+                                                            validate={[required, pinCode]} />
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="email"
+                                                            label="Email Address*"
+                                                            className={classes.textField}
+                                                            name="email"
+                                                            disabled={isRescheduleTickets}
+                                                            validate={[required, email]} />
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="contactNumber"
+                                                            label="Contact Number*"
+                                                            className={classes.textField}
+                                                            name="contactNumber"
+                                                            disabled={isRescheduleTickets}
+                                                            // value={ticket.customerDataModel.contactNumber}
+                                                            validate={[required, phoneNumber]} />
+                                                    </GridItem>
+                                                </GridContainer>
+                                                <GridContainer>
+                                                    <GridItem xs={12} sm={4} md={4}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="alternateContact"
+                                                            label="Alternate Contact Number"
+                                                            className={classes.textField}
+                                                            name="alternateContact"
+                                                            disabled={isRescheduleTickets}
+                                                            validate={[phoneNumber]} />
+                                                    </GridItem>
+                                                    <GridItem xs={12} sm={4} md={12}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="dealerName"
+                                                            label="Dealer Name"
+                                                            disabled={readOnly}
+                                                            className={classes.textField}
+                                                            name="dealerName"
+                                                            onChange={this.handleChange}
+                                                            validate={[alpha]} />
+                                                        {(this.props.userId !== [] && readOnly) && <FormControl className={classes.formControl}>
+                                                            <InputLabel htmlFor="age-simple">
+                                                                Tech Name*
                                                 </InputLabel>
-                                                <Field
-                                                    component={renderSelectField}
-                                                    name="userId"
-                                                    id="userId"
-                                                    disabled={isRescheduleTickets}
-                                                    className={classes.textField}
-                                                    onChange={this.handleTechChange}
-                                                    validate={[required]}>
-                                                    {this.state.userId.map(item => {
-                                                        return <MenuItem value={item.userId}
-                                                            key={item.locationId}>{item.userId}
-                                                        </MenuItem>
-                                                    })}
-                                                </Field>
-                                            </FormControl>}
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={4} md={12}>
-                                            <Field
-                                                component={CustomTextField}
-                                                id="description"
-                                                label="Problem Description*"
-                                                disabled={isRescheduleTickets}
-                                                className={classes.textField}
-                                                name="description"
-                                                multiline={true}
-                                                rows={2}
-                                                rowsMax={2}
-                                                validate={[required]} />
-                                        </GridItem>
-                                        {/* <CustomerDetails TicketId={this.props.match.params.id} /> */}
-                                        {isRescheduleTickets &&
-                                            <>
-                                                <GridItem xs={12} sm={4} md={4}>
-                                                    <Field
-                                                        component={renderTimePicker}
-                                                        clearable
-                                                        ampm={false}
-                                                        name="revisedTime"
-                                                        className={classes.textField}
-                                                        label="Revised Time"
-                                                    />
-                                                </GridItem>
-                                                <GridItem xs={12} sm={4} md={4}>
-                                                    <Field
-                                                        component={renderDataPicker}
-                                                        label="Revised Date"
-                                                        mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
-                                                        className={classes.textField}
-                                                        name="revisedDate"
-                                                        disableFuture={true}
-                                                    />
-                                                </GridItem>
+                                                            <Field
+                                                                component={renderSelectField}
+                                                                name="userId"
+                                                                id="userId"
+                                                                disabled={isRescheduleTickets}
+                                                                className={classes.textField}
+                                                                onChange={this.handleTechChange}
+                                                                validate={[required]}>
+                                                                {this.state.userId.map(item => {
+                                                                    return <MenuItem value={item.userId}
+                                                                        key={item.locationId}>{item.userId}
+                                                                    </MenuItem>
+                                                                })}
+                                                            </Field>
+                                                        </FormControl>}
+                                                    </GridItem>
+                                                </GridContainer>
+                                                <GridContainer>
+                                                    <GridItem xs={12} sm={4} md={12}>
+                                                        <Field
+                                                            component={CustomTextField}
+                                                            id="description"
+                                                            label="Problem Description*"
+                                                            disabled={isRescheduleTickets}
+                                                            className={classes.textField}
+                                                            name="description"
+                                                            multiline={true}
+                                                            rows={2}
+                                                            rowsMax={2}
+                                                            validate={[required]} />
+                                                    </GridItem>
+                                                    {/* <CustomerDetails TicketId={this.props.match.params.id} /> */}
+                                                    {isRescheduleTickets &&
+                                                        <>
+                                                            <GridItem xs={12} sm={4} md={4}>
+                                                                <Field
+                                                                    component={renderTimePicker}
+                                                                    clearable
+                                                                    ampm={false}
+                                                                    name="revisedTime"
+                                                                    className={classes.textField}
+                                                                    label="Revised Time"
+                                                                />
+                                                            </GridItem>
+                                                            <GridItem xs={12} sm={4} md={4}>
+                                                                <Field
+                                                                    component={renderDataPicker}
+                                                                    label="Revised Date"
+                                                                    mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
+                                                                    className={classes.textField}
+                                                                    name="revisedDate"
+                                                                    disableFuture={true}
+                                                                />
+                                                            </GridItem>
 
-                                            </>}
+                                                        </>}
 
-                                    </GridContainer>
-                                </MuiPickersUtilsProvider>
-                            </CardBody>
+                                                </GridContainer>
+                                            </MuiPickersUtilsProvider>
+                                        </CardBody>
 
-                            <CardFooter>
-                                <Button type="submit" variant="contained" color="primary"
-                                    disabled={pristine || submitting}>
-                                    Submit
+                                        <CardFooter>
+                                            <Button type="submit" variant="contained" color="primary"
+                                                disabled={pristine || submitting}>
+                                                Submit
                                 </Button>
-                            </CardFooter>
-                        </Card>
-                    </form>
-                </GridItem>
-            </GridContainer >
+                                        </CardFooter>
+                                    </Card>
+                                </form>
+                            </GridItem>
+                        </GridContainer >
+                    </div> : 'Dear User, unfortunately you do not have access to the Ticket creation/Updation Page. Please contact your administartor.'}
+            </div>
         )
     }
 }

@@ -288,7 +288,7 @@ class EmployeeForm extends Component {
     handleDateChange = (name, value) => {
         console.log("value of name:: value", name, value.toISOString())
         if (name === "dateOfBirth" || name === "dateOfJoining") {
-            this.setState({ [name]: value.toISOString() });
+            this.setState({ [name]: value.toISOString().substring(0, 10) });
         }
         // else {
         //     this.setState({ [name]: value });
@@ -533,36 +533,43 @@ class EmployeeForm extends Component {
         const {
             activeStep
         } = this.state;
+        const token = JSON.parse(localStorage.getItem('roles') == "Manager") || JSON.parse(localStorage.getItem('roles') == "Admin");
+
         return (
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                    <Paper className={classes.root}>
-                        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-                            {this.steps.map((step, index) => this._renderSteps(step, index))}
-                        </Stepper>
-                    </Paper>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12} className="parentEmpInfo">
-                    <div>
-                        {this.getComponent(activeStep)}
-                        <div className={classes.buttonContainer}>
-                            <Button
-                                disabled={activeStep === 0}
-                                onClick={this.handleBack}
-                                className={classes.button}>
-                                Back
+            <div>
+                {token
+                    ? <div>
+                        <GridContainer>
+                            <GridItem xs={12} sm={12} md={12}>
+                                <Paper className={classes.root}>
+                                    <Stepper alternativeLabel nonLinear activeStep={activeStep}>
+                                        {this.steps.map((step, index) => this._renderSteps(step, index))}
+                                    </Stepper>
+                                </Paper>
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={12} className="parentEmpInfo">
+                                <div>
+                                    {this.getComponent(activeStep)}
+                                    <div className={classes.buttonContainer}>
+                                        <Button
+                                            disabled={activeStep === 0}
+                                            onClick={this.handleBack}
+                                            className={classes.button}>
+                                            Back
                             </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={activeStep === this.steps.length - 1 ? this.handleSubmit : this.handleNext}
-                                className={classes.button}>
-                                {activeStep === this.steps.length - 1 ? "Finish" : "Next"}
-                            </Button>
-                        </div>
-                    </div>
-                </GridItem>
-            </GridContainer>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={activeStep === this.steps.length - 1 ? this.handleSubmit : this.handleNext}
+                                            className={classes.button}>
+                                            {activeStep === this.steps.length - 1 ? "Finish" : "Next"}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </GridItem>
+                        </GridContainer>
+                    </div> : 'Dear User, unfortunately you do not have access to the Employee Creation/Updation Page. Please contact your administartor.'}
+            </div>
         );
     }
 }

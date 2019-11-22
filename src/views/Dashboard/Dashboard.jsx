@@ -55,11 +55,8 @@ class Dashboard extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    // const token = JSON.parse(localStorage.getItem('roles') == "Manager");
     return (
       <div>
-        {/* {token
-          ? <div> */}
         <GridContainer>
           <GridItem xs={12} sm={6} md={3}>
             <Card>
@@ -321,7 +318,6 @@ class Dashboard extends React.Component {
             </Card>
           </GridItem> */}
         </GridContainer>
-        {/* </div> : <Employees />} */}
       </div>
     );
   }

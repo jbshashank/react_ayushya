@@ -123,14 +123,12 @@ class BusinessClientsForm extends Component {
       states
     } = this.props;
     const readOnly = !!this.props.match.params.id;
-    const token = !JSON.parse(localStorage.getItem('roles') == "Service Engineer");
-    console.log("value of this.props...in businessClientForm", +this.props);
+    const token = JSON.parse(localStorage.getItem('roles') == "Manager") || JSON.parse(localStorage.getItem('roles') == "Admin");
 
     return (
       <div>
         {token
-          ?
-          <div>
+          ? <div>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <form onSubmit={handleSubmit(this.submitForm)}>
@@ -306,7 +304,7 @@ class BusinessClientsForm extends Component {
                 </form>
               </GridItem>
             </GridContainer>
-          </div> : <Dashboard path='/dashboard' />}
+          </div> : 'Dear User, unfortunately you do not have access to the Client creation/updation Page. Please contact your administartor.'}
       </div>
     );
   }

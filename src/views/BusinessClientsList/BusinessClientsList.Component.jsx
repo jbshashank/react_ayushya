@@ -9,7 +9,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import ClientList from "../BusinessClientsList/ClientList";
 import TextField from "@material-ui/core/TextField";
-
+import Dashboard from "../Dashboard/Dashboard";
 const styles = theme => ({
     userCard: {
         display: "flex",
@@ -66,23 +66,30 @@ class BusinessClientList extends Component {
         console.log("value of this.props in businessclientlistpage", this.props)
         const { classes, BusinessClientList } = this.props;
         const { searchTerm } = this.state;
+        const token = JSON.parse(localStorage.getItem('roles') == "Admin") || JSON.parse(localStorage.getItem('roles') == "Manager");
         return (
-            <Grid container alignItems="flex-end">
-                <GridItem xs={12} sm={12} md={12}>
+            <div>
+                {token
+                    ?
+                    <div>
+                        <Grid container alignItems="flex-end">
+                            <GridItem xs={12} sm={12} md={12}>
 
-                    <Grid container spacing={16}>
-                        {BusinessClientList.map((Client, index) => (
-                            <Grid item xs={12} sm={6} md={3} key={`EMP_${index}`}>
-                                <ClientList Client={Client} />
-                            </Grid>
-                        ))}
-                    </Grid>
+                                <Grid container spacing={16}>
+                                    {BusinessClientList.map((Client, index) => (
+                                        <Grid item xs={12} sm={6} md={3} key={`EMP_${index}`}>
+                                            <ClientList Client={Client} />
+                                        </Grid>
+                                    ))}
+                                </Grid>
 
-                    <Fab color="primary" aria-label="Add" href='/businessclients' className="addEmployee">
-                        <AddIcon />
-                    </Fab>
-                </GridItem>
-            </Grid>
+                                <Fab color="primary" aria-label="Add" href='/businessclients' className="addEmployee">
+                                    <AddIcon />
+                                </Fab>
+                            </GridItem>
+                        </Grid>
+                    </div> : 'Dear User, unfortunately you do not have access to the Client list Page. Please contact your administartor.'}
+            </div>
         );
     }
 }

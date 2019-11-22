@@ -161,7 +161,7 @@ class Tickets extends Component {
         const { page, rowsPerPage, sortField, sortOrder } = this.state;
         const isRescheduleTicketsPage = this.props.match.path === "/rescheduletickets"
         let searchColumns
-        
+        const token = JSON.parse(localStorage.getItem('roles') == "Service Engineer") || JSON.parse(localStorage.getItem('roles') == "Manager") || JSON.parse(localStorage.getItem('roles') == "Admin");
         if (isRescheduleTicketsPage) {
             searchColumns = (
                 <><GridItem xs={12} sm={12} md={4}>
@@ -195,146 +195,151 @@ class Tickets extends Component {
             )
         }
         return (
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-                <GridContainer>
-                    <GridItem xs={12} sm={12} md={12}>
-                        <GridContainer>
-                            <GridItem xs={12} sm={12} md={4}>
-                                <TextField
-                                    name="city"
-                                    label="City Name"
-                                    className={classes.filterItem}
-                                    onChange={(e) => this.handleChange(e.target.name, e.target.value)} />
-                            </GridItem>
-                            {searchColumns}
-                            <GridItem xs={12} sm={12} md={4}>
-                                {!isRescheduleTicketsPage && <GridItem xs={12} sm={12} md={12}>
-                                    <div className="bulk-upload-btn-wrapper">
-                                        {/* <InputLabel className="btn" style={{ marginTop: "20px" }}>
+            <div>
+                {token
+                    ? <div>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={12}>
+                                    <GridContainer>
+                                        <GridItem xs={12} sm={12} md={4}>
+                                            <TextField
+                                                name="city"
+                                                label="City Name"
+                                                className={classes.filterItem}
+                                                onChange={(e) => this.handleChange(e.target.name, e.target.value)} />
+                                        </GridItem>
+                                        {searchColumns}
+                                        <GridItem xs={12} sm={12} md={4}>
+                                            {!isRescheduleTicketsPage && <GridItem xs={12} sm={12} md={12}>
+                                                <div className="bulk-upload-btn-wrapper">
+                                                    {/* <InputLabel className="btn" style={{ marginTop: "20px" }}>
                                         Upload Bulk Tickets
                                     </InputLabel>
                                     <input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile" onChange={this.handleBulkFileUpload} /> */}
-                                        <Button variant="contained" color="primary">
-                                            Upload Bulk Complaints<input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile"
-                                                onChange={this.handleBulkFileUpload} />
-                                        </Button>
-                                    </div>
-                                </GridItem>}
-                            </GridItem>
-                        </GridContainer>
-                        <GridContainer alignItems="flex-end">
-                            <GridItem xs={12} sm={12} md={12}>
-                                <Paper className={classes.root}>
-                                    <div className={classes.tableWrapper}>
-                                        <Table className={classes.table}>
-                                            <TableHead style={{ background: "linear-gradient(60deg, #3153a5, #3153a5)" }}>
-                                                <TableRow>
-                                                    {!isRescheduleTicketsPage ? this.columns.map((column) =>
-                                                        <TableCell className="ticketTableheader"
-                                                            style={{ fontSize: 14, color: "#fff", width: column.width }}
-                                                            key={column.key}>
-                                                            {column.key === 'city' || column.key === 'visitDate' ?
-                                                                <TableSortLabel
-                                                                    active={sortField === column.key}
-                                                                    direction={sortOrder}
-                                                                    onClick={(e) => this.createSortHandler(e, column)}>
-                                                                    {column.label}
-                                                                </TableSortLabel> :
-                                                                column.label
-                                                            }
-                                                        </TableCell>
-                                                    ) :
-                                                        this.reschedulecolumns.map((column) =>
-                                                            <TableCell
-                                                                style={{ fontSize: 16, color: "#fff", width: column.width }}
-                                                                key={column.key}>
-                                                                {column.key === 'city' || column.key === 'visitDate' ?
-                                                                    <TableSortLabel
-                                                                        active={sortField === column.key}
-                                                                        direction={sortOrder}
-                                                                        onClick={(e) => this.createSortHandler(e, column)}>
-                                                                        {column.label}
-                                                                    </TableSortLabel> :
-                                                                    column.label
+                                                    <Button variant="contained" color="primary">
+                                                        Upload Bulk Complaints<input accept=".xls,.xlsx,.xlsm,.xltx,.xltm" type="file" name="myfile"
+                                                            onChange={this.handleBulkFileUpload} />
+                                                    </Button>
+                                                </div>
+                                            </GridItem>}
+                                        </GridItem>
+                                    </GridContainer>
+                                    <GridContainer alignItems="flex-end">
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <Paper className={classes.root}>
+                                                <div className={classes.tableWrapper}>
+                                                    <Table className={classes.table}>
+                                                        <TableHead style={{ background: "linear-gradient(60deg, #3153a5, #3153a5)" }}>
+                                                            <TableRow>
+                                                                {!isRescheduleTicketsPage ? this.columns.map((column) =>
+                                                                    <TableCell className="ticketTableheader"
+                                                                        style={{ fontSize: 14, color: "#fff", width: column.width }}
+                                                                        key={column.key}>
+                                                                        {column.key === 'city' || column.key === 'visitDate' ?
+                                                                            <TableSortLabel
+                                                                                active={sortField === column.key}
+                                                                                direction={sortOrder}
+                                                                                onClick={(e) => this.createSortHandler(e, column)}>
+                                                                                {column.label}
+                                                                            </TableSortLabel> :
+                                                                            column.label
+                                                                        }
+                                                                    </TableCell>
+                                                                ) :
+                                                                    this.reschedulecolumns.map((column) =>
+                                                                        <TableCell
+                                                                            style={{ fontSize: 16, color: "#fff", width: column.width }}
+                                                                            key={column.key}>
+                                                                            {column.key === 'city' || column.key === 'visitDate' ?
+                                                                                <TableSortLabel
+                                                                                    active={sortField === column.key}
+                                                                                    direction={sortOrder}
+                                                                                    onClick={(e) => this.createSortHandler(e, column)}>
+                                                                                    {column.label}
+                                                                                </TableSortLabel> :
+                                                                                column.label
+                                                                            }
+                                                                        </TableCell>
+                                                                    )}
                                                                 }
-                                                            </TableCell>
-                                                        )}
-                                                    }
                                                 </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                                                        </TableHead>
+                                                        <TableBody>
+                                                            {tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
 
-                                                    if (!isRescheduleTicketsPage) {
-                                                        return (
-                                                            // <TableRow>
-                                                            <TableRow key={row.ticketId}>
-                                                                <TableCell style={{ width: "20%", padding: 15 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</TableCell>
-                                                                <TableCell style={{ width: "25%", padding: 15 }}><div style={{}}>{row.description}</div></TableCell>
-                                                                <TableCell style={{ width: "30%", padding: 15 }}>
-                                                                    <div>{this.address12Formation(row)}</div>
-                                                                    <div>{this.streetFormation(row)}</div>
-                                                                    <div>{this.addressFormation(row)}</div>
-                                                                    <div style={{}}>{this.contactFormation(row)}</div>
-                                                                </TableCell>
-                                                                <TableCell style={{ width: "20%", padding: 15 }}> <div style={{ paddingLeft: 50 }}>{row.userId}</div></TableCell>
-                                                                <TableCell style={{ width: "5%", padding: 15 }}>
-                                                                    <IconButton href={`/ticketsedit/${row.ticketId}`}>
-                                                                        <Icon>edit</Icon>
-                                                                    </IconButton>
-                                                                </TableCell>
+                                                                if (!isRescheduleTicketsPage) {
+                                                                    return (
+                                                                        // <TableRow>
+                                                                        <TableRow key={row.ticketId}>
+                                                                            <TableCell style={{ width: "20%", padding: 15 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</TableCell>
+                                                                            <TableCell style={{ width: "25%", padding: 15 }}><div style={{}}>{row.description}</div></TableCell>
+                                                                            <TableCell style={{ width: "30%", padding: 15 }}>
+                                                                                <div>{this.address12Formation(row)}</div>
+                                                                                <div>{this.streetFormation(row)}</div>
+                                                                                <div>{this.addressFormation(row)}</div>
+                                                                                <div style={{}}>{this.contactFormation(row)}</div>
+                                                                            </TableCell>
+                                                                            <TableCell style={{ width: "20%", padding: 15 }}> <div style={{ paddingLeft: 50 }}>{row.userId}</div></TableCell>
+                                                                            <TableCell style={{ width: "5%", padding: 15 }}>
+                                                                                <IconButton href={`/ticketsedit/${row.ticketId}`}>
+                                                                                    <Icon>edit</Icon>
+                                                                                </IconButton>
+                                                                            </TableCell>
+                                                                        </TableRow>
+                                                                    )
+                                                                }
+                                                                else {
+                                                                    return (
+                                                                        <TableRow key={row.ticketId}>
+                                                                            <TableCell style={{ padding: 15 }}>{row.ticketId}</TableCell>
+                                                                            <TableCell style={{ padding: 15 }}></TableCell>
+                                                                            <TableCell style={{ padding: 15 }}><div style={{ width: 150 }}>{row.city}</div></TableCell>
+                                                                            <TableCell style={{ padding: 15 }}>
+                                                                                <div style={{ width: 150 }}>
+                                                                                    {row.name}
+                                                                                </div>
+                                                                            </TableCell>
+                                                                            <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
+                                                                            <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM:SS")}</div></TableCell>
+                                                                            <TableCell style={{ padding: 15 }}>
+                                                                                <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>
+                                                                                    {/* <IconButton onClick={() => this.redirectToRescheduleTickets()}> */}
+                                                                                    <Icon>edit</Icon>
+                                                                                </IconButton>
+                                                                            </TableCell>
+                                                                        </TableRow>
+                                                                    )
+                                                                }
+                                                            })}
+                                                        </TableBody>
+                                                        <TableFooter>
+                                                            <TableRow>
+                                                                <TablePagination
+                                                                    className="customPagination"
+                                                                    rowsPerPageOptions={[10, 25, 50, 99]}
+                                                                    colSpan={3}
+                                                                    count={totalElements}
+                                                                    rowsPerPage={rowsPerPage}
+                                                                    page={page}
+                                                                    SelectProps={{ native: true, }}
+                                                                    onChangePage={this.handleChangePage}
+                                                                    onChangeRowsPerPage={this.handleChangeRowsPerPage} />
                                                             </TableRow>
-                                                        )
-                                                    }
-                                                    else {
-                                                        return (
-                                                            <TableRow key={row.ticketId}>
-                                                                <TableCell style={{ padding: 15 }}>{row.ticketId}</TableCell>
-                                                                <TableCell style={{ padding: 15 }}></TableCell>
-                                                                <TableCell style={{ padding: 15 }}><div style={{ width: 150 }}>{row.city}</div></TableCell>
-                                                                <TableCell style={{ padding: 15 }}>
-                                                                    <div style={{ width: 150 }}>
-                                                                        {row.name}
-                                                                    </div>
-                                                                </TableCell>
-                                                                <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
-                                                                <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM:SS")}</div></TableCell>
-                                                                <TableCell style={{ padding: 15 }}>
-                                                                    <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>
-                                                                        {/* <IconButton onClick={() => this.redirectToRescheduleTickets()}> */}
-                                                                        <Icon>edit</Icon>
-                                                                    </IconButton>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        )
-                                                    }
-                                                })}
-                                            </TableBody>
-                                            <TableFooter>
-                                                <TableRow>
-                                                    <TablePagination
-                                                        className="customPagination"
-                                                        rowsPerPageOptions={[10, 25, 50, 99]}
-                                                        colSpan={3}
-                                                        count={totalElements}
-                                                        rowsPerPage={rowsPerPage}
-                                                        page={page}
-                                                        SelectProps={{ native: true, }}
-                                                        onChangePage={this.handleChangePage}
-                                                        onChangeRowsPerPage={this.handleChangeRowsPerPage} />
-                                                </TableRow>
-                                            </TableFooter>
-                                        </Table>
-                                    </div>
-                                </Paper>
-                                {!isRescheduleTicketsPage && <Fab color="primary" aria-label="Add" href='/ticketsadd' className="addEmployee">
-                                    <AddIcon />
-                                </Fab>}
-                            </GridItem>
-                        </GridContainer>
-                    </GridItem>
-                </GridContainer>
-            </MuiPickersUtilsProvider>
+                                                        </TableFooter>
+                                                    </Table>
+                                                </div>
+                                            </Paper>
+                                            {!isRescheduleTicketsPage && <Fab color="primary" aria-label="Add" href='/ticketsadd' className="addEmployee">
+                                                <AddIcon />
+                                            </Fab>}
+                                        </GridItem>
+                                    </GridContainer>
+                                </GridItem>
+                            </GridContainer>
+                        </MuiPickersUtilsProvider>
+                    </div> : 'Dear User, unfortunately you do not have access to the Employee Page. Please contact your administartor.'}
+            </div>
         );
     }
 }
