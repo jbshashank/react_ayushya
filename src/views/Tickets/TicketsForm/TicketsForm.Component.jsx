@@ -362,7 +362,7 @@ class TicketsForm extends Component {
                                                             className={classes.textField}
                                                             label="Time of visit*"
                                                             validate={[required]}
-                                                        // mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
+                                                            mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
                                                         // onChange={this.handleTime}
                                                         // value={this.state.visitTime}
                                                         />

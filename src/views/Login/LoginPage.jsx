@@ -66,6 +66,7 @@ class LoginPage extends React.Component {
       })
       .catch(error => {
         console.log("login error:::" + error);
+        alert('invalid credentials');
       });
   }
   handleToggle = value => {

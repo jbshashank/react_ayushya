@@ -9,14 +9,14 @@ let constraints = {
             message: "can only contain alphabets"
         }
     },
-    middleName: {
-        presence: { allowEmpty: false },
-        format: {
-            pattern: "[a-z_ ]+",
-            flags: "i",
-            message: "can only contain alphabets"
-        }
-    },
+    // middleName: {
+    //     // presence: { allowEmpty: true },
+    //     format: {
+    //         pattern: "[a-z_ ]+",
+    //         flags: "i",
+    //         message: "can only contain alphabets"
+    //     }
+    // },
     lastName: {
         presence: { allowEmpty: false },
         format: {
