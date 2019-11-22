@@ -56,7 +56,7 @@ class EmployeeForm extends Component {
             errorRole: '',
             // errorLocation: '',
             isDisabledNext: true,
-            errorempMiddleName: '',
+            errorMiddleName: '',
             errorCity: '',
             errorState: '',
             selectedFile: null
@@ -115,7 +115,7 @@ class EmployeeForm extends Component {
             email, expertiseLevel, errorEmail, errorexpertiesLevel,
             errorSkills,
             // educations,
-            activeStep, errorRole, role, errorempMiddleName, middleName, city, state, errorCity, errorState
+            activeStep, errorRole, role, errorMiddleName, middleName, city, state, errorCity, errorState
         } = this.state;
         if (a === "dateOfBirth") {
             errorAge = validate("age", age);
@@ -133,7 +133,7 @@ class EmployeeForm extends Component {
             errorSkills = validate("skills", skills)
             errorRole = validate("role", role)
             // errorLocation = validate("location", location)
-            errorempMiddleName = validate("middleName", middleName)
+            errorMiddleName = validate("middleName", middleName)
             errorCity = validate("city", city)
             errorState = validate("state", state)
             // educations.forEach(function (item) {
@@ -144,14 +144,14 @@ class EmployeeForm extends Component {
 
         this.setState({
             errorPinCode, errorSalary, errorAge, errorFirstName, errorLastName, errorPhoneNumber, errorEmail, errorexpertiesLevel,
-            errorSkills, errorRole, errorempMiddleName, errorState, errorCity
+            errorSkills, errorRole, errorMiddleName, errorState, errorCity
         });
 
         return !(errorLastName || errorFirstName ||
             errorAge || errorSalary || errorPinCode || errorEmail || errorPhoneNumber || errorexpertiesLevel ||
             errorSkills
             // || educationerror
-            || errorRole || errorempMiddleName || errorState || errorCity)
+            || errorRole || errorMiddleName || errorState || errorCity)
     };
 
     // addEducation = () => {
@@ -189,7 +189,7 @@ class EmployeeForm extends Component {
     handleChange = (event) => {
         const { value, name } = event.target;
         let { errorSalary, errorPinCode, errorAge, errorFirstName, errorLastName, errorPhoneNumber,
-            errorEmail, errorexpertiesLevel, errorSkills, errorRole, errorempMiddleName,
+            errorEmail, errorexpertiesLevel, errorSkills, errorRole, errorMiddleName,
             errorCity, errorState } = this.state;
 
         switch (name) {
@@ -219,9 +219,9 @@ class EmployeeForm extends Component {
                 });
                 break;
             case "middleName":
-                errorempMiddleName = validate("middleName", value);
+                errorMiddleName = validate("middleName", value);
                 this.setState({
-                    errorempMiddleName
+                    errorMiddleName
                 });
                 break;
             case "lastName":
@@ -487,7 +487,7 @@ class EmployeeForm extends Component {
             errorSkills,
             errorRole,
             // errorLocation,
-            errorempMiddleName,
+            errorMiddleName,
             errorCity,
             errorState
         } = this.state;
@@ -495,11 +495,11 @@ class EmployeeForm extends Component {
         switch (index) {
             case 0:
                 return <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <FormBasic formTitle={formTitle} firstName={firstName} middleName={middleName} errorempMiddleName={errorempMiddleName} lastName={lastName}
+                    <FormBasic formTitle={formTitle} firstName={firstName} middleName={middleName} lastName={lastName}
                         dateOfBirth={dateOfBirth} dateOfJoining={dateOfJoining} aboutMe={aboutMe} skills={skills} errorSkills={errorSkills} errorRole={errorRole} expertiseLevel={expertiseLevel} role={role}
                         phoneNumber={phoneNumber} errorEmail={errorEmail} errorexpertiesLevel={errorexpertiesLevel} errorPhoneNumber={errorPhoneNumber} email={email}
                         salary={salary} addr={addr} gender={gender} age={age}
-                        errorFirstName={errorFirstName} errorLastName={errorLastName}
+                        errorFirstName={errorFirstName} errorMiddleName={errorMiddleName} errorLastName={errorLastName}
                         errorAge={errorAge} errorSalary={errorSalary} errorPinCode={errorPinCode}
                         handleChange={this.handleChange} handleDateChange={this.handleDateChange}
                         handleStateChange={this.handleStateChange}

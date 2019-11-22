@@ -71,7 +71,7 @@ class BusinessClientsForm extends Component {
   //       contactEmail: values.contactEmail,
   //       contactMobile: values.contactMobile,
   //       contactLandline: values.contactLandline,
-  //       contactDesignation: values.contactDesignation
+  //       contact\: values.contactDesignation
   //     }]
   //   };
   //   const clientId = this.props.match.params.id;
@@ -183,7 +183,6 @@ class BusinessClientsForm extends Component {
                               component={CustomTextField}
                               id="clientAddress"
                               label="Client Address*"
-                              disabled={readOnly}
                               className={classes.textField}
                               name="clientAddress"
                               validate={[required]}
@@ -195,6 +194,7 @@ class BusinessClientsForm extends Component {
                               <InputLabel htmlFor="age-simple">Country*</InputLabel>
                               <Field
                                 component={renderSelectField}
+                                disabled={readOnly}
                                 name="country"
                                 id="country"
                                 className={classes.textField}

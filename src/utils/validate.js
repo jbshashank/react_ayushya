@@ -10,12 +10,12 @@ let constraints = {
         }
     },
     middleName: {
-        // presence: {allowEmpty: false},
-        // format: {
-        //     pattern:"[a-z_ ]+",
-        //     flags: "i",
-        //     message: "can only contain alphabets"
-        // }
+        presence: { allowEmpty: false },
+        format: {
+            pattern: "[a-z_ ]+",
+            flags: "i",
+            message: "can only contain alphabets"
+        }
     },
     lastName: {
         presence: { allowEmpty: false },
@@ -30,7 +30,14 @@ let constraints = {
     },
     phoneNumber: {
         presence: { allowEmpty: false },
-        length: { is: 10 },
+        length: {
+            is: 10
+        },
+        format: {
+            pattern: "(0/91)?[6-9][0-9]{9}",
+            flags: "i",
+            message: "is not a valid phone no"
+        },
         numericality: {
             onlyInteger: true,
             notValid: "Please enter valid mobile number",

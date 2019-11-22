@@ -15,9 +15,12 @@ export const alphaNumeric = value => value && /[^a-zA-Z0-9_ ]/i.test(value)
     ? 'Only alphanumeric characters' : undefined;
 export const alpha = value => value && /[^a-zA-Z_ ]/i.test(value)
     ? 'Only alphabetic characters' : undefined;
-export const phoneNumber = value => value && !/^(0|[1-9][0-9]{9})$/i.test(value)
+// export const phoneNumber = value => value && !/^(0|[1-9][0-9]{9})$/i.test(value)
+//     ? 'Invalid phone number, must be 10 digits' : undefined;
+export const phoneNumber = value => value && !/^(0|[6-9][0-9]{9})$/i.test(value)
     ? 'Invalid phone number, must be 10 digits' : undefined;
+
 export const pinCode = value => value && !/^(0|[1-9][0-9]{5})$/i.test(value)
     ? 'Invalid pin number, must be 6 digits' : undefined;
-export const landLineNumber = value => value && (value.toUpperCase()==="NA")?undefined:(!/^(0|[1-9][0-9]{10})$/i.test(value)
-    ? 'Invalid phone number, must be 11 digits or NA ' : undefined)
+export const landLineNumber = value => value && !/^(0|[1-9][0-9]{10})$/i.test(value)
+    ? 'Invalid landline number, must be 11 digits' : undefined;

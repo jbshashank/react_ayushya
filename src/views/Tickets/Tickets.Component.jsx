@@ -130,9 +130,31 @@ class Tickets extends Component {
         this.props.resetTicketsPagination();
         if (name == "visitDate") {
             var x = new Date(value);
+            console.log('x value is' + x);// x is now a date object
+            x.setUTCHours(0, 0, 0, 0);
+            console.log('x value in utc' + x.setUTCHours(0, 0, 0, 0));
             value = new Date(x).toISOString().substring(0, 10);
-            console.log('value of date is :::' + value);
+            // // value = x.substring(0, 10);
+            // console.log('date value final' + value);
+            // var x = new Date(value);
+            // console.log('x is' + x;)
+            // value = new Date(x).toISOString().substring(0, 10);
+            // console.log('value of date is :::' + value);
+
+            // var currentTime = new Date(value);
+            // console.log('value from date selection' + currentTime);
+            // // value = moment(new Date(currentTime.subString(0, 16)));
+            // var currentOffset = currentTime.getTimezoneOffset();
+            // console.log('value of currentoffset' + currentOffset);
+            // var ISTOffset = 570;
+            // var x = new Date(currentTime.getTime() + (ISTOffset + currentOffset) * 60000);
+            // var date = JSON.stringify(x);
+            // value = date.slice(1, 11);
+
+
+
         }
+        // console.log('date value out oop' + value);
         this.setState({ page: 0, [name]: value });
         const payload = {
             isFilter: !!value,
@@ -144,6 +166,7 @@ class Tickets extends Component {
         this.props.fetchTicketsWatcher(payload)
     };
     address12Formation = (row) => {
+        console.log("row value inside addrormn" + row);
         return `${row.customerDataModel.address1},${row.customerDataModel.address2}`
     }
     streetFormation = (row) => {
@@ -291,24 +314,25 @@ class Tickets extends Component {
                                                                 }
                                                                 else {
                                                                     return (
-                                                                        <TableRow key={row.ticketId}>
-                                                                            <TableCell style={{ padding: 15 }}>{row.ticketId}</TableCell>
-                                                                            <TableCell style={{ padding: 15 }}></TableCell>
-                                                                            <TableCell style={{ padding: 15 }}><div style={{ width: 150 }}>{row.city}</div></TableCell>
-                                                                            <TableCell style={{ padding: 15 }}>
-                                                                                <div style={{ width: 150 }}>
-                                                                                    {row.name}
-                                                                                </div>
-                                                                            </TableCell>
-                                                                            <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
-                                                                            <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM:SS")}</div></TableCell>
-                                                                            <TableCell style={{ padding: 15 }}>
-                                                                                <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>
-                                                                                    {/* <IconButton onClick={() => this.redirectToRescheduleTickets()}> */}
-                                                                                    <Icon>edit</Icon>
-                                                                                </IconButton>
-                                                                            </TableCell>
-                                                                        </TableRow>
+                                                                        // <TableRow key={row.ticketId}>
+                                                                        //     <TableCell style={{ padding: 15 }}>{row.ticketId}</TableCell>
+                                                                        //     <TableCell style={{ padding: 15 }}></TableCell>
+                                                                        //     <TableCell style={{ padding: 15 }}><div style={{ width: 150 }}>{row.city}</div></TableCell>
+                                                                        //     <TableCell style={{ padding: 15 }}>
+                                                                        //         <div style={{ width: 150 }}>
+                                                                        //             {row.name}
+                                                                        //         </div>
+                                                                        //     </TableCell>
+                                                                        //     <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
+                                                                        //     <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM:SS")}</div></TableCell>
+                                                                        //     <TableCell style={{ padding: 15 }}>
+                                                                        //         <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>
+                                                                        //             {/* <IconButton onClick={() => this.redirectToRescheduleTickets()}> */}
+                                                                        //             <Icon>edit</Icon>
+                                                                        //         </IconButton>
+                                                                        //     </TableCell>
+                                                                        // </TableRow>
+                                                                        <div></div>
                                                                     )
                                                                 }
                                                             })}

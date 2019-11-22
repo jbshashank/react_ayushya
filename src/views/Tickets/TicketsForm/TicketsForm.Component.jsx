@@ -454,7 +454,7 @@ class TicketsForm extends Component {
                                                             name="street"
                                                             disabled={isRescheduleTickets}
                                                             onChange={this.handleChange}
-                                                            validate={[alpha]}
+                                                            validate={[required, alphaNumeric]}
                                                         />
                                                     </GridItem>
 

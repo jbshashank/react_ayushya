@@ -7,11 +7,11 @@ import GridItem from "../../components/Grid/GridItem.jsx";
 import GridContainer from "../../components/Grid/GridContainer.jsx";
 import {
   required,
-  alphaNumeric,
   landLineNumber,
   phoneNumber,
   email,
-  alpha
+  alpha,
+  alphaNumeric
 } from "../../utils/reduxFormValiadtion";
 
 const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
@@ -69,7 +69,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 name={`${member}.contactLandline`}
                 component={CustomTextField}
                 id="Landline"
-                label="Landline*"
+                label="Landline"
                 validate={[landLineNumber]}
               />
             </GridItem>
@@ -90,7 +90,7 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
                 component={CustomTextField}
                 id="designation"
                 label="Designation*"
-                validate={[required, alpha]}
+                validate={[required, alphaNumeric]}
               />
             </GridItem>
           </GridContainer>

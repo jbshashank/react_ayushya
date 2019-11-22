@@ -66,7 +66,7 @@ class FormBasic extends Component {
             errorSkills,
             errorRole,
             // errorLocation,
-            errorempMiddleName,
+            errorMiddleName,
             errorCity,
             errorState
         } = this.props;
@@ -111,9 +111,9 @@ class FormBasic extends Component {
                                             disabled={readOnly}
                                             name="middleName"
                                             value={middleName}
-                                            error={!!errorempMiddleName}
+                                            error={!!errorMiddleName}
                                             onChange={handleChange} />
-                                        <FormHelperText style={{ color: 'red' }}>{errorempMiddleName}</FormHelperText>
+                                        <FormHelperText style={{ color: 'red' }}>{errorMiddleName}</FormHelperText>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={4}>
                                         <TextField
@@ -170,6 +170,7 @@ class FormBasic extends Component {
                                         <TextField
                                             id="email"
                                             label="Email Address*"
+                                            disabled={readOnly}
                                             className={classes.textField}
                                             name="email"
                                             value={email || ''}

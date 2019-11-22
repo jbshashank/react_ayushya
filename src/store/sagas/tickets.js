@@ -54,6 +54,7 @@ function fetchTicketsApi(payload) {
     return axios.request({
         method: "get",
         url: url,
+        payload,
     });
 }
 
