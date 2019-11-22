@@ -39,27 +39,27 @@ import ReactTable from 'react-table';
 
 const columns = [
     {
-        Header: 'estimateId',
+        Header: 'Estimate Id',
         accessor: 'estimateId',
     },
     {
-        Header: 'jobCode',
+        Header: 'Job Code',
         accessor: 'jobCode',
     },
     {
-        Header: 'generatedOn',
+        Header: 'Generated On',
         accessor: 'generatedOn',
     },
     {
-        Header: 'approvalStatus',
+        Header: 'Approval Status',
         accessor: 'approvalStatus',
     },
     {
-        Header: 'requestedBy',
+        Header: 'Requested By',
         accessor: 'requestedBy',
     },
     {
-        Header: 'grandTotal',
+        Header: 'GrandTotal',
         accessor: 'grandTotal',
     },
 ];
@@ -86,7 +86,6 @@ export default class ReportEstimate extends Component {
             })
     }
     render() {
-        // const { classes } = this.props;
         const { tableData } = this.state;
         return (
             <Card>

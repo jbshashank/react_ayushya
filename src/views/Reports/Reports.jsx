@@ -39,15 +39,15 @@ import ReactTable from 'react-table';
 
 const columns = [
     {
-        Header: 'jobId',
+        Header: 'Job Code',
         accessor: 'jobId',
     },
     {
-        Header: 'statusId',
+        Header: 'Status',
         accessor: 'statusId',
     },
     {
-        Header: 'startDate',
+        Header: 'Start Date',
         accessor: 'startDate',
     },
     // {
@@ -55,23 +55,23 @@ const columns = [
     //     accessor: 'visit_time',
     // },
     {
-        Header: 'actualStartDate',
+        Header: 'Actual Start Date',
         accessor: 'actualStartDate',
     },
     {
-        Header: 'actualEndDate',
+        Header: 'Actual End Date',
         accessor: 'actualEndDate',
     },
     {
-        Header: 'loggedBy',
-        accessor: 'loggedBy',
+        Header: 'Engineer',
+        accessor: 'userId',
     },
     {
-        Header: 'lastUpdatedOn',
+        Header: 'Last Updated On',
         accessor: 'lastUpdatedOn',
     },
     {
-        Header: 'customerId',
+        Header: 'Customer Id',
         accessor: 'customerId',
     },
 ];
@@ -84,7 +84,7 @@ export default class Reports extends Component {
                 statusId: '',
                 startDate: '',
                 actualEndDate: '',
-                loggedBy: '',
+                userId: '',
                 lastUpdatedOn: '',
                 customerId: ''
             }],

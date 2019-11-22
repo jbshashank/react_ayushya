@@ -134,6 +134,7 @@ class Tickets extends Component {
             x.setUTCHours(0, 0, 0, 0);
             console.log('x value in utc' + x.setUTCHours(0, 0, 0, 0));
             value = new Date(x).toISOString().substring(0, 10);
+            // console.log('value' + value);
             // // value = x.substring(0, 10);
             // console.log('date value final' + value);
             // var x = new Date(value);
@@ -152,7 +153,6 @@ class Tickets extends Component {
             // value = date.slice(1, 11);
 
 
-
         }
         // console.log('date value out oop' + value);
         this.setState({ page: 0, [name]: value });
@@ -163,7 +163,7 @@ class Tickets extends Component {
             page: 0,
             rowsPerPage: this.state.rowsPerPage
         };
-        this.props.fetchTicketsWatcher(payload)
+        this.props.fetchTicketsWatcher(payload);
     };
     address12Formation = (row) => {
         console.log("row value inside addrormn" + row);

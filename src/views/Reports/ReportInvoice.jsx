@@ -39,31 +39,31 @@ import ReactTable from 'react-table';
 
 const columns = [
     {
-        Header: 'jobCode',
+        Header: 'Job Code',
         accessor: 'jobCode',
     },
     {
-        Header: 'generatedOn',
+        Header: 'Generated On',
         accessor: 'generatedOn',
     },
     {
-        Header: 'couponCode',
+        Header: 'Coupon Code',
         accessor: 'couponCode',
     },
     {
-        Header: 'subTotal',
+        Header: 'Sub Total',
         accessor: 'subTotal',
     },
     {
-        Header: 'grandTotal',
+        Header: 'Grand Total',
         accessor: 'grandTotal',
     },
     {
-        Header: 'paidStatus',
+        Header: 'Paid Status',
         accessor: 'paidStatus',
     },
     {
-        Header: 'requestedBy',
+        Header: 'Requested By',
         accessor: 'requestedBy',
     },
 ];
@@ -91,7 +91,6 @@ export default class ReportInvoice extends Component {
             })
     }
     render() {
-        // const { classes } = this.props;
         const { tableData } = this.state;
         return (
             <Card>
