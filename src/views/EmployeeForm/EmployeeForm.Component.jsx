@@ -41,7 +41,7 @@ class EmployeeForm extends Component {
             state: '',
             pinCode: '',
             userId: '',
-            // educations: [],
+            userEducationDetailsDataModels: [],
             errorSalary: '',
             errorAge: '',
             formTitle: 'Add Employee',
@@ -81,7 +81,7 @@ class EmployeeForm extends Component {
                         email: this.props.employee.email,
                         phoneNumber: this.props.employee.phoneNumber,
                         userId: this.props.employee.userId,
-                        // educations: this.props.employee.employeeEducationDetails,
+                        userEducationDetailsDataModels: this.props.employee.userEducationDetailsDataModels,
                         dateOfJoining: this.props.employee.dateOfJoining,
                         dateOfBirth: this.props.employee.dateOfBirth,
                         // location: this.props.employee.employeePersonalDetails.location,
@@ -108,13 +108,13 @@ class EmployeeForm extends Component {
     }
 
     validateForm = (a) => {
-        // let educationerror = ''
+        let educationerror = ''
         let {
             errorSalary, errorPinCode, errorAge, errorFirstName, errorLastName,
             firstName, lastName, age, salary, skills, pinCode, phoneNumber, errorPhoneNumber,
             email, expertiseLevel, errorEmail, errorexpertiesLevel,
             errorSkills,
-            // educations,
+            userEducationDetailsDataModels,
             activeStep, errorRole, role, errorMiddleName, middleName, city, state, errorCity, errorState
         } = this.state;
         if (a === "dateOfBirth") {
@@ -136,9 +136,9 @@ class EmployeeForm extends Component {
             errorMiddleName = validate("middleName", middleName)
             errorCity = validate("city", city)
             errorState = validate("state", state)
-            // educations.forEach(function (item) {
-            //     if (item.education === "" && activeStep !== 0) educationerror = "educationerror"
-            // });
+            userEducationDetailsDataModels.forEach(function (item) {
+                if (item.qualification === "" && activeStep !== 0) educationerror = "educationerror"
+            });
         }
 
 
@@ -150,37 +150,38 @@ class EmployeeForm extends Component {
         return !(errorLastName || errorFirstName ||
             errorAge || errorSalary || errorPinCode || errorEmail || errorPhoneNumber || errorexpertiesLevel ||
             errorSkills
-            // || educationerror
+            || educationerror
             || errorRole || errorMiddleName || errorState || errorCity)
     };
 
-    // addEducation = () => {
-    //     const education = { yearOfCompletion: new Date(), education: '' };
-    //     this.setState({ educations: this.state.educations.concat(education) });
-    // };
+    addEducation = () => {
+        const education = { passOut: new Date(), qualification: '' };
+        this.setState({ userEducationDetailsDataModels: this.state.userEducationDetailsDataModels.concat(education) });
+    };
 
-    // removeEducation = (index) => {
-    //     const { educations } = this.state;
-    //     educations.splice(index, 1);
-    //     this.setState({ educations });
-    // };
+    removeEducation = (index) => {
+        const { userEducationDetailsDataModels } = this.state;
+        userEducationDetailsDataModels.splice(index, 1);
+        this.setState({ userEducationDetailsDataModels });
+    };
 
-    // handleChangeEducation = (e, index) => {
-    //     console.log("Date change ", e);
-    //     const { educations } = this.state;
-    //     const education = { ...educations[index] };
-    //     education[e.target.name] = e.target.value;
-    //     educations[index] = education;
-    //     this.setState({ educations })
-    // };
+    handleChangeEducation = (e, index) => {
+        console.log("Date change ", e);
+        const { userEducationDetailsDataModels } = this.state;
+        const education = { ...userEducationDetailsDataModels[index] };
+        education[e.target.name] = e.target.value;
+        userEducationDetailsDataModels[index] = education;
+        this.setState({ userEducationDetailsDataModels })
+    };
 
-    // handleChangeEducationDate = (name, value, index) => {
-    //     const { educations } = this.state;
-    //     const education = { ...educations[index] };
-    //     education[name] = value;
-    //     educations[index] = education;
-    //     this.setState({ educations })
-    // };
+    handleChangeEducationDate = (name, value, index) => {
+        const { userEducationDetailsDataModels } = this.state;
+        const education = { ...userEducationDetailsDataModels[index] };
+        education[name] = value;
+        userEducationDetailsDataModels[index] = education;
+        this.setState({ userEducationDetailsDataModels })
+        console.log('pass out' + userEducationDetailsDataModels.passOut);
+    };
     handleRoleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -288,7 +289,7 @@ class EmployeeForm extends Component {
     handleDateChange = (name, value) => {
         console.log("value of name:: value", name, value.toISOString())
         if (name === "dateOfBirth" || name === "dateOfJoining") {
-            this.setState({ [name]: value.toISOString().substring(0, 10) });
+            this.setState({ [name]: value.toISOString() });
         }
         // else {
         //     this.setState({ [name]: value });
@@ -391,7 +392,7 @@ class EmployeeForm extends Component {
             middleName,
             lastName,
             aboutMe,
-            // educations,
+            userEducationDetailsDataModels,
             age,
             dateOfBirth,
             dateOfJoining,
@@ -428,7 +429,7 @@ class EmployeeForm extends Component {
             // uploadDir: uploadDir,
             phoneNumber: phoneNumber,
             email: email,
-            // employeeEducationDetails: educations
+            userEducationDetailsDataModels: userEducationDetailsDataModels
         };
 
         if (userId) {
@@ -457,7 +458,7 @@ class EmployeeForm extends Component {
             middleName,
             lastName,
             aboutMe,
-            // educations,
+            userEducationDetailsDataModels,
             dateOfBirth,
             dateOfJoining,
             // location,
@@ -506,17 +507,18 @@ class EmployeeForm extends Component {
                         city={city} handleCityChange={this.handleCityChange} errorCity={errorCity} errorState={errorState} state={state} pinCode={pinCode}
                         match={this.props.match} />
                 </MuiPickersUtilsProvider>;
-            // case 1:
-            //     return <MuiPickersUtilsProvider utils={MomentUtils}>
-            //         <FormEducation formTitle={formTitle} educations={educations} addEducation={this.addEducation}
-            //             firstName={firstName} middleName={middleName} lastName={lastName}
-            //             aboutMe={aboutMe} role={role}
-            //             removeEducation={this.removeEducation}
-            //             handleChangeEducation={this.handleChangeEducation}
-            //             handleChangeEducationDate={this.handleChangeEducationDate} />
-            //     </MuiPickersUtilsProvider>;
-            // default:
-            //     return null;
+            case 1:
+                return <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <FormEducation formTitle={formTitle} userEducationDetailsDataModels={userEducationDetailsDataModels}
+                        addEducation={this.addEducation}
+                        firstName={firstName} middleName={middleName} lastName={lastName}
+                        aboutMe={aboutMe} role={role}
+                        removeEducation={this.removeEducation}
+                        handleChangeEducation={this.handleChangeEducation}
+                        handleChangeEducationDate={this.handleChangeEducationDate} />
+                </MuiPickersUtilsProvider>;
+            default:
+                return null;
         }
     };
 

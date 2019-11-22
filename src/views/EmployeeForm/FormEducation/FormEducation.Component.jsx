@@ -26,32 +26,32 @@ class FormEducation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            educations: [],
+            userEducationDetailsDataModels: [],
         };
     }
 
     addEducation = () => {
-        const education = { yearOfCompletion: '', education: '' };
-        this.setState({ educations: this.state.educations.concat(education) });
+        const education = { passOut: '', qualification: '' };
+        this.setState({ userEducationDetailsDataModels: this.state.userEducationDetailsDataModels.concat(education) });
     };
 
     removeEducation = (index) => {
-        const { educations } = this.state;
-        educations.splice(index, 1);
-        this.setState({ educations });
+        const { userEducationDetailsDataModels } = this.state;
+        userEducationDetailsDataModels.splice(index, 1);
+        this.setState({ userEducationDetailsDataModels });
     };
 
     handleChangeEducation = (e, index) => {
-        const { educations } = this.state;
-        const education = { ...educations[index] };
+        const { userEducationDetailsDataModels } = this.state;
+        const education = { ...userEducationDetailsDataModels[index] };
         education[e.target.name] = e.target.value;
-        educations[index] = education;
-        this.setState({ educations })
+        userEducationDetailsDataModels[index] = education;
+        this.setState({ userEducationDetailsDataModels })
     };
 
     render() {
-        const { classes, educations } = this.props;
-        if (educations.length === 0) { this.props.addEducation() }
+        const { classes, userEducationDetailsDataModels } = this.props;
+        if (userEducationDetailsDataModels.length === 0) { this.props.addEducation() }
 
         return (
             <GridContainer>
@@ -72,33 +72,32 @@ class FormEducation extends Component {
                                     <Button onClick={this.props.addEducation} variant="contained" color="primary">Add</Button>
                                 </GridItem>
                             </GridContainer>
-                            {educations.map((education, index) => {
+                            {userEducationDetailsDataModels.map((education, index) => {
                                 return (
                                     <GridContainer container spacing={16} key={`EDU_${index}`}>
                                         <GridItem xs={12} sm={5} md={5}>
                                             <TextField
-                                                id="emp-name"
+                                                id="qualification"
                                                 label="Degree"
                                                 className={classes.textField}
-                                                name="education"
-                                                error={!education.education && "error"}
-                                                value={education.education}
+                                                name="qualification"
+                                                error={!education.qualification && "error"}
+                                                value={education.qualification}
                                                 onChange={(e) => this.props.handleChangeEducation(e, index)}
                                             />
-                                            {!education.education && <FormHelperText style={{ color: 'red' }}>required education</FormHelperText>}
+                                            {!education.qualification && <FormHelperText style={{ color: 'red' }}>Education detail required</FormHelperText>}
                                         </GridItem>
                                         <GridItem xs={12} sm={5} md={5}>
-
                                             <DatePicker
-                                                id="emp-passing-year"
+                                                id="passOut"
                                                 label="Passing Year"
-                                                name="yearOfCompletion"
+                                                name="passOut"
                                                 views={["year"]}
                                                 disableFuture={true}
-                                                value={education.yearOfCompletion}
+                                                value={education.passOut}
                                                 className={classes.textField}
                                                 onChange={(date) => {
-                                                    this.props.handleChangeEducationDate('yearOfCompletion', date, index);
+                                                    this.props.handleChangeEducationDate('passOut', date, index);
                                                 }}
                                             />
 
@@ -123,7 +122,7 @@ class FormEducation extends Component {
                         </CardBody>
                     </Card>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
+                {/* <GridItem xs={12} sm={12} md={4}>
                     <Card profile>
                         <CardMedia
                             className="customMedia"
@@ -146,6 +145,7 @@ class FormEducation extends Component {
                         </CardBody>
                     </Card>
                 </GridItem>
+            */}
             </GridContainer>
         );
     }

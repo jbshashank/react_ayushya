@@ -5,8 +5,8 @@ const INITIAL_STATE = {
     middleName: '',
     lastName: '',
     aboutMe: '',
-    dateOfBirth: new Date(),
-    dateOfJoining: new Date(),
+    dateOfBirth: '',
+    dateOfJoining: '',
     email: '',
     phoneNumber: '',
     // photo: [],
@@ -20,7 +20,7 @@ const INITIAL_STATE = {
     city: '',
     state: '',
     pinCode: '',
-    // educations: [],
+    userEducationDetailsDataModels: [],
     gender: '',
     userId: ''
 };

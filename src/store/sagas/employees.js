@@ -24,7 +24,7 @@ import { BASE_URL_TICKETS, BASE_URL_GENERIC } from "../../utils/config";
 function fetchEmployeesApi(data) {
     console.log("empreq ::::", axios.request({
         method: "get",
-        url: `${BASE_URL_EMPLOYEE}userSearch?userSearch=${data.userSearch === undefined ? data.userSearch : ''}`
+        url: `${BASE_URL_EMPLOYEE}${data.userSearch === undefined ? data.userSearch : ''}`
     }));
     return axios.request({
         method: "get",
@@ -166,16 +166,6 @@ function createEmployeesApi(data) {
         console.log(error);
     });
 }
-// async function fireBaseEmployeeCreate(data) {
-//     var userId = null
-//     await firebase.auth().createUserWithEmailAndPassword(data.employeePersonalDetails.empEmailAddress, data.employeePersonalDetails.empPhoneNumber).then(function () {
-//         userId = firebase.auth().currentUser.uid;
-//         console.log(":fireBaseEmployeeCreate:id", userId)
-//     }).catch(function (error) {
-//         console.log(error.message)
-//     });
-// }
-
 function* createEmployeesActionEffect(action) {
     let { payload, resolve, reject } = action;
 
@@ -191,28 +181,6 @@ function* createEmployeesActionEffect(action) {
         yield put(setPageLoaderFinish());
     }
 }
-
-// function* createEmployeesActionEffect(action) {
-//     let { payload, resolve, reject } = action;
-
-//     try {
-//         yield call(createEmployeesApi, payload);
-//         yield put(setPageLoaderStart());
-//         yield call(fireBaseEmployeeCreate, payload);
-//         Object.assign(payload.employeePersonalDetails, { "empFirebaseToken": firebase.auth().currentUser.uid })
-//         console.log(firebase.auth().currentUser.uid);
-//         if (firebase.auth().currentUser.uid) {
-//             yield call(createEmployeesApi, payload);
-//         }
-//         yield put(setPageLoaderFinish());
-//         if (resolve) resolve();
-//         yield put(showToastMessage({ message: 'Employee created successfully', type: 'success' }));
-//     } catch (e) {
-//         if (reject) reject(e);
-//         yield put(showToastMessage({ message: 'Internal error, Try again', type: 'error' }));
-//     }
-// }
-
 export function* createEmployeesActionWatcher() {
     yield takeLatest(CREATE_EMPLOYEES_WATCHER, createEmployeesActionEffect);
 }
@@ -226,7 +194,7 @@ function updateEmployeesApi(data) {
 
     return axios.request({
         method: "put",
-        url: `${BASE_URL_EMPLOYEE}users/user/update?userId=${data.userId}`,
+        url: `${BASE_URL_EMPLOYEE}users/user/updateUser?userId=${data.userId}`,
         data
     });
 }
