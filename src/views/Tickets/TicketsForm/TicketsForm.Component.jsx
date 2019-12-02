@@ -116,8 +116,6 @@ class TicketsForm extends Component {
         this.setState({
             makeId: BrandKey
         });
-        // console.log('makeId is ::::' + BrandKey);
-        // this.setState({ selected: e.target.value });
         console.log('value of selected:::::' + e.target.value);
     }
     handleStateChange(e) {
@@ -533,7 +531,7 @@ class TicketsForm extends Component {
                                                             component={CustomTextField}
                                                             id="pinCode"
                                                             label="Pin Code*"
-                                                            disabled={isRescheduleTickets}
+                                                            disabled={readOnly}
                                                             // disabled={}
                                                             className={classes.textField}
                                                             name="pinCode"
@@ -546,7 +544,7 @@ class TicketsForm extends Component {
                                                             label="Email Address*"
                                                             className={classes.textField}
                                                             name="email"
-                                                            disabled={isRescheduleTickets}
+                                                            disabled={readOnly}
                                                             validate={[required, email]} />
                                                     </GridItem>
                                                     <GridItem xs={12} sm={4} md={4}>
@@ -556,7 +554,7 @@ class TicketsForm extends Component {
                                                             label="Contact Number*"
                                                             className={classes.textField}
                                                             name="contactNumber"
-                                                            disabled={isRescheduleTickets}
+                                                            disabled={readOnly}
                                                             // value={ticket.customerDataModel.contactNumber}
                                                             validate={[required, phoneNumber]} />
                                                     </GridItem>
