@@ -201,7 +201,6 @@ function updateEmployeesApi(data) {
 
 function* updateEmployeesActionEffect(action) {
     let { payload, resolve, reject } = action;
-
     try {
         yield put(setPageLoaderStart());
         yield call(updateEmployeesApi, payload);
@@ -213,7 +212,6 @@ function* updateEmployeesActionEffect(action) {
         yield put(showToastMessage({ message: 'Internal error, Try again', type: 'error' }));
     }
 }
-
 
 function deleteEmployeesApi(data) {
     return axios.request({

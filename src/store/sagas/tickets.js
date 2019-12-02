@@ -36,7 +36,7 @@ import {
     setProductSubcategoryError,
 } from "../actions";
 import axios from "../../utils/axios";
-import { BASE_URL, BASE_URL_TICKETS, BASE_URL_COMPLAINTS, BASE_URL_PRODUCTS } from "../../utils/config";
+import { BASE_URL, BASE_URL_TICKETS, BASE_URL_COMPLAINTS, BASE_URL_PRODUCTS, LOCAL_URL_COMPLAINTS } from "../../utils/config";
 
 
 function fetchTicketsApi(payload) {
@@ -285,9 +285,12 @@ function* createTicketsActionEffect(action) {
 
     try {
         yield put(setPageLoaderStart());
-        yield call(createTicketsApi, payload);
+        const msg = yield call(createTicketsApi, payload);
         if (resolve) resolve();
-        yield put(showToastMessage({ message: 'Ticket created successfully', type: 'success' }));
+        yield put(showToastMessage({
+            message: JSON.stringify(msg.data.message
+            ).slice(1, - 1), type: 'success'
+        }));
     } catch (e) {
         if (reject) reject(e);
         yield put(showToastMessage({ message: 'Internal error, Try again', type: 'error' }));
@@ -343,9 +346,12 @@ function* updateTicketsActionEffect(action) {
 
     try {
         yield put(setPageLoaderStart());
-        yield call(updateTicketsApi, payload);
+        const msg = yield call(updateTicketsApi, payload);
         if (resolve) resolve();
-        yield put(showToastMessage({ message: 'Ticket updated successfully', type: 'success' }));
+        yield put(showToastMessage({
+            message: JSON.stringify(msg.data.message
+            ).slice(1, - 1), type: 'success'
+        }));
     } catch (e) {
         if (reject) reject(e);
         yield put(showToastMessage({ message: 'Internal error, Try again', type: 'error' }));

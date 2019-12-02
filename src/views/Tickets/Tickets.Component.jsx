@@ -73,7 +73,7 @@ class Tickets extends Component {
             isFilter: visitDate || city,
             name: visitDate ? 'visitDate' : city ? 'city' : '',
             value: visitDate ? visitDate : city ? city : '',
-            page: this.state.page,
+            page:0,
             rowsPerPage: this.state.rowsPerPage,
             sortField: row.key,
             sortOrder: isDesc ? 'asc' : 'desc'
@@ -104,11 +104,11 @@ class Tickets extends Component {
         this.props.fetchTicketsWatcher({ page, rowsPerPage: this.state.rowsPerPage });
     };
 
-    handleChangeRowsPerPage = event => {
+     handleChangeRowsPerPage = event => {
         console.log("event.target.value", event.target.value);
         this.props.resetTicketsPagination();
-        this.setState({ page: 0, rowsPerPage: event.target.value });
-        this.props.fetchTicketsWatcher({ page: 0, rowsPerPage: event.target.value });
+        this.setState({page: 0, rowsPerPage: event.target.value});
+        this.props.fetchTicketsWatcher({page: 0, rowsPerPage: event.target.value});
     };
 
     handleEdit = (ticketId) => {
@@ -133,7 +133,7 @@ class Tickets extends Component {
             console.log('x value is' + x);// x is now a date object
             x.setUTCHours(0, 0, 0, 0);
             console.log('x value in utc' + x.setUTCHours(0, 0, 0, 0));
-            value = new Date(x).toISOString().substring(0, 10);
+            value = new Date(x).toISOString();
             // console.log('value' + value);
             // // value = x.substring(0, 10);
             // console.log('date value final' + value);
@@ -167,16 +167,20 @@ class Tickets extends Component {
     };
     address12Formation = (row) => {
         console.log("row value inside addrormn" + row);
-        return `${row.customerDataModel.address1},${row.customerDataModel.address2}`
+        return `${row.customerDataModel.address1}
+                ${row.customerDataModel.address2}`
     }
     streetFormation = (row) => {
         return `${row.customerDataModel.street}`
     }
     addressFormation = (row) => {
-        return `${row.customerDataModel.state},${row.customerDataModel.city},${row.customerDataModel.pinCode}`
+        return `${row.customerDataModel.state}
+        ${row.customerDataModel.city}
+        ${row.customerDataModel.pinCode}`
     }
     contactFormation = (row) => {
-        return `${row.customerDataModel.contactNumber}, ${row.customerDataModel.email}`
+        return `${row.customerDataModel.contactNumber}
+                ${row.customerDataModel.email}`
     }
 
     render() {
@@ -337,20 +341,21 @@ class Tickets extends Component {
                                                                 }
                                                             })}
                                                         </TableBody>
-                                                        <TableFooter>
-                                                            <TableRow>
-                                                                <TablePagination
-                                                                    className="customPagination"
-                                                                    rowsPerPageOptions={[10, 25, 50, 99]}
-                                                                    colSpan={3}
-                                                                    count={totalElements}
-                                                                    rowsPerPage={rowsPerPage}
-                                                                    page={page}
-                                                                    SelectProps={{ native: true, }}
-                                                                    onChangePage={this.handleChangePage}
-                                                                    onChangeRowsPerPage={this.handleChangeRowsPerPage} />
-                                                            </TableRow>
-                                                        </TableFooter>
+
+                                                         <TableFooter>
+                                                <TableRow>
+                                                    <TablePagination
+                                                        className="customPagination"
+                                                        rowsPerPageOptions={[10, 25, 50, 99]}
+                                                        colSpan={3}
+                                                        count={totalElements}
+                                                        rowsPerPage={rowsPerPage}
+                                                        page={page}
+                                                        SelectProps={{ native: true, }}
+                                                        onChangePage={this.handleChangePage}
+                                                        onChangeRowsPerPage={this.handleChangeRowsPerPage} />
+                                                </TableRow>
+                                            </TableFooter>
                                                     </Table>
                                                 </div>
                                             </Paper>

@@ -29,6 +29,7 @@ class TicketsForm extends Component {
         super(props);
         this.state = {
             userId: [],
+            visitTime: '',
         };
     }
     componentDidMount() {
@@ -112,7 +113,12 @@ class TicketsForm extends Component {
     brandOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key;
         const BrandKey = unProcesedKey.split('BRAND_')[unProcesedKey.split('BRAND_').length - 1]
-        this.setState({ makeId: BrandKey });
+        this.setState({
+            makeId: BrandKey
+        });
+        // console.log('makeId is ::::' + BrandKey);
+        // this.setState({ selected: e.target.value });
+        console.log('value of selected:::::' + e.target.value);
     }
     handleStateChange(e) {
         const unProcesedKey = e._targetInst.key
@@ -134,6 +140,8 @@ class TicketsForm extends Component {
 
     }
     submitForm = (values) => {
+        var date = new Date(values.visitTime).toISOString();
+        this.setState({ visitTime: date })
         const data = {
             callType: values.callType,
             brand: values.brand,
@@ -142,7 +150,7 @@ class TicketsForm extends Component {
             model: values.model,
             serialNumber: values.serialNumber,
             warranty: values.warranty,
-            visitTime: values.visitTime,
+            visitTime: date,
             visitDate: values.visitDate,
             dealerName: values.dealerName,
             description: values.description,
@@ -256,7 +264,7 @@ class TicketsForm extends Component {
                                                                 component={renderSelectField}
                                                                 name="brand"
                                                                 className={classes.textField}
-                                                                id="brandId"
+                                                                id="brand"
                                                                 onChange={(e) => {
                                                                     this.brandOnChangeHandler(e)
                                                                 }}

@@ -31,6 +31,7 @@ import logo from "assets/img/Ayushya_Logo.png";
 import pageLoader from "../store/reducers/page_loader";
 import CustomSneakBar from "../components/CustomizedSnackbars/CustomizedSnackbars";
 
+
 class Admin extends React.Component {
     constructor(props) {
         super(props);
@@ -186,8 +187,6 @@ class Admin extends React.Component {
                                     path='/'
                                     component={Employees}
                                 />
-
-
                             </Switch>
                         </div>
                     </div>

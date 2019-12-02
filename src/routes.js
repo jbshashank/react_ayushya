@@ -79,7 +79,7 @@ const dashboardRoutes = [
     icon: "content_paste",
     component: ReportEstimate,
     layout: ""
-  },
+  }
 
 ];
 

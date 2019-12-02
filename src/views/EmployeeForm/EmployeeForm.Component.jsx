@@ -27,6 +27,7 @@ class EmployeeForm extends Component {
             aboutMe: '',
             dateOfBirth: moment.now(),
             dateOfJoining: moment.now(),
+            // dateOfJoining: moment.now(),
             email: '',
             phoneNumber: '',
             // photo: [],
@@ -82,8 +83,8 @@ class EmployeeForm extends Component {
                         phoneNumber: this.props.employee.phoneNumber,
                         userId: this.props.employee.userId,
                         userEducationDetailsDataModels: this.props.employee.userEducationDetailsDataModels,
-                        dateOfJoining: this.props.employee.dateOfJoining,
                         dateOfBirth: this.props.employee.dateOfBirth,
+                        dateOfJoining: this.props.employee.dateOfJoining,
                         // location: this.props.employee.employeePersonalDetails.location,
                         skills: this.props.employee.skills,
                         expertiseLevel: this.props.employee.expertiseLevel,
@@ -287,10 +288,13 @@ class EmployeeForm extends Component {
 
 
     handleDateChange = (name, value) => {
-        console.log("value of name:: value", name, value.toISOString())
-        if (name === "dateOfBirth" || name === "dateOfJoining") {
-            this.setState({ [name]: value.toISOString() });
-        }
+        console.log("value of name:: value", name, value.toISOString());
+        this.setState({ [name]: value });
+        // if (name === "dateOfBirth" || name === "dateOfJoining") {
+        //     this.setState({ [name]: value.toISOString() });
+        //     console.log('value of date:::::' + dateOfBirth);
+        //     console.log('value of date joining:::::' + dateOfJoining);
+        // }
         // else {
         //     this.setState({ [name]: value });
         // }
@@ -384,9 +388,15 @@ class EmployeeForm extends Component {
     // handleImageChange = (e) => {
 
     // }
-    handleSubmit = () => {
+    handleSubmit = (values) => {
+        
+        // console.log('date of joining value to iso string:::' + values.dateOfJoining.toISOString());
+        // var date = new Date(values.dateOfJoining).toISOString();
+        // console.log('visit time:::::' + date);
+        // this.setState({ dateOfJoining: date })
         // console.log(firstName.value);
         if (!this.validateForm()) return;
+        
         const {
             firstName,
             middleName,
@@ -409,6 +419,14 @@ class EmployeeForm extends Component {
             email,
             phoneNumber,
         } = this.state;
+        console.log('date of joining value:::' + this.state.dateOfJoining);
+         var date = new Date(this.state.dateOfJoining);
+         var date1=JSON.stringify(date);
+          console.log('date:::' + date);
+          date1=date1.slice(1,-1);
+           console.log('date1 of joining value:::' + date1);
+        this.setState({ dateOfJoining: date1 });
+        console.log('date of joining value:::' + (this.state.dateOfJoining));
         const payload = {
             firstName: firstName,
             middleName: middleName,

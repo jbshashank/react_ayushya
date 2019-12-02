@@ -248,9 +248,10 @@ class FormBasic extends Component {
                                         <DatePicker
                                             label="Date of Joining*"
                                             format="DD-MM-YYYY"
-                                            mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
+                                            // mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
                                             className={classes.textField}
                                             value={dateOfJoining}
+                                            // onChange={handleChange}
                                             onChange={(date) => {
                                                 handleDateChange('dateOfJoining', date);
                                             }}

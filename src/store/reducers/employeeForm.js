@@ -1,12 +1,13 @@
 import { SET_EMPLOYEE_FORM } from "../actionTypes";
+import moment from "moment";
 
 const INITIAL_STATE = {
     firstName: '',
     middleName: '',
     lastName: '',
     aboutMe: '',
-    dateOfBirth: '',
-    dateOfJoining: '',
+    dateOfBirth: +new Date(),
+    dateOfJoining: +new Date(),
     email: '',
     phoneNumber: '',
     // photo: [],
