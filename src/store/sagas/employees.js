@@ -173,6 +173,10 @@ function* createEmployeesActionEffect(action) {
         yield put(setPageLoaderStart());
         yield call(createEmployeesApi, payload);
         if (resolve) resolve();
+        // yield put(showToastMessage({
+        //     message: JSON.stringify(msg.data.message
+        //     ), type: 'success'
+        // }));
         yield put(showToastMessage({ message: 'Employee created successfully', type: 'success' }));
     } catch (e) {
         if (reject) reject(e);

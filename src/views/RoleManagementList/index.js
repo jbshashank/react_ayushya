@@ -10,6 +10,7 @@ import styles from './styles';
 const mapStateToProps = state => {
     const { tickets } = state.tickets;
     let ticketsData = [];
+    console.log('total tickets available::::' + ticketsData);
     if (tickets && tickets.content) {
         Object.keys(tickets.content).map(key => {
             ticketsData = ticketsData.concat(tickets.content[key]);

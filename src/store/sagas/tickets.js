@@ -348,6 +348,8 @@ function* updateTicketsActionEffect(action) {
         yield put(setPageLoaderStart());
         const msg = yield call(updateTicketsApi, payload);
         if (resolve) resolve();
+        // yield put(showToastMessage({ message: 'Employee updated successfully', type: 'error' }));
+
         yield put(showToastMessage({
             message: JSON.stringify(msg.data.message
             ).slice(1, - 1), type: 'success'

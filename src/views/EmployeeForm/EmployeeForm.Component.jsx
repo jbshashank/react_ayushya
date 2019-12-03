@@ -290,14 +290,6 @@ class EmployeeForm extends Component {
     handleDateChange = (name, value) => {
         console.log("value of name:: value", name, value.toISOString());
         this.setState({ [name]: value });
-        // if (name === "dateOfBirth" || name === "dateOfJoining") {
-        //     this.setState({ [name]: value.toISOString() });
-        //     console.log('value of date:::::' + dateOfBirth);
-        //     console.log('value of date joining:::::' + dateOfJoining);
-        // }
-        // else {
-        //     this.setState({ [name]: value });
-        // }
         if (name === "dateOfBirth") {
             var selectedTime = moment(new Date(value));
             var currentTime = moment(new Date());
@@ -313,23 +305,8 @@ class EmployeeForm extends Component {
     };
 
     handleStateChange = event => {
-        // const unProcesedKey = event._targetInst.key;
-        // console.log("unProcesedKey:::::::::" + unProcesedKey);
-        // const StateId = unProcesedKey.split("STATE_")[
-        //     unProcesedKey.split("STATE_").length - 1
-        // ];
-
-        // this.setState({ state: event._targetInst.key });
-        // const StateId = this.state.state.split("STATE_")[this.state.state.split("STATE_").length - 1];
         this.setState({ state: event.target.value });
         this.props.fetchCityWatcher({ stateCode: event.target.value });
-
-        // const unProcesedKey = e._targetInst.key;
-        // console.log("unProcesedKey:::" + unProcesedKey);
-        // const StateId = unProcesedKey.split("STATE_")[
-        //     unProcesedKey.split("STATE_").length - 1
-        // ];
-        // this.props.fetchCityWatcher({ stateCode: StateId });
     };
 
     handleCityChange = event => {
@@ -337,7 +314,6 @@ class EmployeeForm extends Component {
     };
 
     handleStateChange(e) {
-        // this.setState({ state: event.target.value });
         const unProcesedKey = e._targetInst.key;
         console.log("unProcesedKey:::::::::" + unProcesedKey);
         const StateId = unProcesedKey.split("STATE_")[
@@ -385,18 +361,8 @@ class EmployeeForm extends Component {
     fileUploadHandler = event => {
         this.setState({ selectedFile: event.target.files[0] });
     }
-    // handleImageChange = (e) => {
-
-    // }
     handleSubmit = (values) => {
-        
-        // console.log('date of joining value to iso string:::' + values.dateOfJoining.toISOString());
-        // var date = new Date(values.dateOfJoining).toISOString();
-        // console.log('visit time:::::' + date);
-        // this.setState({ dateOfJoining: date })
-        // console.log(firstName.value);
         if (!this.validateForm()) return;
-        
         const {
             firstName,
             middleName,
@@ -419,14 +385,6 @@ class EmployeeForm extends Component {
             email,
             phoneNumber,
         } = this.state;
-        console.log('date of joining value:::' + this.state.dateOfJoining);
-         var date = new Date(this.state.dateOfJoining);
-         var date1=JSON.stringify(date);
-          console.log('date:::' + date);
-          date1=date1.slice(1,-1);
-           console.log('date1 of joining value:::' + date1);
-        this.setState({ dateOfJoining: date1 });
-        console.log('date of joining value:::' + (this.state.dateOfJoining));
         const payload = {
             firstName: firstName,
             middleName: middleName,
@@ -434,7 +392,7 @@ class EmployeeForm extends Component {
             aboutMe: aboutMe,
             age: age,
             dateOfBirth: dateOfBirth,
-            dateOfJoining: dateOfJoining,
+            dateOfJoining: moment(dateOfJoining).format('YYYY-MM-DD'),
             skills: skills,
             expertiseLevel: expertiseLevel,
             role: role,

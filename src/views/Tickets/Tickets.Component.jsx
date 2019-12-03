@@ -73,7 +73,7 @@ class Tickets extends Component {
             isFilter: visitDate || city,
             name: visitDate ? 'visitDate' : city ? 'city' : '',
             value: visitDate ? visitDate : city ? city : '',
-            page:0,
+            page: 0,
             rowsPerPage: this.state.rowsPerPage,
             sortField: row.key,
             sortOrder: isDesc ? 'asc' : 'desc'
@@ -104,11 +104,11 @@ class Tickets extends Component {
         this.props.fetchTicketsWatcher({ page, rowsPerPage: this.state.rowsPerPage });
     };
 
-     handleChangeRowsPerPage = event => {
-        console.log("event.target.value", event.target.value);
+    handleChangeRowsPerPage = event => {
+        console.log("event.target.value of rows per page", event.target.value);
         this.props.resetTicketsPagination();
-        this.setState({page: 0, rowsPerPage: event.target.value});
-        this.props.fetchTicketsWatcher({page: 0, rowsPerPage: event.target.value});
+        this.setState({ page: 0, rowsPerPage: event.target.value });
+        this.props.fetchTicketsWatcher({ page: 0, rowsPerPage: event.target.value });
     };
 
     handleEdit = (ticketId) => {
@@ -166,7 +166,6 @@ class Tickets extends Component {
         this.props.fetchTicketsWatcher(payload);
     };
     address12Formation = (row) => {
-        console.log("row value inside addrormn" + row);
         return `${row.customerDataModel.address1}
                 ${row.customerDataModel.address2}`
     }
@@ -342,20 +341,27 @@ class Tickets extends Component {
                                                             })}
                                                         </TableBody>
 
-                                                         <TableFooter>
-                                                <TableRow>
-                                                    <TablePagination
-                                                        className="customPagination"
-                                                        rowsPerPageOptions={[10, 25, 50, 99]}
-                                                        colSpan={3}
-                                                        count={totalElements}
-                                                        rowsPerPage={rowsPerPage}
-                                                        page={page}
-                                                        SelectProps={{ native: true, }}
-                                                        onChangePage={this.handleChangePage}
-                                                        onChangeRowsPerPage={this.handleChangeRowsPerPage} />
-                                                </TableRow>
-                                            </TableFooter>
+                                                        <TableFooter>
+                                                            <TableRow>
+                                                                <TablePagination
+                                                                    className="customPagination"
+                                                                    rowsPerPageOptions={[10, 25, 50, 99]}
+                                                                    colSpan={5}
+                                                                    count={totalElements}
+                                                                    rowsPerPage={rowsPerPage}
+                                                                    page={page}
+                                                                    backIconButtonProps={{
+                                                                        'aria-label': 'Previous Page',
+                                                                    }}
+                                                                    nextIconButtonProps={{
+                                                                        'aria-label': 'Next Page',
+                                                                    }}
+                                                                    SelectProps={{ native: true, }}
+                                                                    onChangePage={this.handleChangePage}
+                                                                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                                                                />
+                                                            </TableRow>
+                                                        </TableFooter>
                                                     </Table>
                                                 </div>
                                             </Paper>

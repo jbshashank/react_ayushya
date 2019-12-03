@@ -116,7 +116,6 @@ class TicketsForm extends Component {
         this.setState({
             makeId: BrandKey
         });
-        console.log('value of selected:::::' + e.target.value);
     }
     handleStateChange(e) {
         const unProcesedKey = e._targetInst.key
@@ -138,8 +137,6 @@ class TicketsForm extends Component {
 
     }
     submitForm = (values) => {
-        var date = new Date(values.visitTime).toISOString();
-        this.setState({ visitTime: date })
         const data = {
             callType: values.callType,
             brand: values.brand,
@@ -148,7 +145,7 @@ class TicketsForm extends Component {
             model: values.model,
             serialNumber: values.serialNumber,
             warranty: values.warranty,
-            visitTime: date,
+            visitTime: moment(values.visitTime).format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
             visitDate: values.visitDate,
             dealerName: values.dealerName,
             description: values.description,
@@ -160,12 +157,6 @@ class TicketsForm extends Component {
             productId: values.productId,
             customerId: values.customerId,
             userId: values.userId,
-            // productModel: {
-            //     brand: values.brand,
-            //     category: values.category,
-            //     subCategory: values.subCategory,
-            //     model: values.model,
-            // },
             customerDataModel: {
                 customerId: values.customerId,
                 customerName: values.customerName,
@@ -183,7 +174,6 @@ class TicketsForm extends Component {
         };
         const ticketId = this.props.match.params.id;
         if (ticketId) {
-            // data.ticketId = ticketId;
             new Promise((resolve, reject) => {
                 this.props.updateTicketsWatcher({ ...data }, () => {
                     this.props.history.push('/tickets');
@@ -199,12 +189,6 @@ class TicketsForm extends Component {
             });
         }
     };
-
-    // handleDateChange = (e) => {
-
-    //     this.setState({ [e.target.name]: moment(e.target.value).format('DD/MM/YYYY') });
-    //     console.log("value of name:: value", moment(e.target.value).format('DD/MM/YYYY'));
-    // }
     render() {
         const {
             classes, ticketTypes, products, ticket, brands, models, callTypes, assignees, statuses, states,
