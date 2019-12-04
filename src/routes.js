@@ -40,14 +40,6 @@ const dashboardRoutes = [
     component: Tickets,
     layout: ""
   },
-  // {
-  //     path: "/role-management-list",
-  //     name: "Role Management List",
-  //     rtlName: "قائمة الجدول",
-  //     icon: "content_paste",
-  //     component: Tickets,
-  //     layout: ""
-  // },
   {
     path: "/tickets",
     name: "Complaints",
@@ -58,7 +50,7 @@ const dashboardRoutes = [
   },
   {
     path: "/reports",
-    name: "Report Job",
+    name: "Jobs",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: Reportpage,
@@ -66,7 +58,7 @@ const dashboardRoutes = [
   },
   {
     path: "/reportInvoice",
-    name: "Report Invoice",
+    name: "Invoices",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: ReportInvoice,
@@ -74,7 +66,7 @@ const dashboardRoutes = [
   },
   {
     path: "/reportEstimate",
-    name: "Report Estimate",
+    name: "Estimates",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: ReportEstimate,
@@ -85,21 +77,4 @@ const dashboardRoutes = [
 
 
 export default dashboardRoutes;
-
-
-// import React from 'react';
-// // import JumbotronWrapper from '../components/JumbotronWrapper';
-
-// // Private routes.
-// const Employees = () => <Employees />;
-// const Dashboard = () => <Dashboard />;
-// const BusinessClientList = () => <BusinessClientList />;
-// const Tickets = () => <Tickets />;
-
-// export {
-//   Employees,
-//   BusinessClientList,
-//   Dashboard,
-//   Tickets
-// };
 

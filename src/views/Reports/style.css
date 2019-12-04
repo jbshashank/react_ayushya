@@ -15,11 +15,14 @@
 }
 .ReactTable .rt-thead.-header{
     /* background: linear-gradient(60deg, #ffa726, #fb8c00); */
-    background: linear-gradient(60deg, #26c6da, #00acc1);
+    
+    background: linear-gradient(60deg, #3f51b5, #3f51b5);
     font-weight: bold;
+    color: #fff;
+    padding: 5px 0;
 }
 .ReactTable .-pagination .-btn{
-    background: linear-gradient(60deg, rgb(49, 83, 165), rgb(49, 83, 165));
+    background: linear-gradient(60deg,#3f51b5, #3f51b5);
     color: white;
     width: 45%;
     /* float: right; */
@@ -52,7 +55,7 @@
 }
 .ReactTable .-pagination{
     color: white;
-    background: linear-gradient(60deg, #66bb6a, #43a047);
+    /* background: linear-gradient(60deg, #66bb6a, #43a047); */
 }
 .csv-link {
     color: #3153a5;
@@ -64,6 +67,9 @@
 }
 .rt-td{
     font-size: 15px;
+}
+.ReactTable .-pagination .-center{
+    color: #000;
 }
 /* .ReactTable .rt-tr.-even{
     background: linear-gradient(60deg, #26c6da, #00acc1);

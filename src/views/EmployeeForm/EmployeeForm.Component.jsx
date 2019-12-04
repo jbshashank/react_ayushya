@@ -288,8 +288,8 @@ class EmployeeForm extends Component {
 
 
     handleDateChange = (name, value) => {
-        console.log("value of name:: value", name, value.toISOString());
-        this.setState({ [name]: value });
+        console.log("value of name:: value", name, value.toISOString().substring(0, 10));
+        this.setState({ [name]: value.toISOString().substring(0, 10) });
         if (name === "dateOfBirth") {
             var selectedTime = moment(new Date(value));
             var currentTime = moment(new Date());
