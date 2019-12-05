@@ -152,6 +152,11 @@ const sidebarStyle = theme => ({
     position: "relative",
     display: "block",
     textDecoration: "none",
+    margin: "25px 10px",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+    padding: "5px 5px",
+    textAlign: "center",
     "&:hover,&:focus,&:visited,&": {
       color: blackColor,
       // backgroundColor: whiteColor,
@@ -170,12 +175,12 @@ const sidebarStyle = theme => ({
   itemLink: {
     width: "auto",
     transition: "all 300ms linear",
-    margin: "10px 15px 0",
     borderRadius: "3px",
     position: "relative",
     display: "block",
     padding: "10px 15px",
     color: "#3153a5",
+    textAlign: "center",
     ...defaultFont,
     "&:hover,&:focus,&:visited, &:active": {
       color: "#3153a5",
@@ -325,6 +330,6 @@ const sidebarStyle = theme => ({
       width: "100%",
       bottom: "13px"
     }
-  }
+  },
 });
 export default sidebarStyle;
