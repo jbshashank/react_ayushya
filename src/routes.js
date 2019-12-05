@@ -54,7 +54,7 @@ const dashboardRoutes = [
     layout: ""
   },
   {
-    path: "/reports",
+    path: "/jobs",
     name: "Jobs",
     rtlName: "قائمة الجدول",
     icon: WorkOutlineIcon,
@@ -62,7 +62,7 @@ const dashboardRoutes = [
     layout: ""
   },
   {
-    path: "/reportInvoice",
+    path: "/invoices",
     name: "Invoices",
     rtlName: "قائمة الجدول",
     icon: ReceiptOutlinedIcon,
@@ -70,7 +70,7 @@ const dashboardRoutes = [
     layout: ""
   },
   {
-    path: "/reportEstimate",
+    path: "/estimates",
     name: "Estimates",
     rtlName: "قائمة الجدول",
     icon: "content_paste",

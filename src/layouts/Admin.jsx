@@ -173,15 +173,15 @@ class Admin extends React.Component {
                                     component={DashboardPage}
                                 /> */}
                                 <Route
-                                    path='/reports'
+                                    path='/jobs'
                                     component={Reportpage}
                                 />
                                 <Route
-                                    path='/reportInvoice'
+                                    path='/invoices'
                                     component={ReportInvoice}
                                 />
                                 <Route
-                                    path='/reportEstimate'
+                                    path='/estimates'
                                     component={ReportEstimate}
                                 />
                                 <Route

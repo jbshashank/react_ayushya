@@ -163,6 +163,10 @@ class HeaderLinks extends React.Component {
                       >
                         Another Notification
                       </MenuItem> */}
+                      {/* <MenuItem
+                      >
+                        user
+                      </MenuItem> */}
                       <MenuItem
                         onClick={this.onClickLogout}
                         className={classes.dropdownItem}

@@ -14,6 +14,7 @@ import {
   blackColor,
   hexToRgb
 } from "assets/jss/material-dashboard-react.jsx";
+import { Children } from "react";
 
 const sidebarStyle = theme => ({
   drawerPaper: {
@@ -89,9 +90,6 @@ const sidebarStyle = theme => ({
     "&,&:hover": {
       color: "#3153a5",
     }
-    // "&,&:hover": {
-    //   color: whiteColor
-    // }
   },
   logoLinkRTL: {
     textAlign: "right"
@@ -99,24 +97,16 @@ const sidebarStyle = theme => ({
   logoImage: {
     width: "100%",
     float: "left",
-    // display: "inline-block",
-    // maxHeight: "30px",
-    // marginLeft: "10px",
-    // marginRight: "15px"
   },
   img: {
     top: "22px",
     width: "50%",
     float: "left",
-    // position: "absolute",
-    // verticalAlign: "middle",
-    // border: "0"
   },
   logoText: {
     float: "left",
     width: "50%",
     fontWeight: "bold",
-    // paddingTop: "18px",
   },
   background: {
     position: "absolute",
@@ -146,7 +136,7 @@ const sidebarStyle = theme => ({
     paddingBottom: "0",
     marginBottom: "0",
     listStyle: "none",
-    position: "unset"
+    position: "unset",
   },
   item: {
     position: "relative",
@@ -157,12 +147,7 @@ const sidebarStyle = theme => ({
     borderRadius: "10px",
     padding: "5px 5px",
     textAlign: "center",
-    "&:hover,&:focus,&:visited,&": {
-      color: blackColor,
-      // backgroundColor: whiteColor,
-      // borderRadius: "#3153AS",
-
-    }
+    color: "#3c4858",
   },
   itemText: {
     ...defaultFont,
@@ -179,18 +164,18 @@ const sidebarStyle = theme => ({
     position: "relative",
     display: "block",
     padding: "10px 15px",
-    color: "#3153a5",
+    // color: "#3153a5",
     textAlign: "center",
     ...defaultFont,
-    "&:hover,&:focus,&:visited, &:active": {
-      color: "#3153a5",
-      backgroundColor: "transparent",
-      border: "1px solid #3153a5",
-      // "&itemText": {
-      //   backgroundColor: "#3153a5"
-      // } 
+    // "&:hover,&:focus,&:visited, &:active": {
+    //   color: "#3153a5",
+    //   backgroundColor: "transparent",
+    //   border: "1px solid #3153a5",
+    //   // "&itemText": {
+    //   //   backgroundColor: "#3153a5"
+    //   // } 
 
-    }
+    // }
     // "&:hover,&:focus": {
     //   backgroundColor: "transparent",
     //   color: "#3153a5",
@@ -206,6 +191,8 @@ const sidebarStyle = theme => ({
     marginRight: "15px",
     textAlign: "center",
     verticalAlign: "middle",
+    // color: "#7dc836",
+    color: "#3153a5",
     // color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
   },
   itemIconRTL: {
