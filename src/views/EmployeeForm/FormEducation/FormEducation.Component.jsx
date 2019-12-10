@@ -30,17 +30,20 @@ class FormEducation extends Component {
         };
     }
 
+    // function to add education
     addEducation = () => {
         const education = { passOut: '', qualification: '' };
         this.setState({ userEducationDetailsDataModels: this.state.userEducationDetailsDataModels.concat(education) });
     };
 
+    // function to remove education
     removeEducation = (index) => {
         const { userEducationDetailsDataModels } = this.state;
         userEducationDetailsDataModels.splice(index, 1);
         this.setState({ userEducationDetailsDataModels });
     };
 
+    // function to handle change of education
     handleChangeEducation = (e, index) => {
         const { userEducationDetailsDataModels } = this.state;
         const education = { ...userEducationDetailsDataModels[index] };

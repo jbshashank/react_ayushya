@@ -36,7 +36,10 @@ import './style.css';
 import { CSVLink } from "react-csv";
 
 import ReactTable from 'react-table';
+import { BASE_URL_REPORT_ESTIMATES } from "../../utils/config.js";
 
+
+// table columns
 const columns = [
     {
         Header: 'Estimate Id',
@@ -79,15 +82,17 @@ export default class ReportEstimate extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
-        axios.get('http://134.209.147.111:8096/payments/estimate/getAllEstimates')
+        // get all estimates
+        axios.get(`${BASE_URL_REPORT_ESTIMATES}getAllEstimates`)
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })
             })
     }
+    // called on typing the serch text
     handleChange(e) {
         const searchValue = e.target.value;
-        axios.get(`http://192.168.1.9:8096/payments/estimate/estimateSearch?estimateSearch=${searchValue}`)
+        axios.get(`${BASE_URL_REPORT_ESTIMATES}estimateSearch?estimateSearch=${searchValue}`)
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })
@@ -139,7 +144,7 @@ export default class ReportEstimate extends Component {
                     <div className="csv-link">
                         <CSVLink
                             data={tableData}
-                            filename={"estimate.csv"}
+                            filename={"estimates.csv"}
                             className="btn btn-primary"
                             target="_blank"
                         >

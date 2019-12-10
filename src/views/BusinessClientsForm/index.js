@@ -16,14 +16,12 @@ import {
 } from "../../store/actions/businessclient";
 
 const mapStateToProps = (state, props) => {
-  // console.log("value of state in MSTP businesss",state.businessclient.businessClient)
   const clientId = props.match.params.id;
   console.log("inside MSTP", clientId)
   return {
     formData: state.form,
     cities: state.employees.cities,
     states: state.employees.states,
-    // initialValues: id&&id===state.businessclient.businessClient.id?state.businessclient.businessClient:null
     initialValues: clientId && state.businessclient.businessClient
   };
 };

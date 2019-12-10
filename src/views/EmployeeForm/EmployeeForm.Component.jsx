@@ -13,7 +13,7 @@ import FormBasic from "./FormBasic";
 import FormEducation from "./FormEducation";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import { BASE_URL_EMPLOYEE, FILE_URL } from "../../utils/config";
+
 
 class EmployeeForm extends Component {
     constructor(props) {
@@ -27,7 +27,6 @@ class EmployeeForm extends Component {
             aboutMe: '',
             dateOfBirth: moment.now(),
             dateOfJoining: moment.now(),
-            // dateOfJoining: moment.now(),
             email: '',
             phoneNumber: '',
             // photo: [],
@@ -55,7 +54,6 @@ class EmployeeForm extends Component {
             errorexpertiesLevel: '',
             errorSkills: '',
             errorRole: '',
-            // errorLocation: '',
             isDisabledNext: true,
             errorMiddleName: '',
             errorCity: '',
@@ -67,11 +65,11 @@ class EmployeeForm extends Component {
 
     componentDidMount() {
         const userId = this.props.match.params.id;
+        // fetch employee by id if user id is not null
         if (userId) {
             this.setState({ userId });
             new Promise((resolve, reject) => {
                 this.props.fetchEmployeeByIdWatcher(userId, () => {
-                    console.log("inside fetchEmployeeByIdWatcher" + this.props.employee);
                     this.setState({
                         formTitle: 'Edit Employee',
                         firstName: this.props.employee.firstName,
@@ -85,7 +83,6 @@ class EmployeeForm extends Component {
                         userEducationDetailsDataModels: this.props.employee.userEducationDetailsDataModels,
                         dateOfBirth: this.props.employee.dateOfBirth,
                         dateOfJoining: this.props.employee.dateOfJoining,
-                        // location: this.props.employee.employeePersonalDetails.location,
                         skills: this.props.employee.skills,
                         expertiseLevel: this.props.employee.expertiseLevel,
                         role: this.props.employee.role,
@@ -104,10 +101,12 @@ class EmployeeForm extends Component {
                 });
             });
         }
-        this.props.fetchStateWatcher();
-        this.props.fetchCityWatcher();
+
+        // this.props.fetchStateWatcher();
+        // this.props.fetchCityWatcher();
     }
 
+    // validation foe form elements
     validateForm = (a) => {
         let educationerror = ''
         let {
@@ -133,7 +132,6 @@ class EmployeeForm extends Component {
             errorexpertiesLevel = validate("expertiseLevel", expertiseLevel)
             errorSkills = validate("skills", skills)
             errorRole = validate("role", role)
-            // errorLocation = validate("location", location)
             errorMiddleName = validate("middleName", middleName)
             errorCity = validate("city", city)
             errorState = validate("state", state)
@@ -155,19 +153,21 @@ class EmployeeForm extends Component {
             || errorRole || errorMiddleName || errorState || errorCity)
     };
 
+    // function to add education
     addEducation = () => {
         const education = { passOut: new Date(), qualification: '' };
         this.setState({ userEducationDetailsDataModels: this.state.userEducationDetailsDataModels.concat(education) });
     };
 
+    // function to remove education
     removeEducation = (index) => {
         const { userEducationDetailsDataModels } = this.state;
         userEducationDetailsDataModels.splice(index, 1);
         this.setState({ userEducationDetailsDataModels });
     };
 
+    // handle change of education
     handleChangeEducation = (e, index) => {
-        console.log("Date change ", e);
         const { userEducationDetailsDataModels } = this.state;
         const education = { ...userEducationDetailsDataModels[index] };
         education[e.target.name] = e.target.value;
@@ -175,6 +175,7 @@ class EmployeeForm extends Component {
         this.setState({ userEducationDetailsDataModels })
     };
 
+    // handle change of education completion date
     handleChangeEducationDate = (name, value, index) => {
         const { userEducationDetailsDataModels } = this.state;
         const education = { ...userEducationDetailsDataModels[index] };
@@ -183,11 +184,15 @@ class EmployeeForm extends Component {
         this.setState({ userEducationDetailsDataModels })
         console.log('pass out' + userEducationDetailsDataModels.passOut);
     };
+
+    // handle change of role
     handleRoleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
     }
+
+    // common handle change event
     handleChange = (event) => {
         const { value, name } = event.target;
         let { errorSalary, errorPinCode, errorAge, errorFirstName, errorLastName, errorPhoneNumber,
@@ -262,12 +267,6 @@ class EmployeeForm extends Component {
                     errorRole
                 });
                 break;
-            // case "location":
-            //     errorLocation = validate("location", value);
-            //     this.setState({
-            //         errorLocation
-            //     });
-            //     break;
             case "city":
                 errorCity = validate("city", value);
                 this.setState({
@@ -286,7 +285,7 @@ class EmployeeForm extends Component {
         });
     };
 
-
+    // handle date change
     handleDateChange = (name, value) => {
         console.log("value of name:: value", name, value.toISOString().substring(0, 10));
         this.setState({ [name]: value.toISOString().substring(0, 10) });
@@ -304,11 +303,13 @@ class EmployeeForm extends Component {
         }
     };
 
+    //handle state change
     handleStateChange = event => {
         this.setState({ state: event.target.value });
         this.props.fetchCityWatcher({ stateCode: event.target.value });
     };
 
+    // handle city change
     handleCityChange = event => {
         this.setState({ city: event.target.value });
     };
@@ -322,7 +323,7 @@ class EmployeeForm extends Component {
         this.props.fetchCityWatcher({ stateCode: StateId });
     }
 
-
+    // handle next event
     handleNext = () => {
         if (!this.validateForm()) return;
 
@@ -339,28 +340,30 @@ class EmployeeForm extends Component {
         }));
     };
 
-    handleImageChange = (e) => {
-        console.log("image change");
-        if (e.target && e.target.files && e.target.files.length > 0) {
-            let formData = new FormData();
-            formData.append("file", e.target.files[0]);
-            new Promise((resolve, reject) => {
-                this.props.imageUploadWatcher(formData, (data) => {
-                    console.log("after reoslve", data);
-                    this.setState({
-                        uploadDir: data.path,
-                        imagePath: `${FILE_URL}${data.path}`
-                    });
-                    resolve();
-                });
-            });
-        }
+    // handleImageChange = (e) => {
+    //     console.log("image change");
+    //     if (e.target && e.target.files && e.target.files.length > 0) {
+    //         let formData = new FormData();
+    //         formData.append("file", e.target.files[0]);
+    //         new Promise((resolve, reject) => {
+    //             this.props.imageUploadWatcher(formData, (data) => {
+    //                 console.log("after reoslve", data);
+    //                 this.setState({
+    //                     uploadDir: data.path,
+    //                     imagePath: `${FILE_URL}${data.path}`
+    //                 });
+    //                 resolve();
+    //             });
+    //         });
+    //     }
 
-    };
+    // };
 
-    fileUploadHandler = event => {
-        this.setState({ selectedFile: event.target.files[0] });
-    }
+    // fileUploadHandler = event => {
+    //     this.setState({ selectedFile: event.target.files[0] });
+    // }
+
+    // submit form data
     handleSubmit = (values) => {
         if (!this.validateForm()) return;
         const {
@@ -408,6 +411,7 @@ class EmployeeForm extends Component {
             userEducationDetailsDataModels: userEducationDetailsDataModels
         };
 
+        // update employee based on userId
         if (userId) {
             payload.userId = userId;
             new Promise((resolve, reject) => {
@@ -417,6 +421,7 @@ class EmployeeForm extends Component {
                 });
             })
         }
+        // create employee
         else {
             new Promise((resolve, reject) => {
                 this.props.createEmployeesWatcher(payload, () => {
@@ -437,7 +442,6 @@ class EmployeeForm extends Component {
             userEducationDetailsDataModels,
             dateOfBirth,
             dateOfJoining,
-            // location,
             // photo,
             skills,
             expertiseLevel,
@@ -463,7 +467,6 @@ class EmployeeForm extends Component {
             errorexpertiesLevel,
             errorSkills,
             errorRole,
-            // errorLocation,
             errorMiddleName,
             errorCity,
             errorState
@@ -498,6 +501,7 @@ class EmployeeForm extends Component {
         }
     };
 
+    // render multiple steps
     _renderSteps = (step, index) => {
         return (
             <Step key={`STEP_${index}`}>

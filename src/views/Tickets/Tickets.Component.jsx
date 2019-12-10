@@ -11,20 +11,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import { Icon, IconButton, Button } from "@material-ui/core";
-// import RaisedButton from 'material-ui/RaisedButton';
 import { DatePicker } from "material-ui-pickers";
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
 import "../../index.js";
-import InputLabel from "@material-ui/core/InputLabel";
-// import TableSortLabel from '@material-ui/core/TableSortLabel';
-
+import moment from "moment";
 import GridItem from "../../components/Grid/GridItem.jsx";
 import GridContainer from "../../components/Grid/GridContainer.jsx";
 import TextField from "@material-ui/core/TextField";
-import { deleteTicketsWatcher } from "../../store/actions";
-import CardBody from "../../components/Card/CardBody";
-import moment from 'moment';
 
 class Tickets extends Component {
 
@@ -38,6 +32,7 @@ class Tickets extends Component {
             sortField: '',
             sortOrder: 'asc',
         };
+        // table columns
         this.columns =
             [
                 { key: 'visitDate', label: 'Visit Date' },
@@ -69,6 +64,7 @@ class Tickets extends Component {
         const isDesc = sortField === row.key && sortOrder === 'desc';
         this.setState({ page: 0, sortField: row.key, sortOrder: isDesc ? 'asc' : 'desc' });
 
+        // payload
         const payload = {
             isFilter: visitDate || city,
             name: visitDate ? 'visitDate' : city ? 'city' : '',
@@ -83,18 +79,16 @@ class Tickets extends Component {
     };
 
     componentDidMount() {
-        console.log("inside :componentDidMount:")
+        // fetch all tickets
         this.props.fetchTicketsWatcher();
     }
+
     handleBulkFileUpload = (e) => {
         if (e.target && e.target.files && e.target.files.length > 0) {
-            console.log('inside file 1' + e.target.files);
             let formData = new FormData();
-            console.log('inside file 2 formadate' + formData);
             formData.append('file', e.target.files[0]);
-            console.log('inside file 3 file' + formData);
+            // create tickets
             this.props.createBulkTicketsWatcher(formData);
-            console.log('inside file 3 file' + formData);
         }
     }
     handleChangePage = (event, page) => {
@@ -111,50 +105,14 @@ class Tickets extends Component {
         this.props.fetchTicketsWatcher({ page: 0, rowsPerPage: event.target.value });
     };
 
-    handleEdit = (ticketId) => {
-
-    };
-
-    handleRemove = (ticketId) => {
-        if (window.confirm("Are you sure want to delete?")) {
-            new Promise((resolve, reject) => {
-                this.props.deleteTicketsWatcher({ ticketId }, () => {
-                    this.props.fetchTicketsWatcher();
-                    resolve();
-                });
-            });
-        }
-    };
-
+    //  fucntion to reset pagination
     handleChange = (name, value) => {
         this.props.resetTicketsPagination();
         if (name == "visitDate") {
             var x = new Date(value);
-            console.log('x value is' + x);// x is now a date object
             x.setUTCHours(0, 0, 0, 0);
-            console.log('x value in utc' + x.setUTCHours(0, 0, 0, 0));
             value = new Date(x).toISOString();
-            // console.log('value' + value);
-            // // value = x.substring(0, 10);
-            // console.log('date value final' + value);
-            // var x = new Date(value);
-            // console.log('x is' + x;)
-            // value = new Date(x).toISOString().substring(0, 10);
-            // console.log('value of date is :::' + value);
-
-            // var currentTime = new Date(value);
-            // console.log('value from date selection' + currentTime);
-            // // value = moment(new Date(currentTime.subString(0, 16)));
-            // var currentOffset = currentTime.getTimezoneOffset();
-            // console.log('value of currentoffset' + currentOffset);
-            // var ISTOffset = 570;
-            // var x = new Date(currentTime.getTime() + (ISTOffset + currentOffset) * 60000);
-            // var date = JSON.stringify(x);
-            // value = date.slice(1, 11);
-
-
         }
-        // console.log('date value out oop' + value);
         this.setState({ page: 0, [name]: value });
         const payload = {
             isFilter: !!value,
@@ -165,6 +123,8 @@ class Tickets extends Component {
         };
         this.props.fetchTicketsWatcher(payload);
     };
+
+    // combine address 1 and 2
     address12Formation = (row) => {
         return `${row.customerDataModel.address1}
                 ${row.customerDataModel.address2}`
@@ -172,11 +132,13 @@ class Tickets extends Component {
     streetFormation = (row) => {
         return `${row.customerDataModel.street}`
     }
+    // combine city, state and pin code
     addressFormation = (row) => {
         return `${row.customerDataModel.state}
         ${row.customerDataModel.city}
         ${row.customerDataModel.pinCode}`
     }
+    //combine email and phone number
     contactFormation = (row) => {
         return `${row.customerDataModel.contactNumber}
                 ${row.customerDataModel.email}`
@@ -315,29 +277,29 @@ class Tickets extends Component {
                                                                         </TableRow>
                                                                     )
                                                                 }
-                                                                else {
-                                                                    return (
-                                                                        // <TableRow key={row.ticketId}>
-                                                                        //     <TableCell style={{ padding: 15 }}>{row.ticketId}</TableCell>
-                                                                        //     <TableCell style={{ padding: 15 }}></TableCell>
-                                                                        //     <TableCell style={{ padding: 15 }}><div style={{ width: 150 }}>{row.city}</div></TableCell>
-                                                                        //     <TableCell style={{ padding: 15 }}>
-                                                                        //         <div style={{ width: 150 }}>
-                                                                        //             {row.name}
-                                                                        //         </div>
-                                                                        //     </TableCell>
-                                                                        //     <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
-                                                                        //     <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM:SS")}</div></TableCell>
-                                                                        //     <TableCell style={{ padding: 15 }}>
-                                                                        //         <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>
-                                                                        //             {/* <IconButton onClick={() => this.redirectToRescheduleTickets()}> */}
-                                                                        //             <Icon>edit</Icon>
-                                                                        //         </IconButton>
-                                                                        //     </TableCell>
-                                                                        // </TableRow>
-                                                                        <div></div>
-                                                                    )
-                                                                }
+                                                                // else {
+                                                                //     return (
+                                                                //         // <TableRow key={row.ticketId}>
+                                                                //         //     <TableCell style={{ padding: 15 }}>{row.ticketId}</TableCell>
+                                                                //         //     <TableCell style={{ padding: 15 }}></TableCell>
+                                                                //         //     <TableCell style={{ padding: 15 }}><div style={{ width: 150 }}>{row.city}</div></TableCell>
+                                                                //         //     <TableCell style={{ padding: 15 }}>
+                                                                //         //         <div style={{ width: 150 }}>
+                                                                //         //             {row.name}
+                                                                //         //         </div>
+                                                                //         //     </TableCell>
+                                                                //         //     <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitDate).format("DD-MM-YYYY")}</div></TableCell>
+                                                                //         //     <TableCell style={{ padding: 15 }}> <div style={{ width: 100, paddingLeft: 50 }}>{moment(row.visitTime).format("HH:MM:SS")}</div></TableCell>
+                                                                //         //     <TableCell style={{ padding: 15 }}>
+                                                                //         //         <IconButton onClick={() => this.redirectToRescheduleTickets(row.ticketId)}>
+                                                                //         //             {/* <IconButton onClick={() => this.redirectToRescheduleTickets()}> */}
+                                                                //         //             <Icon>edit</Icon>
+                                                                //         //         </IconButton>
+                                                                //         //     </TableCell>
+                                                                //         // </TableRow>
+                                                                //         <div></div>
+                                                                //     )
+                                                                // }
                                                             })}
                                                         </TableBody>
 

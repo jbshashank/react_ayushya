@@ -22,7 +22,8 @@ import GridItem from "../../../components/Grid/GridItem.jsx";
 import GridContainer from "../../../components/Grid/GridContainer.jsx";
 import { required, email, alphaNumeric, alpha, phoneNumber, number, pinCode } from '../../../utils/reduxFormValiadtion';
 import axios from "../../../utils/axios";
-import CustomerDetails from './customerDetails';
+import { BASE_URL_EMPLOYEE } from "../../../utils/config";
+
 
 class TicketsForm extends Component {
     constructor(props) {
@@ -35,71 +36,23 @@ class TicketsForm extends Component {
     componentDidMount() {
         this.props.fetchStateWatcher();
         this.props.fetchCityWatcher();
-        axios.get('http://134.209.147.111:8095/users/user/getAllUserLocation')
+        // get all available users
+        axios.get(`${BASE_URL_EMPLOYEE}getAllUserLocation`)
             .then(res => {
                 const users = res.data;
                 this.setState({ userId: users });
             });
-        // this.props.fetchTicketsWatcher();
         const ticketId = this.props.match.params.id;
+        //if ticket id is not null fetch ticket based on id
         if (ticketId) {
             this.setState({ ticketId });
             this.props.fetchTicketsByIdWatcher({ ticketId });
-
-            // this.setState({ makeId: this.props.ticket.callType });
-            // this.setState({ customerName: 'hi' });
-            // console.log('customer name:::::' + this.state.customerName);
-            // new Promise((resolve, reject) => {
-            //     this.props.fetchTicketsByIdWatcher(ticketId, () => {
-            //         this.setState({
-            //             callType: this.props.ticket.callType,
-            //             brand: this.props.ticket.brand,
-            //             category: this.props.ticket.category,
-            //             subCategory: this.props.ticket.subCategory,
-            //             model: this.props.ticket.model,
-            //             serialNumber: this.props.ticket.serialNumber,
-            //             warranty: this.props.ticket.warranty,
-            //             visitTime: this.props.ticket.visitTime,
-            //             visitDate: this.props.ticket.visitDate,
-            //             dealerName: this.props.ticket.dealerName,
-            //             description: this.props.ticket.description,
-            //             // productModel: {
-            //             //     brand: values.brand,
-            //             //     category: values.category,
-            //             //     subCategory: values.subCategory,
-            //             //     model: values.model,
-            //             // },
-            //             customerDataModel: {
-            //                 customerName: this.props.ticket.customerName,
-            //                 address1: this.props.ticket.address1,
-            //                 address2: this.props.ticket.address2,
-            //                 street: this.props.ticket.street,
-            //                 state: this.props.ticket.state,
-            //                 city: this.props.ticket.city,
-            //                 pinCode: this.props.ticket.pinCode,
-            //                 email: this.props.ticket.email,
-            //                 contactNumber: this.props.ticket.contactNumber,
-            //                 alternateContact: this.props.ticket.alternateContact
-            //             }
-            //             // imagePath: this.props.employee.employeePersonalDetails.uploadDir ? `${FILE_URL}${this.props.employee.employeePersonalDetails.uploadDir}` : null,
-            //         });
-            //         this.props.history.push('/tickets');
-            //         console.log('inside ticket update');
-            //         resolve();
-            //     }, () => {
-            //         reject();
-            //     });
-            // });
-            // this.props.fetchAllModelWatcher();
-
-
         }
+        // fetch brand, product, sub category, model and employees
         this.props.fetchBrandWatcher();
         this.props.fetchAllProductWatcher();
         this.props.fetchAllProductSubCategoryWatcher();
         this.props.fetchAllModelWatcher();
-        // this.props.fetchAllCityWatcher();
-        // this.props.fetchAllCityWatcher();
         this.props.fetchEmployeesWatcher({});
     }
     componentWillReceiveProps(nextProps) {
@@ -107,9 +60,12 @@ class TicketsForm extends Component {
             this.setState({ products: nextProps.productDate })
         }
     }
+    // get the technician selection
     handleTechChange(e) {
         console.log("tech name change:" + e.target.value);
     }
+
+    //function to get the brand id
     brandOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key;
         const BrandKey = unProcesedKey.split('BRAND_')[unProcesedKey.split('BRAND_').length - 1]
@@ -117,25 +73,31 @@ class TicketsForm extends Component {
             makeId: BrandKey
         });
     }
+
+    // function to get state id
     handleStateChange(e) {
         const unProcesedKey = e._targetInst.key
         const StateId = unProcesedKey.split('STATE_')[unProcesedKey.split('STATE_').length - 1]
         this.props.fetchCityWatcher({ stateCode: StateId })
     }
 
+    // function to get category id
     productOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key
         const ProductKey = unProcesedKey.split('PRODUCT_')[unProcesedKey.split('PRODUCT_').length - 1]
         this.setState({ categoryId: ProductKey })
         this.props.fetchProductSubcategoryByBrandIdAndProductIdWatcher({ makeId: this.state.makeId, categoryId: ProductKey })
-
     }
+
+    // function to get sub category id
     productSubcategoryOnChangeHandler(e) {
         const unProcesedKey = e._targetInst.key
         const ProductSubCategoryKey = unProcesedKey.split('PRODUCT_SUBCATEGORY_')[unProcesedKey.split('PRODUCT_').length - 1]
         this.props.fetchModeByProductIdWatcher({ makeId: this.state.makeId, categoryId: this.state.categoryId, subCategoryId: ProductSubCategoryKey })
 
     }
+
+    // submit the form with form values
     submitForm = (values) => {
         const data = {
             callType: values.callType,
@@ -173,6 +135,8 @@ class TicketsForm extends Component {
 
         };
         const ticketId = this.props.match.params.id;
+
+        // update ticket based on id
         if (ticketId) {
             new Promise((resolve, reject) => {
                 this.props.updateTicketsWatcher({ ...data }, () => {
@@ -180,6 +144,8 @@ class TicketsForm extends Component {
                     resolve();
                 })
             });
+
+            // create ticket
         } else {
             new Promise((resolve, reject) => {
                 this.props.createTicketsWatcher(data, () => {
@@ -353,8 +319,6 @@ class TicketsForm extends Component {
                                                             label="Time of visit*"
                                                             validate={[required]}
                                                             mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
-                                                        // onChange={this.handleTime}
-                                                        // value={this.state.visitTime}
                                                         />
                                                     </GridItem>
                                                     <GridItem xs={12} sm={4} md={4}>
@@ -367,11 +331,6 @@ class TicketsForm extends Component {
                                                             disabled={isRescheduleTickets}
                                                             validate={[required]}
                                                             mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : null)}
-                                                        // onChange={(date) => {
-                                                        //     handleDateChange('visitDate', date);
-                                                        // }}
-                                                        // onChange={this.handleDateChange}
-                                                        // value={this.state.visitDate}
                                                         />
                                                     </GridItem>
                                                 </GridContainer>
@@ -516,7 +475,6 @@ class TicketsForm extends Component {
                                                             id="pinCode"
                                                             label="Pin Code*"
                                                             disabled={readOnly}
-                                                            // disabled={}
                                                             className={classes.textField}
                                                             name="pinCode"
                                                             validate={[required, pinCode]} />
@@ -539,7 +497,6 @@ class TicketsForm extends Component {
                                                             className={classes.textField}
                                                             name="contactNumber"
                                                             disabled={readOnly}
-                                                            // value={ticket.customerDataModel.contactNumber}
                                                             validate={[required, phoneNumber]} />
                                                     </GridItem>
                                                 </GridContainer>

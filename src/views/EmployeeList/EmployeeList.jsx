@@ -50,19 +50,11 @@ class EmployeeList extends Component {
         }
     }
 
-    removeRow = (userId) => {
-        this.props.deleteEmployeesWatcher({ userId: userId });
-        this.props.fetchEmployeesWatcher();
-    };
-
     handleOnEdit = (userId) => {
-        console.log(userId);
         localStorage.setItem(EMPLOYEE_KEY.EDIT_EMPLOYEE, userId);
+        // update employee details
         this.props.history.push('/employeesedit/' + userId);
     };
-
-    componentDidMount() {
-    }
 
     render() {
         const { classes, employee, userId } = this.props;
@@ -85,14 +77,6 @@ class EmployeeList extends Component {
                                 <h5 className="customSubtitle">{employee.role}</h5>
                                 <h6 className="customSubtitle">{employee.pinCode}</h6>
                                 <h6 className="customSubtitle">{employee.phoneNumber}</h6>
-
-                                {/* <p className="customAboutme">
-                                {
-                                    employee.employeePersonalDetails.aboutMe.length<=50 ? 
-                                    employee.employeePersonalDetails.aboutMe : 
-                                    employee.employeePersonalDetails.aboutMe.substring(0,50)+"..."
-                                }
-                                </p> */}
                             </CardBody>
                             <CardActions>
                                 <IconButton className="editIcon"
@@ -102,9 +86,6 @@ class EmployeeList extends Component {
 
                                     <Icon>edit</Icon>
                                 </IconButton>
-                                {/*<IconButton className="editIcon" onClick={() => this.removeRow(`${employee.id}`)}>
-                                    <Icon>delete</Icon>
-        </IconButton>*/}
                             </CardActions>
                         </Card>
                     </GridItem>

@@ -36,7 +36,9 @@ import './style.css';
 import { CSVLink } from "react-csv";
 
 import ReactTable from 'react-table';
+import { BASE_URL_REPORT_INVOICES } from "../../utils/config.js";
 
+// table columns
 const columns = [
     {
         Header: 'Job Code',
@@ -79,20 +81,20 @@ export default class ReportInvoice extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
-        axios.get('http://134.209.147.111:8096/payments/cashreceipt/getAllInvoice')
+        // get all invoices
+        axios.get(`${BASE_URL_REPORT_INVOICES}getAllInvoice`)
             .then(response => response.data)
             .then((data) => {
-                this.setState({ tableData: data.content })
-                console.log(this.state.tableData)
+                this.setState({ tableData: data.content });
             })
     }
+    // called on typing the serch text
     handleChange(e) {
         const searchValue = e.target.value;
-        axios.get(`http://192.168.1.9:8096/payments/cashreceipt/cashReceiptSearch?cashSearch=${searchValue}`)
+        axios.get(`${BASE_URL_REPORT_INVOICES}cashReceiptSearch?cashSearch=${searchValue}`)
             .then(response => response.data)
             .then((data) => {
-                this.setState({ tableData: data.content })
-                console.log(this.state.tableData)
+                this.setState({ tableData: data.content });
             });
         // Variable to hold the original version of the list
         let currentList = [];

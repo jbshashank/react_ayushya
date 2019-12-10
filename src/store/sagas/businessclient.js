@@ -22,7 +22,7 @@ import { BASE_URL_CLIENTS } from "../../utils/config";
 function createbusinessClientApi(data) {
     return axios.request({
         method: "post",
-        url: `${BASE_URL_CLIENTS}clients/create`,
+        url: `${BASE_URL_CLIENTS}create`,
         data
     });
 }
@@ -51,10 +51,10 @@ export function* createBusinessClientActionWatcher() {
 // ** update Business Client *//
 
 function updatebusinessClientApi(data) {
-    // let url = `${BASE_URL_CLIENTS}clients/updateClientDetails?clientId=` + data;
+    // let url = `${BASE_URL_CLIENTS}updateClientDetails?clientId=` + data;
     return axios.request({
         method: "put",
-        url: `${BASE_URL_CLIENTS}clients/updateClientDetails?clientId=${data.clientId}`,
+        url: `${BASE_URL_CLIENTS}updateClientDetails?clientId=${data.clientId}`,
         data: data
     })
 }
@@ -83,7 +83,7 @@ export function* updateBusinessClientActionWatcher() {
 function fetchBusinessClientsApi(payload) {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_CLIENTS}clients/findAllClients`,
+        url: `${BASE_URL_CLIENTS}findAllClients`,
     });
 }
 function* fetchBusinessClientsApiEffect(action) {
@@ -112,7 +112,7 @@ export function* fetchBusinessClientActionWatcher() {
 // ** * /
 //     **  //** Get Business Client by id*/ */
 function fetchBusinessClientByIdApi(data) {
-    let url = `${BASE_URL_CLIENTS}clients/findByClientId?clientId=` + data;
+    let url = `${BASE_URL_CLIENTS}findByClientId?clientId=` + data;
     return axios.request({
         method: "get",
         url: url,

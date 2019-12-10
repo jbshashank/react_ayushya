@@ -41,14 +41,14 @@ const headerStyle = theme => ({
     lineHeight: "30px",
     fontSize: "20px",
     fontWeight: "bold",
-    borderRadius: "10px",
+    borderRadius: "6px",
     textTransform: "none",
     color: "inherit",
     marginLeft: 20,
     margin: "0",
     padding: "15px",
-    border: "1px solid #ccc",
     backgroundColor: "#fff",
+    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
     color: "#3c4858"
   },
   appResponsive: {

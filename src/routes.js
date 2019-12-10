@@ -9,7 +9,7 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import Employees from "views/Employees";
 import Tickets from "views/Tickets";
 import ClientList from "views/BusinessClientsList"
-import Reportpage from "views/Reports/Reports.jsx";
+import ReportJob from "views/Reports/ReportJob.jsx";
 import ReportInvoice from "views/Reports/ReportInvoice.jsx";
 import ReportEstimate from "views/Reports/ReportEstimate.jsx";
 const dashboardRoutes = [
@@ -58,7 +58,7 @@ const dashboardRoutes = [
     name: "Jobs",
     rtlName: "قائمة الجدول",
     icon: WorkOutlineIcon,
-    component: Reportpage,
+    component: ReportJob,
     layout: ""
   },
   {

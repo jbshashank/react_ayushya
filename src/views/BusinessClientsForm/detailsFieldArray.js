@@ -56,7 +56,6 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             <GridItem xs={12} sm={4} md={4}>
               <Field
                 name={`${member}.contactEmail`}
-                // name="contactEmail"
                 type="text"
                 component={CustomTextField}
                 label="Email Address*"
@@ -65,7 +64,6 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             </GridItem>
             <GridItem xs={12} sm={4} md={4}>
               <Field
-                // name="contactLandline"
                 name={`${member}.contactLandline`}
                 component={CustomTextField}
                 id="Landline"
@@ -76,7 +74,6 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             <GridItem xs={12} sm={4} md={4}>
               <Field
                 name={`${member}.contactMobile`}
-                // name="contactMobile"
                 component={CustomTextField}
                 id="mobile"
                 label="Mobile Number*"
@@ -85,7 +82,6 @@ const renderMultipleFields = ({ fields, meta: { error, submitFailed } }) => {
             </GridItem>
             <GridItem xs={12} sm={4} md={4}>
               <Field
-                // name="contactDesignation"
                 name={`${member}.contactDesignation`}
                 component={CustomTextField}
                 id="designation"

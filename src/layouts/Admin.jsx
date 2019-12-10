@@ -22,7 +22,7 @@ import RoleManagementList from "../views/RoleManagementList/index";
 import BusinessClientsForm from "../views/BusinessClientsForm/";
 import BusinessClientList from "../views/BusinessClientsList/"
 import Employees from "views/Employees";
-import Reportpage from "views/Reports/Reports.jsx";
+import ReportJob from "views/Reports/ReportJob.jsx";
 import ReportInvoice from "views/Reports/ReportInvoice.jsx";
 import ReportEstimate from "views/Reports/ReportEstimate.jsx";
 
@@ -173,7 +173,7 @@ class Admin extends React.Component {
                                 /> */}
                                 <Route
                                     path='/jobs'
-                                    component={Reportpage}
+                                    component={ReportJob}
                                 />
                                 <Route
                                     path='/invoices'

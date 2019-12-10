@@ -2,7 +2,6 @@ import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-// import { tickets } from './dummyData';
 import { deleteTicketsWatcher, fetchTicketsWatcher, resetTicketsPagination, createBulkTicketsWatcher } from "../../store/actions";
 import RoleManagementList from './RoleManagementList.Component';
 import styles from './styles';

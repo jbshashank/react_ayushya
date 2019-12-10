@@ -46,7 +46,6 @@ let constraints = {
     },
     email: {
         presence: { allowEmpty: false },
-        // email: true,
         format: {
             pattern: "[A-Z0-9._%+-]+@[A-Z0-9.-]+(?:com|org|net|in|edu|info|net|co.in)",
             flags: "i",

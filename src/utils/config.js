@@ -1,12 +1,13 @@
-export const BASE_URL = "https://services-2.finchtech.in/";
-export const BASE_URL_TICKETS = "https://services-1.finchtech.in/";
-export const BASE_URL_COMPLAINTS = "http://134.209.147.111:8091/";
-export const BASE_URL_PRODUCTS = "http://134.209.147.111:8093/";
-export const BASE_URL_EMPLOYEE = "http://134.209.147.111:8095/";
-export const BASE_URL_CLIENTS = "http://134.209.147.111:8098/";
-export const BASE_URL_GENERIC = "http://134.209.147.111:8098/";
-export const FILE_URL = "https://services-1.finchtech.in/data/employeeportal/";
-// export const LOCAL_URL_COMPLAINTS = "http://192.168.1.9:8091/";
+export const BASE_URL_COMPLAINTS = "http://services-4.finchtech.in:8091/tickets/ticket/";
+export const BASE_URL_PRODUCTS = "http://services-4.finchtech.in:8093/";
+export const BASE_URL_EMPLOYEE = "http://services-4.finchtech.in:8095/users/user/";
+export const BASE_URL_EMPLOYEE_SEARCH = "http://services-4.finchtech.in:8095/";
+export const BASE_URL_LOGIN = "http://services-4.finchtech.in:8095/";
+export const BASE_URL_CLIENTS = "http://services-4.finchtech.in:8098/clients/";
+export const BASE_URL_GENERIC = "http://services-4.finchtech.in:8098/";
+export const BASE_URL_REPORT_JOB = "http://services-4.finchtech.in:8092/jobs/job/";
+export const BASE_URL_REPORT_ESTIMATES = "http://services-4.finchtech.in:8096/payments/estimate/";
+export const BASE_URL_REPORT_INVOICES = "http://services-4.finchtech.in:8096/payments/cashreceipt"
 
 export const EMPLOYEE_KEY = {
     TOKEN: 'TOKEN',

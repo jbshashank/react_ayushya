@@ -27,8 +27,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import loginPageStyle from "assets/jss/material-dashboard-react/views/loginPageStyle.jsx";
-
-const { REACT_APP_SERVER_URL } = process.env;
+import { BASE_URL_LOGIN } from "../../utils/config";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -41,19 +40,20 @@ class LoginPage extends React.Component {
       password: ''
     };
   }
+  // function to login 
   login = async e => {
     const fields = ["email", "password"];
     const formElements = e.target.elements;
-    const { history } = this.props;
     const formValues = fields
       .map(field => ({
         [field]: formElements.namedItem(field).value
       }))
       .reduce((current, next) => ({ ...current, ...next }));
     e.preventDefault();
+    // post request to post email and password
     axios({
       method: 'post',
-      url: `http://134.209.147.111:8095/login`,
+      url: `${BASE_URL_LOGIN}login`,
       data: {
         email: formValues.email,
         password: formValues.password
@@ -61,6 +61,7 @@ class LoginPage extends React.Component {
     })
       .then(response => {
         console.log('response data' + response.data);
+        // store role and user name on local storage
         localStorage.setItem('roles', response.data.role);
         localStorage.setItem('user', response.data.firstName);
         this.props.history.push('/employees');
@@ -80,7 +81,6 @@ class LoginPage extends React.Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     this.setState({
       checked: newChecked
     });

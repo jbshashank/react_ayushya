@@ -6,10 +6,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
 import ClientList from "../BusinessClientsList/ClientList";
-import TextField from "@material-ui/core/TextField";
-import Dashboard from "../Dashboard/Dashboard";
 const styles = theme => ({
     userCard: {
         display: "flex",
@@ -39,33 +36,21 @@ class BusinessClientList extends Component {
         this.state = {
             page: 0,
             rowsPerPage: 5,
-            // searchTerm: ''
         }
     }
 
+    //fetch business clients
     componentDidMount() {
         this.props.fetchBusinessClientWatcher();
 
     }
-
-
-    // resetEmployeesSearch = () => {
-    //     this.setState({
-    //         searchTerm: ""
-    //     }, () => {
-    //         this.fetchEmployees("")
-    //     })
-    // };
-
+    // on change set values
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
-        // this.fetchEmployees(e.target.value);
     };
 
     render() {
-        console.log("value of this.props in businessclientlistpage", this.props)
-        const { classes, BusinessClientList } = this.props;
-        const { searchTerm } = this.state;
+        const { BusinessClientList } = this.props;
         const token = JSON.parse(localStorage.getItem('roles') == "Admin") || JSON.parse(localStorage.getItem('roles') == "Manager");
         return (
             <div>

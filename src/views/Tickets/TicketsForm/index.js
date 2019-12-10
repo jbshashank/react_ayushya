@@ -21,13 +21,9 @@ import {
 } from "../../../store/actions";
 import Tickets from './TicketsForm.Component';
 import styles from './styles';
-import { ticket } from '../dummyData';
 
 const mapStateToProps = (state, props) => {
-    // const {ticket} = state.tickets;
     const { id } = props.match.params;
-    console.log("value of State in MSTP", state);
-    console.log("value of brands" + state.form);
     return {
         formData: state.form,
         brands: state.tickets.brand,

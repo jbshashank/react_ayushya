@@ -44,14 +44,17 @@ class Employees extends Component {
             employees: {}
         }
     }
+    // fetch all employees
     componentDidMount() {
         this.fetchEmployees('');
     }
 
+    // fetch based on user search
     fetchEmployees = (userSearch) => {
         this.props.fetchEmployeesWatcher({ userSearch });
     };
 
+    // reset employee search
     resetEmployeesSearch = () => {
         this.setState({
             searchTerm: ""
@@ -62,7 +65,6 @@ class Employees extends Component {
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
-        console.log("value is :" + e.target.value);
     };
 
     render() {
@@ -105,12 +107,9 @@ class Employees extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={16}>
-                                    {/* <EmployeeList /> */}
                                     {employees.map((employee, index) => (
-                                        // {this.state.employees.content.map((employee, index) => (
                                         <Grid item xs={12} sm={6} md={3} key={`EMP_${index}`}>
                                             <EmployeeList employee={employee}
-                                                // deleteEmployeesWatcher={this.props.deleteEmployeesWatcher}
                                                 fetchEmployeesWatcher={this.props.fetchEmployeesWatcher}
                                             />
                                         </Grid>

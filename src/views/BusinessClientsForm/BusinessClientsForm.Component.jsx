@@ -14,18 +14,9 @@ import renderSelectField from "../../components/reduxFormComponents/renderSelect
 import GridItem from "../../components/Grid/GridItem.jsx";
 import GridContainer from "../../components/Grid/GridContainer.jsx";
 import DetailsFieldArray from "./detailsFieldArray";
-import EmployeeList from "../EmployeeList/EmployeeList";
-import Dashboard from "../Dashboard/Dashboard";
-import axios from "../../utils/axios";
-import { BASE_URL, BASE_URL_TICKETS, BASE_URL_CLIENTS } from "../../utils/config";
-// import validate from "../../utils/validate";
 import {
   required,
-  email,
-  alphaNumeric,
   alpha,
-  phoneNumber,
-  number,
   pinCode
 } from "../../utils/reduxFormValiadtion";
 
@@ -38,15 +29,13 @@ class BusinessClientsForm extends Component {
   componentDidMount() {
     const clientId = this.props.match.params.id;
 
+    // fetch client by id if id is not null
     if (clientId) {
       this.setState({ clientId });
       this.props.fetchBusinessClientByIdWatcher(clientId);
     }
-    this.props.fetchStateWatcher();
-    this.props.fetchAllCityWatcher();
-    console.log("value of this props..", this.props.match.params.id)
-
-
+    // this.props.fetchStateWatcher();
+    // this.props.fetchAllCityWatcher();
   }
   handleStateChange(e) {
     const unProcesedKey = e._targetInst.key;
@@ -57,45 +46,10 @@ class BusinessClientsForm extends Component {
     this.props.fetchCityWatcher({ stateCode: StateId });
   }
 
-  // submitForm = (values) => {
-  //   // console.log("submit form", values);
-  //   const data = {
-  //     clientName: values.clientName,
-  //     clientAddress: values.clientAddress,
-  //     country: values.country,
-  //     state: values.state,
-  //     city: values.city,
-  //     pinCode: values.pinCode,
-  //     clientContactDetails: [{
-  //       contactName: values.contactName,
-  //       contactEmail: values.contactEmail,
-  //       contactMobile: values.contactMobile,
-  //       contactLandline: values.contactLandline,
-  //       contact: values.contactDesignation
-  //     }]
-  //   };
-  //   const clientId = this.props.match.params.id;
-  //   console.log("client id is::::" + clientId);
-  //   if (clientId) {
-  //     new Promise((resolve, reject) => {
-  //       this.props.updateBusinessClientWatcher({ ...data, clientId }, () => {
-  //         this.props.history.push("/businessclientlist");
-  //         resolve();
-  //       });
-  //     });
-  //   } else {
-  //     new Promise((resolve, reject) => {
-  //       this.props.createBusinessClientWatcher(data, () => {
-  //         this.props.history.push('/businessclientlist');
-  //         resolve();
-  //       });
-  //     });
-  //   }
-  // };
-
+  // submit form with values
   submitForm = values => {
-    console.log("submit form", values);
     const clientId = this.props.match.params.id;
+    //update client if id is not null
     if (clientId) {
       new Promise((resolve, reject) => {
         this.props.updateBusinessClientWatcher({ ...values }, () => {
@@ -104,6 +58,7 @@ class BusinessClientsForm extends Component {
           resolve();
         });
       });
+      // create business client
     } else {
       new Promise((resolve, reject) => {
         this.props.createBusinessClientWatcher(values, () => {
@@ -139,34 +94,6 @@ class BusinessClientsForm extends Component {
                     <CardBody>
                       <MuiPickersUtilsProvider utils={MomentUtils}>
                         <GridContainer>
-                          {/* <GridItem xs={12} sm={4} md={4}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">
-                          Client Code
-                        </InputLabel>
-                        <Field
-                          component={renderSelectField}
-                          name="clientCode"
-                          id="clientCode"
-                          disabled={readOnly}
-                          className={classes.textField}
-                          validate={[required]}
-                        >
-                          <MenuItem
-                            value={"Client Code A001"}
-                            key={`CALL_TYPE_DEMO_SERVICE}`}
-                          >
-                            Client Code A001
-                          </MenuItem>
-                          <MenuItem
-                            value={"Client Code A002"}
-                            key={`CALL_TYPE_INSTALLATION_SERVICE`}
-                          >
-                            Client Code A002
-                          </MenuItem>
-                        </Field>
-                      </FormControl>
-                    </GridItem> */}
                           <GridItem xs={12} sm={4} md={4}>
                             <Field
                               component={CustomTextField}
@@ -188,7 +115,6 @@ class BusinessClientsForm extends Component {
                               validate={[required]}
                             />
                           </GridItem>
-
                           <GridItem xs={12} sm={4} md={4}>
                             <FormControl className={classes.formControl}>
                               <InputLabel htmlFor="age-simple">Country*</InputLabel>
@@ -211,27 +137,6 @@ class BusinessClientsForm extends Component {
                           </GridItem>
                           <GridItem xs={12} sm={4} md={4}>
                             <FormControl className={classes.formControl}>
-                              {/* <InputLabel htmlFor="age-simple">State*</InputLabel>
-                        <Field
-                          component={renderSelectField}
-                          name="state"
-                          id="state"
-                          className={classes.textField}
-                          onChange={e => this.handleStateChange(e)}
-                          validate={[required]}
-                        >
-                          {states.map(item => {
-                            return (
-                              <option
-                                className={classes.customOption}
-                                value={item.name}
-                                key={`STATE_${item.stateCode}`}
-                              >
-                                {item.name}
-                              </option>
-                            );
-                          })}
-                        </Field> */}
                               <Field
                                 component={CustomTextField}
                                 id="state"
@@ -242,7 +147,6 @@ class BusinessClientsForm extends Component {
                                 validate={[required, alpha]}
                               />
                             </FormControl>
-
                           </GridItem>
                           <GridItem xs={12} sm={4} md={4}>
                             <Field
@@ -254,21 +158,6 @@ class BusinessClientsForm extends Component {
                               name="city"
                               validate={[required, alpha]}
                             />
-                            {/* <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="age-simple">City*</InputLabel>
-                        <Field
-                          component={renderSelectField}
-                          name="city"
-                          id="city"
-                          className={classes.textField}
-                          validate={[required]}
-                        >
-                          {cities.map(item => {
-                            return <MenuItem value={item.name}
-                              key={item.id}>{item.name}</MenuItem>
-                          })}
-                        </Field>
-                      </FormControl> */}
                           </GridItem>
                           <GridItem xs={12} sm={4} md={4}>
                             <FormControl className={classes.formControl}>
@@ -279,17 +168,13 @@ class BusinessClientsForm extends Component {
                                 label="Pin Code*"
                                 className={classes.textField}
                                 validate={[required, pinCode]}
-                              // onChange={(e) => this.handleStateChange(e)}
                               />
                             </FormControl>
                           </GridItem>
-
-
                         </GridContainer>
                         <DetailsFieldArray BusinessClientsId={this.props.match.params.id} />
                       </MuiPickersUtilsProvider>
                     </CardBody>
-
                     <CardFooter>
                       <Button
                         type="submit"
@@ -311,6 +196,6 @@ class BusinessClientsForm extends Component {
 }
 
 export default reduxForm({
-  form: "BusinessClientsForm", // a unique identifier for this form
+  form: "BusinessClientsForm",
   enableReinitialize: true
 })(BusinessClientsForm);

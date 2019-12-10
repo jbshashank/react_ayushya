@@ -36,11 +36,11 @@ import {
     setProductSubcategoryError,
 } from "../actions";
 import axios from "../../utils/axios";
-import { BASE_URL, BASE_URL_TICKETS, BASE_URL_COMPLAINTS, BASE_URL_PRODUCTS, LOCAL_URL_COMPLAINTS } from "../../utils/config";
+import { BASE_URL_COMPLAINTS, BASE_URL_PRODUCTS } from "../../utils/config";
 
 
 function fetchTicketsApi(payload) {
-    let url = `${BASE_URL_COMPLAINTS}tickets/ticket/getAllTickets/`;
+    let url = `${BASE_URL_COMPLAINTS}getAllTickets/`;
 
     if (payload && payload.isFilter) {
         url = `${url}${payload.name}/${payload.value}`;
@@ -151,7 +151,7 @@ export function* fetchAllModelActionWatcher() {
 function fetchProductByBrandIdApi(payload) {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_TICKETS}Employee/brands/${payload.BrandKey}/products`,
+        url: `${BASE_URL_COMPLAINTS}Employee/brands/${payload.BrandKey}/products`,
     });
 }
 
@@ -244,7 +244,7 @@ export function* fetchAllProductSubcategoryActionWatcher() {
 function fetchTicketByIdApi(data) {
     return axios.request({
         method: "get",
-        url: `${BASE_URL_COMPLAINTS}tickets/ticket/getByTicketId?ticketId=${data.ticketId}`,
+        url: `${BASE_URL_COMPLAINTS}getByTicketId?ticketId=${data.ticketId}`,
         data
     });
 }
@@ -275,7 +275,7 @@ export function* fetchTicketByIdActionWatcher() {
 function createTicketsApi(data) {
     return axios.request({
         method: "post",
-        url: `${BASE_URL_COMPLAINTS}tickets/ticket/add`,
+        url: `${BASE_URL_COMPLAINTS}add`,
         data
     });
 }
@@ -306,7 +306,7 @@ export function* createTicketsActionWatcher() {
 function createBulkTicketsApi(data) {
     return axios.request({
         method: "post",
-        url: `${BASE_URL_COMPLAINTS}tickets/ticket/readFromExcel`,
+        url: `${BASE_URL_COMPLAINTS}readFromExcel`,
         data
     });
 }
@@ -336,7 +336,7 @@ function updateTicketsApi(data) {
 
     return axios.request({
         method: "put",
-        url: `${BASE_URL_COMPLAINTS}tickets/ticket/updateBasedOnTicketId?ticketId=${data.ticketId}`,
+        url: `${BASE_URL_COMPLAINTS}updateBasedOnTicketId?ticketId=${data.ticketId}`,
         data
     });
 }
@@ -365,37 +365,37 @@ export function* updateTicketsActionWatcher() {
 }
 
 
-function deleteTicketsApi(data) {
-    return axios.request({
-        method: "delete",
-        url: `${BASE_URL}tickets/${data.id}`,
-        data
-    });
-}
+// function deleteTicketsApi(data) {
+//     return axios.request({
+//         method: "delete",
+//         url: `${BASE_URL}tickets/${data.id}`,
+//         data
+//     });
+// }
 
-function* deleteTicketsActionEffect(action) {
-    let { payload, resolve, reject } = action;
+// function* deleteTicketsActionEffect(action) {
+//     let { payload, resolve, reject } = action;
 
-    try {
-        yield put(setPageLoaderStart());
-        yield call(deleteTicketsApi, payload);
-        if (resolve) resolve();
-    } catch (e) {
-        if (reject) reject(e);
-    } finally {
-        yield put(setPageLoaderFinish());
-    }
-}
+//     try {
+//         yield put(setPageLoaderStart());
+//         yield call(deleteTicketsApi, payload);
+//         if (resolve) resolve();
+//     } catch (e) {
+//         if (reject) reject(e);
+//     } finally {
+//         yield put(setPageLoaderFinish());
+//     }
+// }
 
-export function* deleteTicketsActionWatcher() {
-    yield takeLatest(DELETE_TICKETS_WATCHER, deleteTicketsActionEffect);
-}
+// export function* deleteTicketsActionWatcher() {
+//     yield takeLatest(DELETE_TICKETS_WATCHER, deleteTicketsActionEffect);
+// }
 
 
 function uploadTicketsApi(data) {
     return axios.request({
         method: "post",
-        url: `${BASE_URL_COMPLAINTS}tickets/ticket/readFromExcel`,
+        url: `${BASE_URL_COMPLAINTS}readFromExcel`,
         data
     });
 }

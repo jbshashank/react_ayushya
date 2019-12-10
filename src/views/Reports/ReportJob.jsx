@@ -36,7 +36,9 @@ import './style.css';
 import { CSVLink } from "react-csv";
 
 import ReactTable from 'react-table';
+import { BASE_URL_REPORT_JOB } from "../../utils/config.js";
 
+// table columns
 const columns = [
     {
         Header: 'Job Code',
@@ -71,7 +73,7 @@ const columns = [
         accessor: 'customerName',
     },
 ];
-export default class Reports extends Component {
+export default class ReportJob extends Component {
     constructor() {
         super();
         this.state = {
@@ -89,23 +91,22 @@ export default class Reports extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount(e) {
-        axios.get('http://134.209.147.111:8092/jobs/job/getAllJob')
+        // get all jobs
+        axios.get(`${BASE_URL_REPORT_JOB}getAllJob`)
             .then(response => response.data)
             .then((data) => {
-                this.setState({ tableData: data.content })
-                console.log(this.state.tableData)
+                this.setState({ tableData: data.content });
             });
     }
+    // called on typing the serch text
     handleChange(e) {
         const searchValue = e.target.value;
         console.log('jobId is:::' + e.target.value)
-        axios.get(`http://192.168.1.9:8092/jobs/job/jobSearch?Search=${searchValue}`)
+        axios.get(`${BASE_URL_REPORT_JOB}jobSearch?Search=${searchValue}`)
             .then(response => response.data)
             .then((data) => {
-                this.setState({ tableData: data.content })
-                console.log(this.state.tableData)
+                this.setState({ tableData: data.content });
             });
-        console.log("inside handleChange event::::");
         // Variable to hold the original version of the list
         let currentList = [];
         // Variable to hold the filtered list before putting into state
@@ -115,17 +116,13 @@ export default class Reports extends Component {
         if (e.target.value !== "") {
             // Assign the original list to currentList
             currentList = this.state.tableData;
-            console.log("inside handleChange event currentList::::" + currentList);
             // Use .filter() to determine which items should be displayed
             // based on the search terms
             newList = currentList.filter(item => {
-                console.log("inside handleChange event currentList::::" + item.jobId);
                 // change current item to lowercase
                 const lc = item.toString().toLowerCase();
-                console.log("inside handleChange event lc::::" + lc);
                 // change search term to lowercase
                 const filter = e.target.value.toLowerCase();
-                console.log("inside handleChange event filter::::" + filter);
                 // check to see if the current list item includes the search term
                 // If it does, it will be added to newList. Using lowercase eliminates
                 // issues with capitalization in search terms and search content
@@ -134,13 +131,11 @@ export default class Reports extends Component {
         } else {
             // If the search bar is empty, set newList to original task list
             newList = this.state.tableData;
-            console.log("inside handleChange event newList::::" + newList);
         }
         // Set the filtered state based on what our rules added to newList
         this.setState({
             tableData: newList
         });
-        console.log("inside handleChange event newList final items::::" + this.state.tableData);
     }
     render() {
         const { tableData } = this.state;

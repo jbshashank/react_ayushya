@@ -11,24 +11,23 @@ import {
     FETCH_CITY_WATCHER,
     FETCH_All_CITY_WATCHER,
 } from "../actionTypes";
-import * as firebase from "firebase";
 import {
     setEmployees, setEmployeesError, setEmployeeForm,
     setPageLoaderFinish, setPageLoaderStart, setEmployee,
     setStates, setCity, setStatesError, setCityError, showToastMessage
 } from "../actions";
 import axios from "../../utils/axios";
-import { BASE_URL_EMPLOYEE } from "../../utils/config";
-import { BASE_URL_TICKETS, BASE_URL_GENERIC } from "../../utils/config";
+import { BASE_URL_EMPLOYEE, BASE_URL_EMPLOYEE_SEARCH } from "../../utils/config";
+import { BASE_URL_GENERIC } from "../../utils/config";
 
 function fetchEmployeesApi(data) {
     console.log("empreq ::::", axios.request({
         method: "get",
-        url: `${BASE_URL_EMPLOYEE}${data.userSearch === undefined ? data.userSearch : ''}`
+        url: `${BASE_URL_EMPLOYEE_SEARCH}${data.userSearch === undefined ? data.userSearch : ''}`
     }));
     return axios.request({
         method: "get",
-        url: `${BASE_URL_EMPLOYEE}userSearch?userSearch=${data.userSearch === undefined ? '' : data.userSearch}`,
+        url: `${BASE_URL_EMPLOYEE_SEARCH}userSearch?userSearch=${data.userSearch === undefined ? '' : data.userSearch}`,
     });
 }
 
@@ -49,7 +48,6 @@ function fetchCityApi(data) {
 function fetchAllCityApi(data) {
     return axios.request({
         method: "get",
-        // url: `${BASE_URL_GENERIC}general/city/findAll`,
         url: `${BASE_URL_GENERIC}general/city/findAllCitygeneral/city/findAllCity`
     });
 }
@@ -126,7 +124,7 @@ export function* fetchCityActionWatcher() {
 function fetchEmployeeByIdApi(data) {
     return axios.request({
         method: "GET",
-        url: `${BASE_URL_EMPLOYEE}users/user/userId?userId=` + data,
+        url: `${BASE_URL_EMPLOYEE}userId?userId=` + data,
     });
 }
 
@@ -158,7 +156,7 @@ export function* fetchEmployeeByIdActionWatcher() {
 function createEmployeesApi(data) {
     return axios.request({
         method: 'post',
-        url: `${BASE_URL_EMPLOYEE}users/user/add`,
+        url: `${BASE_URL_EMPLOYEE}add`,
         data: data,
     }).then(function (response) {
         console.log(response);
@@ -173,10 +171,6 @@ function* createEmployeesActionEffect(action) {
         yield put(setPageLoaderStart());
         yield call(createEmployeesApi, payload);
         if (resolve) resolve();
-        // yield put(showToastMessage({
-        //     message: JSON.stringify(msg.data.message
-        //     ), type: 'success'
-        // }));
         yield put(showToastMessage({ message: 'Employee created successfully', type: 'success' }));
     } catch (e) {
         if (reject) reject(e);
@@ -198,7 +192,7 @@ function updateEmployeesApi(data) {
 
     return axios.request({
         method: "put",
-        url: `${BASE_URL_EMPLOYEE}users/user/updateUser?userId=${data.userId}`,
+        url: `${BASE_URL_EMPLOYEE}updateUser?userId=${data.userId}`,
         data
     });
 }
@@ -217,53 +211,53 @@ function* updateEmployeesActionEffect(action) {
     }
 }
 
-function deleteEmployeesApi(data) {
-    return axios.request({
-        method: "delete",
-        url: `${BASE_URL_TICKETS}Employee/user/${data.id}`,
-        data
-    });
-}
+// function deleteEmployeesApi(data) {
+//     return axios.request({
+//         method: "delete",
+//         url: `${BASE_URL_TICKETS}Employee/user/${data.id}`,
+//         data
+//     });
+// }
 
-function* deleteEmployeesActionEffect(action) {
-    let { payload, resolve, reject } = action;
+// function* deleteEmployeesActionEffect(action) {
+//     let { payload, resolve, reject } = action;
 
-    try {
-        yield put(setPageLoaderStart());
-        yield call(deleteEmployeesApi, payload);
-        yield put(setPageLoaderFinish());
-        if (resolve) resolve();
-    } catch (e) {
-        if (reject) reject(e);
-    }
-}
+//     try {
+//         yield put(setPageLoaderStart());
+//         yield call(deleteEmployeesApi, payload);
+//         yield put(setPageLoaderFinish());
+//         if (resolve) resolve();
+//     } catch (e) {
+//         if (reject) reject(e);
+//     }
+// }
 
-export function* deleteEmployeesActionWatcher() {
-    yield takeLatest(DELETE_EMPLOYEES_WATCHER, deleteEmployeesActionEffect);
-}
+// export function* deleteEmployeesActionWatcher() {
+//     yield takeLatest(DELETE_EMPLOYEES_WATCHER, deleteEmployeesActionEffect);
+// }
 
 
-function imageUploadApi(data) {
-    return axios.request({
-        method: "post",
-        url: `${BASE_URL_TICKETS}Employee/user/upload`,
-        data
-    });
-}
+// function imageUploadApi(data) {
+//     return axios.request({
+//         method: "post",
+//         url: `${BASE_URL_TICKETS}Employee/user/upload`,
+//         data
+//     });
+// }
 
-function* imageUploadActionEffect(action) {
-    let { payload, resolve, reject } = action;
+// function* imageUploadActionEffect(action) {
+//     let { payload, resolve, reject } = action;
 
-    try {
-        yield put(setPageLoaderStart());
-        let { data } = yield call(imageUploadApi, payload);
-        yield put(setPageLoaderFinish());
-        if (resolve) resolve(data);
-    } catch (e) {
-        if (reject) reject(e);
-    }
-}
+//     try {
+//         yield put(setPageLoaderStart());
+//         let { data } = yield call(imageUploadApi, payload);
+//         yield put(setPageLoaderFinish());
+//         if (resolve) resolve(data);
+//     } catch (e) {
+//         if (reject) reject(e);
+//     }
+// }
 
-export function* imageUploadActionWatcher() {
-    yield takeLatest(IMAGE_UPLOAD_WATCHER, imageUploadActionEffect);
-}
+// export function* imageUploadActionWatcher() {
+//     yield takeLatest(IMAGE_UPLOAD_WATCHER, imageUploadActionEffect);
+// }
