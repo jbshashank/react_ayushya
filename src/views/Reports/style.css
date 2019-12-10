@@ -71,6 +71,20 @@
 .ReactTable .-pagination .-center{
     color: #000;
 }
+.input{
+    font: inherit;
+    color: currentColor;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 6px 0 7px;
+    display: block;
+    min-width: 0;
+    box-sizing: content-box;
+    background: none;
+    -webkit-tap-highlight-color: transparent;
+    border-bottom: 1px solid #ccc;
+}
 /* .ReactTable .rt-tr.-even{
     background: linear-gradient(60deg, #26c6da, #00acc1);
     opacity: 0.4;

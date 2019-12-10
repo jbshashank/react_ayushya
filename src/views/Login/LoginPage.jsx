@@ -62,7 +62,8 @@ class LoginPage extends React.Component {
       .then(response => {
         console.log('response data' + response.data);
         localStorage.setItem('roles', response.data.role);
-        this.props.history.push('/dashboard');
+        localStorage.setItem('user', response.data.firstName);
+        this.props.history.push('/employees');
       })
       .catch(error => {
         console.log("login error:::" + error);

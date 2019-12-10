@@ -18,7 +18,6 @@ import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
 
 const ITEM_HEIGHT = 48;
@@ -36,14 +35,21 @@ class HeaderLinks extends React.Component {
       return;
     }
 
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      userName: ''
+    });
   };
+
 
   onClickLogout = (event) => {
     localStorage.removeItem('roles');
     this.props.history.push('/login');
   }
-
+  componentDidMount() {
+    const name = localStorage.getItem('user');
+    this.setState({ userName: name });
+  }
   render() {
     const { classes } = this.props;
     const { open } = this.state;
@@ -163,10 +169,10 @@ class HeaderLinks extends React.Component {
                       >
                         Another Notification
                       </MenuItem> */}
-                      {/* <MenuItem
+                      <MenuItem
                       >
-                        user
-                      </MenuItem> */}
+                        {this.state.userName}
+                      </MenuItem>
                       <MenuItem
                         onClick={this.onClickLogout}
                         className={classes.dropdownItem}

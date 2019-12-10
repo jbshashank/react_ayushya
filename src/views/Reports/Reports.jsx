@@ -50,10 +50,6 @@ const columns = [
         Header: 'Start Date',
         accessor: 'startDate',
     },
-    // {
-    //     Header: 'Open Date',
-    //     accessor: 'visit_time',
-    // },
     {
         Header: 'Actual Start Date',
         accessor: 'actualStartDate',
@@ -71,8 +67,8 @@ const columns = [
         accessor: 'lastUpdatedOn',
     },
     {
-        Header: 'Customer Id',
-        accessor: 'customerId',
+        Header: 'Customer Name',
+        accessor: 'customerName',
     },
 ];
 export default class Reports extends Component {
@@ -86,42 +82,93 @@ export default class Reports extends Component {
                 actualEndDate: '',
                 userId: '',
                 lastUpdatedOn: '',
-                customerId: ''
+                customerName: ''
             }],
+
         };
+        this.handleChange = this.handleChange.bind(this);
     }
-    componentDidMount() {
+    componentDidMount(e) {
         axios.get('http://134.209.147.111:8092/jobs/job/getAllJob')
             .then(response => response.data)
             .then((data) => {
                 this.setState({ tableData: data.content })
                 console.log(this.state.tableData)
-            })
+            });
+    }
+    handleChange(e) {
+        const searchValue = e.target.value;
+        console.log('jobId is:::' + e.target.value)
+        axios.get(`http://192.168.1.9:8092/jobs/job/jobSearch?Search=${searchValue}`)
+            .then(response => response.data)
+            .then((data) => {
+                this.setState({ tableData: data.content })
+                console.log(this.state.tableData)
+            });
+        console.log("inside handleChange event::::");
+        // Variable to hold the original version of the list
+        let currentList = [];
+        // Variable to hold the filtered list before putting into state
+        let newList = [];
+
+        // If the search bar isn't empty
+        if (e.target.value !== "") {
+            // Assign the original list to currentList
+            currentList = this.state.tableData;
+            console.log("inside handleChange event currentList::::" + currentList);
+            // Use .filter() to determine which items should be displayed
+            // based on the search terms
+            newList = currentList.filter(item => {
+                console.log("inside handleChange event currentList::::" + item.jobId);
+                // change current item to lowercase
+                const lc = item.toString().toLowerCase();
+                console.log("inside handleChange event lc::::" + lc);
+                // change search term to lowercase
+                const filter = e.target.value.toLowerCase();
+                console.log("inside handleChange event filter::::" + filter);
+                // check to see if the current list item includes the search term
+                // If it does, it will be added to newList. Using lowercase eliminates
+                // issues with capitalization in search terms and search content
+                return lc.includes(filter);
+            });
+        } else {
+            // If the search bar is empty, set newList to original task list
+            newList = this.state.tableData;
+            console.log("inside handleChange event newList::::" + newList);
+        }
+        // Set the filtered state based on what our rules added to newList
+        this.setState({
+            tableData: newList
+        });
+        console.log("inside handleChange event newList final items::::" + this.state.tableData);
     }
     render() {
-        // const { classes } = this.props;
         const { tableData } = this.state;
         return (
-            <Card>
-                <CardBody>
+            <div>
+                <input type="text" className="input" onChange={this.handleChange} placeholder="Search by Job, Status, Engineer or Customer" />
+                <Card>
+                    <CardBody>
 
-                    <ReactTable
-                        data={tableData}
-                        columns={columns}
-                        showPagination={true}
-                    />
-                </CardBody>
-                <div className="csv-link">
-                    <CSVLink
-                        data={tableData}
-                        filename={"tickets_status.csv"}
-                        className="btn btn-primary"
-                        target="_blank"
-                    >
-                        Download the report in CSV format
+                        <ReactTable
+                            data={tableData}
+                            columns={columns}
+                            showPagination={true}
+                        />
+                    </CardBody>
+                    <div className="csv-link">
+                        <CSVLink
+                            data={tableData}
+                            filename={"jobs.csv"}
+                            className="btn btn-primary"
+                            target="_blank"
+                        >
+                            Download the report in CSV format
                     </CSVLink>
-                </div>
-            </Card>
+                    </div>
+                </Card>
+                {/* ))} */}
+            </div>
         );
     }
 }

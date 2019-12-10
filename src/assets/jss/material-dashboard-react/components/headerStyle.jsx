@@ -39,16 +39,17 @@ const headerStyle = theme => ({
   title: {
     ...defaultFont,
     lineHeight: "30px",
-    fontSize: "26px",
+    fontSize: "20px",
     fontWeight: "bold",
-    borderRadius: "3px",
+    borderRadius: "10px",
     textTransform: "none",
     color: "inherit",
-    marginLeft:20,
+    marginLeft: 20,
     margin: "0",
-    "&:hover,&:focus": {
-      background: "transparent"
-    }
+    padding: "15px",
+    border: "1px solid #ccc",
+    backgroundColor: "#fff",
+    color: "#3c4858"
   },
   appResponsive: {
     top: "8px"

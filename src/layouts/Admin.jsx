@@ -118,7 +118,6 @@ class Admin extends React.Component {
                                 <Route
                                     path='/employees'
                                     component={Employees}
-                                    className={classes.employeesclass}
                                 />
                                 <Route
                                     path='/employeesadd'

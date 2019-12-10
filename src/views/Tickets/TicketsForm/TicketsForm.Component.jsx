@@ -398,7 +398,7 @@ class TicketsForm extends Component {
                                                         <Field
                                                             component={CustomTextField}
                                                             id="customerName"
-                                                            label="Cusomer Name*"
+                                                            label="Customer Name*"
                                                             className={classes.textField}
                                                             name="customerName"
                                                             disabled={isRescheduleTickets}
