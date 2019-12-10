@@ -46,7 +46,7 @@ const columns = [
     },
     {
         Header: 'Status',
-        accessor: 'statusId',
+        accessor: 'status',
     },
     {
         Header: 'Start Date',
@@ -79,7 +79,7 @@ export default class ReportJob extends Component {
         this.state = {
             tableData: [{
                 jobId: '',
-                statusId: '',
+                status: '',
                 startDate: '',
                 actualEndDate: '',
                 userId: '',

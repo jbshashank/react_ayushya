@@ -7,7 +7,7 @@ export const BASE_URL_CLIENTS = "http://services-4.finchtech.in:8098/clients/";
 export const BASE_URL_GENERIC = "http://services-4.finchtech.in:8098/";
 export const BASE_URL_REPORT_JOB = "http://services-4.finchtech.in:8092/jobs/job/";
 export const BASE_URL_REPORT_ESTIMATES = "http://services-4.finchtech.in:8096/payments/estimate/";
-export const BASE_URL_REPORT_INVOICES = "http://services-4.finchtech.in:8096/payments/cashreceipt"
+export const BASE_URL_REPORT_INVOICES = "http://services-4.finchtech.in:8096/payments/cashreceipt/"
 
 export const EMPLOYEE_KEY = {
     TOKEN: 'TOKEN',
