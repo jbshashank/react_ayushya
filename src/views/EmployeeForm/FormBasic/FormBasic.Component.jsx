@@ -31,7 +31,7 @@ class FormBasic extends Component {
             expertiseLevel,
             role,
             salary,
-            addr,
+            address,
             city,
             state,
             pinCode,
@@ -312,16 +312,16 @@ class FormBasic extends Component {
                                         </InputLabel>
                                         <CustomInput
                                             labelText=""
-                                            id="addr"
+                                            id="address"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
                                             inputProps={{
                                                 multiline: true,
                                                 rows: 3,
-                                                name: 'addr',
+                                                name: 'address',
                                                 onChange: handleChange,
-                                                value: addr
+                                                value: address
                                             }}
                                         />
                                     </GridItem>

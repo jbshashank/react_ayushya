@@ -36,7 +36,7 @@ class EmployeeForm extends Component {
             salary: '',
             age: '',
             gender: '',
-            addr: '',
+            address: '',
             city: '',
             state: '',
             pinCode: '',
@@ -87,7 +87,7 @@ class EmployeeForm extends Component {
                         expertiseLevel: this.props.employee.expertiseLevel,
                         role: this.props.employee.role,
                         salary: this.props.employee.salary,
-                        addr: this.props.employee.addr,
+                        address: this.props.employee.address,
                         gender: this.props.employee.gender,
                         // uploadDir: this.props.employee.employeePersonalDetails.uploadDir,
                         state: this.props.employee.state,
@@ -378,7 +378,7 @@ class EmployeeForm extends Component {
             expertiseLevel,
             role,
             salary,
-            addr,
+            address,
             gender,
             userId,
             city,
@@ -399,7 +399,7 @@ class EmployeeForm extends Component {
             expertiseLevel: expertiseLevel,
             role: role,
             salary: salary,
-            addr: addr,
+            address: address,
             gender: gender,
             city: city,
             state: state,
@@ -448,7 +448,7 @@ class EmployeeForm extends Component {
             // fingerprint,
             salary,
             age,
-            addr,
+            address,
             city,
             state,
             pinCode,
@@ -477,7 +477,7 @@ class EmployeeForm extends Component {
                     <FormBasic formTitle={formTitle} firstName={firstName} middleName={middleName} lastName={lastName}
                         dateOfBirth={dateOfBirth} dateOfJoining={dateOfJoining} aboutMe={aboutMe} skills={skills} errorSkills={errorSkills} errorRole={errorRole} expertiseLevel={expertiseLevel} role={role}
                         phoneNumber={phoneNumber} errorEmail={errorEmail} errorexpertiesLevel={errorexpertiesLevel} errorPhoneNumber={errorPhoneNumber} email={email}
-                        salary={salary} addr={addr} gender={gender} age={age}
+                        salary={salary} address={address} gender={gender} age={age}
                         errorFirstName={errorFirstName} errorMiddleName={errorMiddleName} errorLastName={errorLastName}
                         errorAge={errorAge} errorSalary={errorSalary} errorPinCode={errorPinCode}
                         handleChange={this.handleChange} handleDateChange={this.handleDateChange}

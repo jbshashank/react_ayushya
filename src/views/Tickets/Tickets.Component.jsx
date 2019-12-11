@@ -34,6 +34,8 @@ class Tickets extends Component {
             sortField: '',
             sortOrder: 'asc'
         };
+        this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
+        this.handleNextPageClick = this.handleNextPageClick.bind(this);
         // table columns
         this.columns =
             [
@@ -54,6 +56,20 @@ class Tickets extends Component {
                 { key: 'visitTime', label: 'Visit Time', width: 150 },
                 { key: 'actions', label: 'Actions', width: 150 }
             ]
+    }
+
+    handlePreviousPageClick() {
+        var currentPage = this.state.page
+        this.setState({
+            page: currentPage - 1,
+        });
+    }
+
+    handleNextPageClick() {
+        var currentPage = this.state.page
+        this.setState({
+            page: currentPage + 1,
+        });
     }
     redirectToRescheduleTickets = (ticketId) => {
         this.props.history.push(`/rescheduletickets-edit/${ticketId}`)
@@ -316,13 +332,16 @@ class Tickets extends Component {
                                                                     colSpan={5}
                                                                     count={totalElements}
                                                                     rowsPerPage={rowsPerPage}
-                                                                    page={page}
-                                                                    backIconButtonProps={{
-                                                                        'aria-label': 'Previous Page',
-                                                                    }}
-                                                                    nextIconButtonProps={{
-                                                                        'aria-label': 'Next Page',
-                                                                    }}
+                                                                    page={this.state.page}
+                                                                    // onNextPageClick={this.handleNextPageClick}
+                                                                    // onPreviousPageClick={this.handlePreviousPageClick}
+                                                                    // backIconButtonProps={{
+                                                                    //     'aria-label': 'Previous Page',
+                                                                    // }}
+                                                                    // nextIconButtonProps={{
+                                                                    //     'aria-label': 'Next Page',
+                                                                    // }}
+
                                                                     SelectProps={{ native: true, }}
                                                                     onChangePage={this.handleChangePage}
                                                                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
