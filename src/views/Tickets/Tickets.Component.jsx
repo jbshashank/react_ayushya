@@ -19,6 +19,8 @@ import moment from "moment";
 import GridItem from "../../components/Grid/GridItem.jsx";
 import GridContainer from "../../components/Grid/GridContainer.jsx";
 import TextField from "@material-ui/core/TextField";
+import Card from "components/Card/Card.jsx";
+import CardBody from "components/Card/CardBody.jsx";
 
 class Tickets extends Component {
 
@@ -30,7 +32,7 @@ class Tickets extends Component {
             city: '',
             visitDate: null,
             sortField: '',
-            sortOrder: 'asc',
+            sortOrder: 'asc'
         };
         // table columns
         this.columns =
@@ -53,7 +55,6 @@ class Tickets extends Component {
                 { key: 'actions', label: 'Actions', width: 150 }
             ]
     }
-
     redirectToRescheduleTickets = (ticketId) => {
         this.props.history.push(`/rescheduletickets-edit/${ticketId}`)
     }
@@ -92,7 +93,8 @@ class Tickets extends Component {
         }
     }
     handleChangePage = (event, page) => {
-        console.log("on Page changes", event, page);
+        const { currentPage } = this.state;
+        console.log("on Page changes:::::::", event, page);
         this.setState({ page });
         if (page < this.state.page) return;
         this.props.fetchTicketsWatcher({ page, rowsPerPage: this.state.rowsPerPage });
@@ -213,9 +215,12 @@ class Tickets extends Component {
                                             </GridItem>}
                                         </GridItem>
                                     </GridContainer>
-                                    <GridContainer alignItems="flex-end">
-                                        <GridItem xs={12} sm={12} md={12}>
-                                            <Paper className={classes.root}>
+                                </GridItem>
+                                <Card style={{ margin: "15px 20px", padding: "15px 20px" }}>
+                                    <GridItem xs={12} sm={12} md={12}>
+                                        <GridContainer alignItems="flex-end" >
+                                            {/* <GridItem xs={12} sm={12} md={12}> */}
+                                            <Paper className={classes.root} style={{ marginTop: "0" }}>
                                                 <div className={classes.tableWrapper}>
                                                     <Table className={classes.table}>
                                                         <TableHead style={{ background: "linear-gradient(60deg, #3153a5, #3153a5)" }}>
@@ -307,18 +312,18 @@ class Tickets extends Component {
                                                             <TableRow>
                                                                 <TablePagination
                                                                     className="customPagination"
-                                                                    rowsPerPageOptions={[10, 25, 50, 99]}
+                                                                    rowsPerPageOptions={[5, 10, 25, 50, 99]}
                                                                     colSpan={5}
                                                                     count={totalElements}
                                                                     rowsPerPage={rowsPerPage}
                                                                     page={page}
-                                                                    backIconButtonProps={{
-                                                                        'aria-label': 'Previous Page',
-                                                                    }}
-                                                                    nextIconButtonProps={{
-                                                                        'aria-label': 'Next Page',
-                                                                    }}
-                                                                    SelectProps={{ native: true, }}
+                                                                    // backIconButtonProps={{
+                                                                    //     'aria-label': 'Previous Page',
+                                                                    // }}
+                                                                    // nextIconButtonProps={{
+                                                                    //     'aria-label': 'Next Page',
+                                                                    // }}
+                                                                    // SelectProps={{ native: true, }}
                                                                     onChangePage={this.handleChangePage}
                                                                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
                                                                 />
@@ -330,12 +335,15 @@ class Tickets extends Component {
                                             {!isRescheduleTicketsPage && <Fab color="primary" aria-label="Add" href='/ticketsadd' className="addEmployee">
                                                 <AddIcon />
                                             </Fab>}
-                                        </GridItem>
-                                    </GridContainer>
-                                </GridItem>
+                                            {/* </GridItem> */}
+                                        </GridContainer>
+                                    </GridItem>
+                                </Card>
                             </GridContainer>
                         </MuiPickersUtilsProvider>
-                    </div> : 'Dear User, unfortunately you do not have access to the Employee Page. Please contact your administartor.'}
+
+                    </div> : 'Dear User, unfortunately you do not have access to the Employee Page. Please contact your administartor.'
+                }
             </div>
         );
     }

@@ -181,8 +181,7 @@ class EmployeeForm extends Component {
         const education = { ...userEducationDetailsDataModels[index] };
         education[name] = value;
         userEducationDetailsDataModels[index] = education;
-        this.setState({ userEducationDetailsDataModels })
-        console.log('pass out' + userEducationDetailsDataModels.passOut);
+        this.setState({ userEducationDetailsDataModels });
     };
 
     // handle change of role

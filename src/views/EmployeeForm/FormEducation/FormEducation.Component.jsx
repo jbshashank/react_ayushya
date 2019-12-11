@@ -32,8 +32,9 @@ class FormEducation extends Component {
 
     // function to add education
     addEducation = () => {
-        const education = { passOut: '', qualification: '' };
+        const education = { passOut: new Date(), qualification: '' };
         this.setState({ userEducationDetailsDataModels: this.state.userEducationDetailsDataModels.concat(education) });
+        console.log("date of passout is::::::" + this.passOut);
     };
 
     // function to remove education
