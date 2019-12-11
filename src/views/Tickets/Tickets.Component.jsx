@@ -333,15 +333,14 @@ class Tickets extends Component {
                                                                     count={totalElements}
                                                                     rowsPerPage={rowsPerPage}
                                                                     page={this.state.page}
-                                                                    // onNextPageClick={this.handleNextPageClick}
-                                                                    // onPreviousPageClick={this.handlePreviousPageClick}
-                                                                    // backIconButtonProps={{
-                                                                    //     'aria-label': 'Previous Page',
-                                                                    // }}
-                                                                    // nextIconButtonProps={{
-                                                                    //     'aria-label': 'Next Page',
-                                                                    // }}
-
+                                                                    backIconButtonProps={{
+                                                                        'aria-label': 'Previous Page',
+                                                                        'onClick': this.handlePreviousPageClick,
+                                                                    }}
+                                                                    nextIconButtonProps={{
+                                                                        'aria-label': 'Next Page',
+                                                                        'onClick': this.handleNextPageClick,
+                                                                    }}
                                                                     SelectProps={{ native: true, }}
                                                                     onChangePage={this.handleChangePage}
                                                                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
