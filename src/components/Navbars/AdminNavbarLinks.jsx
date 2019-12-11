@@ -24,7 +24,8 @@ const ITEM_HEIGHT = 48;
 const drawerWidth = 240;
 class HeaderLinks extends React.Component {
   state = {
-    open: false
+    open: false,
+    userName: ''
   };
   handleToggle = () => {
     this.setState(state => ({ open: !state.open }));
@@ -36,14 +37,15 @@ class HeaderLinks extends React.Component {
     }
 
     this.setState({
-      open: false,
-      userName: ''
+      open: false
     });
   };
 
 
+
   onClickLogout = (event) => {
     localStorage.removeItem('roles');
+    localStorage.removeItem('user');
     this.props.history.push('/login');
   }
   componentDidMount() {
@@ -169,7 +171,7 @@ class HeaderLinks extends React.Component {
                       >
                         Another Notification
                       </MenuItem> */}
-                      <MenuItem
+                      <MenuItem className={classes.dropdownItem}
                       >
                         {this.state.userName}
                       </MenuItem>

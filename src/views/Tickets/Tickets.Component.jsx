@@ -312,18 +312,18 @@ class Tickets extends Component {
                                                             <TableRow>
                                                                 <TablePagination
                                                                     className="customPagination"
-                                                                    rowsPerPageOptions={[5, 10, 25, 50, 99]}
+                                                                    rowsPerPageOptions={[10, 25, 50, 99]}
                                                                     colSpan={5}
                                                                     count={totalElements}
                                                                     rowsPerPage={rowsPerPage}
                                                                     page={page}
-                                                                    // backIconButtonProps={{
-                                                                    //     'aria-label': 'Previous Page',
-                                                                    // }}
-                                                                    // nextIconButtonProps={{
-                                                                    //     'aria-label': 'Next Page',
-                                                                    // }}
-                                                                    // SelectProps={{ native: true, }}
+                                                                    backIconButtonProps={{
+                                                                        'aria-label': 'Previous Page',
+                                                                    }}
+                                                                    nextIconButtonProps={{
+                                                                        'aria-label': 'Next Page',
+                                                                    }}
+                                                                    SelectProps={{ native: true, }}
                                                                     onChangePage={this.handleChangePage}
                                                                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
                                                                 />
