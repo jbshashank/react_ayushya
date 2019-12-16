@@ -20,191 +20,162 @@ import TicketsForm from "../views/Tickets/TicketsForm";
 import RoleManagementForm from "../views/RoleManagementForm/index";
 import RoleManagementList from "../views/RoleManagementList/index";
 import BusinessClientsForm from "../views/BusinessClientsForm/";
-import BusinessClientList from "../views/BusinessClientsList/"
+import BusinessClientList from "../views/BusinessClientsList/";
 import Employees from "views/Employees";
 import ReportJob from "views/Reports/ReportJob.jsx";
 import ReportInvoice from "views/Reports/ReportInvoice.jsx";
 import ReportEstimate from "views/Reports/ReportEstimate.jsx";
-
+import Report from "views/Reports/Reports.jsx";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/Ayushya_Logo.png";
 import pageLoader from "../store/reducers/page_loader";
 import CustomSneakBar from "../components/CustomizedSnackbars/CustomizedSnackbars";
 
-
 class Admin extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            image: image,
-            color: "blue",
-            hasImage: true,
-            fixedClasses: "dropdown show",
-            mobileOpen: false
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      image: image,
+      color: "blue",
+      hasImage: true,
+      fixedClasses: "dropdown show",
+      mobileOpen: false
+    };
+  }
+
+  handleImageClick = image => {
+    this.setState({ image: image });
+  };
+
+  handleColorClick = color => {
+    this.setState({ color: color });
+  };
+
+  handleFixedClick = () => {
+    if (this.state.fixedClasses === "dropdown") {
+      this.setState({ fixedClasses: "dropdown show" });
+    } else {
+      this.setState({ fixedClasses: "dropdown" });
     }
+  };
 
-    handleImageClick = image => {
-        this.setState({ image: image });
-    };
+  handleDrawerToggle = () => {
+    this.setState({ mobileOpen: !this.state.mobileOpen });
+  };
 
-    handleColorClick = color => {
-        this.setState({ color: color });
-    };
-
-    handleFixedClick = () => {
-        if (this.state.fixedClasses === "dropdown") {
-            this.setState({ fixedClasses: "dropdown show" });
-        } else {
-            this.setState({ fixedClasses: "dropdown" });
-        }
-    };
-
-    handleDrawerToggle = () => {
-        this.setState({ mobileOpen: !this.state.mobileOpen });
-    };
-
-    resizeFunction = () => {
-        if (window.innerWidth >= 960) {
-            this.setState({ mobileOpen: false });
-        }
-    };
-
-    componentDidMount() {
-        if (navigator.platform.indexOf("Win") > -1) {
-            const ps = new PerfectScrollbar(this.refs.mainPanel);
-        }
-        window.addEventListener("resize", this.resizeFunction);
+  resizeFunction = () => {
+    if (window.innerWidth >= 960) {
+      this.setState({ mobileOpen: false });
     }
+  };
 
-    componentDidUpdate(e) {
-        if (e.history.location.pathname !== e.location.pathname) {
-            this.refs.mainPanel.scrollTop = 0;
-            if (this.state.mobileOpen) {
-                this.setState({ mobileOpen: false });
-            }
-        }
+  componentDidMount() {
+    if (navigator.platform.indexOf("Win") > -1) {
+      const ps = new PerfectScrollbar(this.refs.mainPanel);
     }
+    window.addEventListener("resize", this.resizeFunction);
+  }
 
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.resizeFunction);
+  componentDidUpdate(e) {
+    if (e.history.location.pathname !== e.location.pathname) {
+      this.refs.mainPanel.scrollTop = 0;
+      if (this.state.mobileOpen) {
+        this.setState({ mobileOpen: false });
+      }
     }
+  }
 
-    render() {
-        const { classes, pageLoaderCount, ...rest } = this.props;
-        return (
-            <div className={classes.wrapper}>
-                {pageLoaderCount > 0 && <div className='loader-container'>
-                    <div className="loader" />
-                </div>}
-                <Sidebar
-                    routes={routes}
-                    logoText={"PORTAL"}
-                    logo={logo}
-                    handleDrawerToggle={this.handleDrawerToggle}
-                    open={this.state.mobileOpen}
-                    {...rest}
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resizeFunction);
+  }
+
+  render() {
+    const { classes, pageLoaderCount, ...rest } = this.props;
+    return (
+      <div className={classes.wrapper}>
+        {pageLoaderCount > 0 && (
+          <div className="loader-container">
+            <div className="loader" />
+          </div>
+        )}
+        <Sidebar
+          routes={routes}
+          logoText={"PORTAL"}
+          logo={logo}
+          handleDrawerToggle={this.handleDrawerToggle}
+          open={this.state.mobileOpen}
+          {...rest}
+        />
+        <div className={classes.mainPanel} ref="mainPanel">
+          <Navbar
+            routes={routes}
+            handleDrawerToggle={this.handleDrawerToggle}
+            {...rest}
+          />
+          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+          <div className={classes.content}>
+            <div className={classes.container}>
+              <Switch>
+                <Route path="/employees" component={Employees} />
+                <Route path="/employeesadd" component={EmployeeForm} />
+                <Route path="/employeesedit/:id" component={EmployeeForm} />
+                <Route path="/role-management" component={RoleManagementForm} />
+                <Route
+                  path="/role-management-list"
+                  component={RoleManagementList}
                 />
-                <div className={classes.mainPanel} ref="mainPanel">
-                    <Navbar
-                        routes={routes}
-                        handleDrawerToggle={this.handleDrawerToggle}
-                        {...rest}
-                    />
-                    {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-                    <div className={classes.content}>
-                        <div className={classes.container}>
-                            <Switch>
-                                <Route
-                                    path='/employees'
-                                    component={Employees}
-                                />
-                                <Route
-                                    path='/employeesadd'
-                                    component={EmployeeForm}
-                                />
-                                <Route
-                                    path='/employeesedit/:id'
-                                    component={EmployeeForm}
-                                />
-                                <Route
-                                    path='/role-management'
-                                    component={RoleManagementForm}
-                                />
-                                <Route
-                                    path='/role-management-list'
-                                    component={RoleManagementList}
-                                />
-                                <Route
-                                    path='/tickets'
-                                    component={Tickets}
-                                />
-                                <Route
-                                    path='/rescheduletickets'
-                                    component={Tickets}
-                                />
-                                <Route
-                                    path='/ticketsadd'
-                                    component={TicketsForm}
-                                />
-                                <Route
-                                    path='/ticketsedit/:id'
-                                    component={TicketsForm}
-                                />
-                                <Route
-                                    path='/rescheduletickets-edit/:id'
-                                    component={TicketsForm}
-                                />
-                                <Route
-                                    path='/businessclients'
-                                    component={BusinessClientsForm}
-                                />
-                                <Route
-                                    path='/businessclientlist'
-                                    component={BusinessClientList}
-                                />
-                                <Route
-                                    path='/businessclients-edit/:id'
-                                    component={BusinessClientsForm}
-                                />
-                                {/* <Route
+                <Route path="/tickets" component={Tickets} />
+                <Route path="/rescheduletickets" component={Tickets} />
+                <Route path="/ticketsadd" component={TicketsForm} />
+                <Route path="/ticketsedit/:id" component={TicketsForm} />
+                <Route
+                  path="/rescheduletickets-edit/:id"
+                  component={TicketsForm}
+                />
+                <Route
+                  path="/businessclients"
+                  component={BusinessClientsForm}
+                />
+                <Route
+                  path="/businessclientlist"
+                  component={BusinessClientList}
+                />
+                <Route
+                  path="/businessclients-edit/:id"
+                  component={BusinessClientsForm}
+                />
+                {/* <Route
                                     path='/dashboard'
                                     component={DashboardPage}
                                 /> */}
-                                <Route
-                                    path='/jobs'
-                                    component={ReportJob}
-                                />
-                                <Route
-                                    path='/invoices'
-                                    component={ReportInvoice}
-                                />
-                                <Route
-                                    path='/estimates'
-                                    component={ReportEstimate}
-                                />
-                                <Route
-                                    path='/'
-                                    component={Employees}
-                                />
-                            </Switch>
-                        </div>
-                    </div>
-                    {/* <Footer/> */}
-                    <CustomSneakBar />
-                </div>
+                <Route path="/jobs" component={ReportJob} />
+                <Route path="/invoices" component={ReportInvoice} />
+                <Route path="/estimates" component={ReportEstimate} />
+                <Route path="/reports" component={Report} />
+                <Route path="/" component={Employees} />
+              </Switch>
             </div>
-        );
-    }
+          </div>
+          {/* <Footer/> */}
+          <CustomSneakBar />
+        </div>
+      </div>
+    );
+  }
 }
 
 Admin.propTypes = {
-    classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired
 };
-const mapStateToProps = (state) => {
-    return {
-        pageLoaderCount: state.pageLoader.pageLoaderCount,
-    }
+const mapStateToProps = state => {
+  return {
+    pageLoaderCount: state.pageLoader.pageLoaderCount
+  };
 };
 
-export default withStyles(dashboardStyle)(connect(mapStateToProps, null)(Admin));
+export default withStyles(dashboardStyle)(
+  connect(
+    mapStateToProps,
+    null
+  )(Admin)
+);

@@ -1,17 +1,18 @@
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import GroupIcon from '@material-ui/icons/Group';
-import BusinessIcon from '@material-ui/icons/Business';
-import ListIcon from '@material-ui/icons/List';
-import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
-import ReceiptOutlinedIcon from '@material-ui/icons/ReceiptOutlined';
+import GroupIcon from "@material-ui/icons/Group";
+import BusinessIcon from "@material-ui/icons/Business";
+import ListIcon from "@material-ui/icons/List";
+import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
+import ReceiptOutlinedIcon from "@material-ui/icons/ReceiptOutlined";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import Employees from "views/Employees";
 import Tickets from "views/Tickets";
-import ClientList from "views/BusinessClientsList"
+import ClientList from "views/BusinessClientsList";
 import ReportJob from "views/Reports/ReportJob.jsx";
 import ReportInvoice from "views/Reports/ReportInvoice.jsx";
 import ReportEstimate from "views/Reports/ReportEstimate.jsx";
+import Report from "views/Reports/Reports.jsx";
 const dashboardRoutes = [
   // {
   //     path: "/",
@@ -76,10 +77,15 @@ const dashboardRoutes = [
     icon: "content_paste",
     component: ReportEstimate,
     layout: ""
+  },
+  {
+    path: "/reports",
+    name: "Reports",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: Report,
+    layout: ""
   }
-
 ];
 
-
 export default dashboardRoutes;
-

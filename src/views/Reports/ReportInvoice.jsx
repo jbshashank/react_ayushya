@@ -30,130 +30,138 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import "../../index.js";
-import axios from 'axios';
+import axios from "axios";
 import "react-table/react-table.css";
-import './style.css';
+import "./style.css";
 import { CSVLink } from "react-csv";
 
-import ReactTable from 'react-table';
+import ReactTable from "react-table";
 import { BASE_URL_REPORT_INVOICES } from "../../utils/config.js";
 
 // table columns
 const columns = [
-    {
-        Header: 'Job Code',
-        accessor: 'jobCode',
-    },
-    {
-        Header: 'Generated On',
-        accessor: 'generatedOn',
-    },
-    {
-        Header: 'Coupon',
-        accessor: 'couponCode',
-    },
-    {
-        Header: 'Total',
-        accessor: 'grandTotal',
-    },
-    {
-        Header: 'Status',
-        accessor: 'paidStatus',
-    },
-    {
-        Header: 'Engineer',
-        accessor: 'requestedBy',
-    },
+  {
+    Header: "Job Code",
+    accessor: "jobCode"
+  },
+  {
+    Header: "Generated On",
+    accessor: "generatedOn"
+  },
+  {
+    Header: "Coupon",
+    accessor: "couponCode"
+  },
+  {
+    Header: "Total",
+    accessor: "grandTotal"
+  },
+  {
+    Header: "Status",
+    accessor: "paidStatus"
+  },
+  {
+    Header: "Engineer",
+    accessor: "requestedBy"
+  }
 ];
 export default class ReportInvoice extends Component {
-    constructor() {
-        super();
-        this.state = {
-            tableData: [{
-                jobCode: '',
-                generatedOn: '',
-                couponCode: '',
-                grandTotal: '',
-                paidStatus: '',
-                requestedBy: ''
-            }],
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-    componentDidMount() {
-        // get all invoices
-        axios.get(`${BASE_URL_REPORT_INVOICES}getAllInvoice`)
-            .then(response => response.data)
-            .then((data) => {
-                this.setState({ tableData: data.content });
-            })
-    }
-    // called on typing the serch text
-    handleChange(e) {
-        const searchValue = e.target.value;
-        axios.get(`${BASE_URL_REPORT_INVOICES}cashReceiptSearch?cashSearch=${searchValue}`)
-            .then(response => response.data)
-            .then((data) => {
-                this.setState({ tableData: data.content });
-            });
-        // Variable to hold the original version of the list
-        let currentList = [];
-        // Variable to hold the filtered list before putting into state
-        let newList = [];
-
-        // If the search bar isn't empty
-        if (e.target.value !== "") {
-            // Assign the original list to currentList
-            currentList = this.state.tableData;
-            // Use .filter() to determine which items should be displayed
-            // based on the search terms
-            newList = currentList.filter(item => {
-                // change current item to lowercase
-                const lc = item.toString().toLowerCase();
-                // change search term to lowercase
-                const filter = e.target.value.toLowerCase();
-                // check to see if the current list item includes the search term
-                // If it does, it will be added to newList. Using lowercase eliminates
-                // issues with capitalization in search terms and search content
-                return lc.includes(filter);
-            });
-        } else {
-            // If the search bar is empty, set newList to original task list
-            newList = this.state.tableData;
+  constructor() {
+    super();
+    this.state = {
+      tableData: [
+        {
+          jobCode: "",
+          generatedOn: "",
+          couponCode: "",
+          grandTotal: "",
+          paidStatus: "",
+          requestedBy: ""
         }
-        // Set the filtered state based on what our rules added to newList
-        this.setState({
-            tableData: newList
-        });
-    }
-    render() {
-        const { tableData } = this.state;
-        return (
-            <div>
-                <input type="text" className="input" onChange={this.handleChange} placeholder="Search by Job or Engineer" />
-                <Card>
-                    <CardBody>
+      ]
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  componentDidMount() {
+    // get all invoices
+    axios
+      .get(`${BASE_URL_REPORT_INVOICES}getAllInvoice`)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({ tableData: data.content });
+      });
+  }
+  // called on typing the serch text
+  handleChange(e) {
+    const searchValue = e.target.value;
+    axios
+      .get(
+        `${BASE_URL_REPORT_INVOICES}cashReceiptSearch?cashSearch=${searchValue}`
+      )
+      .then(response => response.data)
+      .then(data => {
+        this.setState({ tableData: data.content });
+      });
+    // Variable to hold the original version of the list
+    let currentList = [];
+    // Variable to hold the filtered list before putting into state
+    let newList = [];
 
-                        <ReactTable
-                            data={tableData}
-                            columns={columns}
-                            showPagination={true}
-                        />
-                    </CardBody>
-                    <div className="csv-link">
-                        <CSVLink
-                            data={tableData}
-                            filename={"tickets_status.csv"}
-                            className="btn btn-primary"
-                            target="_blank"
-                        >
-                            Download the report in CSV format
-                    </CSVLink>
-                    </div>
-                </Card>
-            </div>
-        );
+    // If the search bar isn't empty
+    if (e.target.value !== "") {
+      // Assign the original list to currentList
+      currentList = this.state.tableData;
+      // Use .filter() to determine which items should be displayed
+      // based on the search terms
+      newList = currentList.filter(item => {
+        // change current item to lowercase
+        const lc = item.toString().toLowerCase();
+        // change search term to lowercase
+        const filter = e.target.value.toLowerCase();
+        // check to see if the current list item includes the search term
+        // If it does, it will be added to newList. Using lowercase eliminates
+        // issues with capitalization in search terms and search content
+        return lc.includes(filter);
+      });
+    } else {
+      // If the search bar is empty, set newList to original task list
+      newList = this.state.tableData;
     }
+    // Set the filtered state based on what our rules added to newList
+    this.setState({
+      tableData: newList
+    });
+  }
+  render() {
+    const { tableData } = this.state;
+    return (
+      <div>
+        <input
+          type="text"
+          className="input"
+          onChange={this.handleChange}
+          placeholder="Search by Job or Engineer"
+        />
+        <Card>
+          <CardBody>
+            <ReactTable
+              data={tableData}
+              columns={columns}
+              showPagination={true}
+            />
+          </CardBody>
+          <div className="csv-link">
+            <CSVLink
+              data={tableData}
+              filename={"tickets_status.csv"}
+              className="btn btn-primary"
+              target="_blank"
+            >
+              Download the report in CSV format
+            </CSVLink>
+          </div>
+        </Card>
+      </div>
+    );
+  }
 }
-
-

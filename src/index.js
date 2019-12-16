@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import { Router, Route, Switch } from "react-router-dom";
-import './index.css';
+import "./index.css";
 import store from "./store";
 import Admin from "layouts/Admin.jsx";
 import Login from "./views/Login/LoginPage.jsx";
